@@ -1,3 +1,4 @@
+http://www.quakelive.com/#!guide
 
 黄色护甲
 
@@ -11,18 +12,35 @@
 
 100血瓶
 
+Quad Damage 3x
 攻击加成
 
 防御持续上升
 
+Invisibility 
 隐身
 
+Battle Suit
 金钟罩
 
 武器子弹
 
 补血针
 
+Regeneration
 血量持续增加
 
 瞬移道具
+
+Haste
+移动速度
+
+Flight
+飞行
+
+Invulnerability
+不能移动
+但是可以转动
+
+Kamikaze
+吃到这个东西后，角色被射击就会在一定区域爆炸
