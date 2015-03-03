@@ -1,15 +1,15 @@
 package
 {
 	import org.flixel.*;
-	import state.GameStartState;
-	[SWF(width="320", height="320", backgroundColor="#000000")]
+	import state.GameMapEditorState;
+	[SWF(width="1024", height="768", backgroundColor="#000000")]
 	[Frame(factoryClass="Preloader")]
 
 	public class Main extends FlxGame
 	{
 		public function Main()
 		{
-			super(320, 320, GameStartState, 1, 20, 20);
+			super(1024, 768, GameMapEditorState, 1, 20, 20);
 		}
 	}
 }
