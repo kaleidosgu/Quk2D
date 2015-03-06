@@ -6,6 +6,10 @@ package state
 	import org.flixel.FlxObject;
 	import org.flixel.FlxG;
 	import org.flixel.FlxXML;
+	
+	import util.KalTxtResourcePath;
+	import util.KalResourceDataWrite;
+	
 	import gamemap.GameMapEditor;
 	/**
 	 * ...
@@ -33,6 +37,9 @@ package state
 		override public function create():void
 		{
 			super.create();
+
+
+			mapEditor.generateMapDataFromXml();
 			var xmlData:XML = xmlT.loadEmbedded(embXML);
 			_showWidth 	= TILE_WIDTH * _showScale ;
 			_showHeight	= TILE_HEIGHT * _showScale;
@@ -51,6 +58,13 @@ package state
             <price>1.45</price> 
         </item> 
     </order>;
+			
+	
+			var kagResPath:KalTxtResourcePath = new KalTxtResourcePath("default_write");
+			var filePathString:String = kagResPath.resourcePath;
+			
+			var writeFile:KalResourceDataWrite = new KalResourceDataWrite();
+			writeFile.writeDataToFile( filePathString, myXML.toString() );
 			
 			for each(var movie:XML in xmlData.prop ){
 				var str:String = movie.@serverip.toString();

@@ -4,14 +4,34 @@ package gamemap
 	 * ...
 	 * @author kaleidos
 	 */
+	import org.flixel.FlxXML;
 	public class GameMapEditor 
 	{
+		
+		[Embed(source="../../res/mapdata/mapinfo.xml",mimeType="application/octet-stream")]
+		protected var embXML:Class;
 		
 		private var _showWidth:uint = 0;
 		private var _showHeight:uint = 0;
 		private var _mapData:Array = new Array();
+		private var xmlT:FlxXML = new FlxXML();
 		public function GameMapEditor() 
 		{
+			
+		}
+		public function generateMapDataFromXml():void
+		{
+			var xmlData:XML = xmlT.loadEmbedded(embXML);
+			var mapDetailXmlLst:XMLList = xmlData.child(GameMapBuildingXmlTag.BuildingXmlTag_MapDetail);
+			
+			for each ( var mapDetailXml:XML in mapDetailXmlLst )
+			{
+				var mapTypeLst:XMLList = mapDetailXml.attribute("mapType");
+				var str:String = mapTypeLst.toString();
+				var wallLst:XMLList = mapDetailXml.child("Wall");
+				var baLst:XMLList = wallLst.attribute("ba");
+				str = baLst.toString();
+			}
 			
 		}
 		public function updateMap( xPos:int, yPos:int, mapElementData:int ):void

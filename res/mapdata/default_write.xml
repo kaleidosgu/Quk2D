@@ -1,0 +1,10 @@
+<order>
+  <item id="1" quantity="2">
+    <menuName>burger</menuName>
+    <price>3.95</price>
+  </item>
+  <item id="2" quantity="2">
+    <menuName>fries</menuName>
+    <price>1.45</price>
+  </item>
+</order>

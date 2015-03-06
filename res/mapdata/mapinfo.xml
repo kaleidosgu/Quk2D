@@ -1,0 +1,24 @@
+<MapInfo>
+  <MapDetail mapCol = "3" mapRow = "1" posX = "3.5" posY = "4" mapType = "5" >
+    <Wall ba = "15" >
+    </Wall>
+    <Door>
+    </Door>
+    <GravityMachine>
+    </GravityMachine>
+    <Teleport>
+    </Teleport>
+    <Spine>
+    </Spine>
+    <Elevator>
+    </Elevator>
+    <Lava>
+    </Lava>
+    <Water>
+    </Water>
+    <Trigger>
+    </Trigger>
+  </MapDetail>
+  <MapDetail mapCol = "3" mapRow = "1" posX = "3.5" posY = "4" mapType = "11" >
+  </MapDetail>
+</MapInfo>
