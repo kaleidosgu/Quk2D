@@ -4,6 +4,8 @@ package gamemap
 	 * ...
 	 * @author kaleidos
 	 */
+	import org.flixel.FlxGroup;
+	import org.flixel.FlxSprite;
 	import org.flixel.FlxXML;
 	public class GameMapEditor 
 	{
@@ -15,9 +17,12 @@ package gamemap
 		private var _showHeight:uint = 0;
 		private var _mapData:Array = new Array();
 		private var xmlT:FlxXML = new FlxXML();
-		public function GameMapEditor() 
+		private var buildingFactory:GameBuildingFactory = new GameBuildingFactory();
+		
+		private var _flxGroup:FlxGroup;
+		public function GameMapEditor( flxGroup:FlxGroup ) 
 		{
-			
+			_flxGroup = flxGroup;
 		}
 		public function generateMapDataFromXml():void
 		{
@@ -26,11 +31,8 @@ package gamemap
 			
 			for each ( var mapDetailXml:XML in mapDetailXmlLst )
 			{
-				var mapTypeLst:XMLList = mapDetailXml.attribute("mapType");
-				var str:String = mapTypeLst.toString();
-				var wallLst:XMLList = mapDetailXml.child("Wall");
-				var baLst:XMLList = wallLst.attribute("ba");
-				str = baLst.toString();
+				var wall:FlxSprite = buildingFactory.CreateBuilding( mapDetailXml );
+				_flxGroup.add( wall );
 			}
 			
 		}

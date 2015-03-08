@@ -1,5 +1,5 @@
 <MapInfo>
-  <MapDetail mapCol = "3" mapRow = "1" posX = "3.5" posY = "4" mapType = "5" >
+  <MapDetail mapCol = "3" mapRow = "1" posX = "3.5" posY = "4" MapType = "7" scaleX = "1" scaleY = "1" >
     <Wall ba = "15" >
     </Wall>
     <Door>

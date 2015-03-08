@@ -9,6 +9,8 @@ package gamemap
 		public static var BuildingXmlTag_None:String = "";
 		public static var BuildingXmlTag_MapInfo:String = "MapInfo";
 		public static var BuildingXmlTag_MapDetail:String = "MapDetail";
+		public static var BuildingXmlTag_MapType:String = "MapType";
+		
 		public static var BuildingXmlTag_:String = "";
 		public function GameMapBuildingXmlTag() 
 		{

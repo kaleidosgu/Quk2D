@@ -19,7 +19,6 @@ package state
 	{
 		[Embed(source="../../res/actionBoard.xml",mimeType="application/octet-stream")]
 		protected var embXML:Class;
-		[Embed(source = "../../res/back.png")] private static var pointsChessPic:Class;
 		private var highlightBox:FlxObject;
 		private var _showWidth:uint = 0;
 		private var _showHeight:uint = 0;
@@ -27,7 +26,7 @@ package state
 		private const TILE_WIDTH:uint = 8;
 		private const TILE_HEIGHT:uint = 8;
 		
-		private var mapEditor:GameMapEditor = new GameMapEditor();
+		private var mapEditor:GameMapEditor = null;
 		private var xmlT:FlxXML = new FlxXML();
 		public function GameMapEditorState() 
 		{
@@ -38,8 +37,8 @@ package state
 		{
 			super.create();
 
-
-			mapEditor.generateMapDataFromXml();
+			mapEditor = new GameMapEditor( this );
+			mapEditor.generateMapDataFromXml( );
 			var xmlData:XML = xmlT.loadEmbedded(embXML);
 			_showWidth 	= TILE_WIDTH * _showScale ;
 			_showHeight	= TILE_HEIGHT * _showScale;
