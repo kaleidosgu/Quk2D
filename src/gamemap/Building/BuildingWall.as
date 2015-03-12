@@ -14,15 +14,9 @@ package gamemap.Building
 		{
 			super();
 		}
-		override public function createObject( mapDetailXml:XML ):void
+		override public function createObjectByXml( mapDetailXml:XML ):void
 		{
-			super.createObject( mapDetailXml );
-			/*
-			var elementWidth:Number = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameMapBuildingXmlTag.BuildingXmlTag_MapType );
-			var elementHeight:Number = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameMapBuildingXmlTag.BuildingXmlTag_MapType );
-			loadGraphic( wallBlock, true, true, elementWidth, elementWidth );
-			*/
-			frame = 3 * 16 ;
+			super.createObjectByXml( mapDetailXml );
 		}
 		override public function resClass():Class
 		{

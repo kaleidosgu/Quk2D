@@ -86,8 +86,8 @@ package state
 			var writeFile:KalResourceDataWrite = new KalResourceDataWrite();
 			writeFile.writeDataToFile( filePathString, myXML.toString() );
 		
-			//mapEditor.showWidth = _showWidth;
-			//mapEditor.showHeight = _showHeight;
+			mapEditor.showWidth = _showWidth;
+			mapEditor.showHeight = _showHeight;
 			highlightBox = new FlxObject(0, 0, _showWidth, _showHeight);
 		}
 		override public function destroy():void
@@ -115,7 +115,7 @@ package state
 			
 			if (FlxG.mouse.pressed())
 			{
-				//mapEditor.updateMap( hightLightPoint.x, hightLightPoint.y,1 );
+				mapEditor.updateMap( hightLightPoint.x, hightLightPoint.y,1 );
 			}
 			super.update();
 		}

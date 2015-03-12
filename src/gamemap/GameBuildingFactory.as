@@ -11,6 +11,7 @@ package gamemap
 	{
 		
 		private var objFunctionFaction:Object = new Object();
+		private var objBuildingXml:Object = new Object();
 		public function GameBuildingFactory() 
 		{
 			objFunctionFaction[GameMapBuildingTyp.GameMapBuildingTyp_Wall] = CreateWall;
@@ -43,8 +44,29 @@ package gamemap
 		}
 		public function CreateWall( mapDetailXml:XML ):BuildingWall
 		{
+			var objXml:XML = objBuildingXml[GameMapBuildingTyp.GameMapBuildingTyp_Wall];
+			if ( objXml == null )
+			{
+				objBuildingXml[GameMapBuildingTyp.GameMapBuildingTyp_Wall] = mapDetailXml;
+			}
 			var newWall:BuildingWall = new BuildingWall();
-			newWall.createObject( mapDetailXml );
+			newWall.createObjectByXml( mapDetailXml );
+			newWall.setWorldDataByXml( mapDetailXml );
+			return newWall;
+		}
+		public function CreateWallTemplate():BuildingWall
+		{
+			var newWall:BuildingWall = null;
+			var objXml:XML = objBuildingXml[GameMapBuildingTyp.GameMapBuildingTyp_Wall];
+			if ( objXml == null )
+			{
+				trace("CreateWallTemplate error");
+			}
+			else
+			{
+				newWall = new BuildingWall();
+				newWall.createObjectByXml( objXml );
+			}
 			return newWall;
 		}
 		public function CreateDoor():void

@@ -20,25 +20,45 @@ package Base
 		{
 			super();
 		}	
-		public function createObject( mapDetailXml:XML ):void
+		public function setWorldDataByXml( mapDetailXml:XML ):void
 		{
-			this.scale.x = UtilXmlConvertVariables.convertToNumber( mapDetailXml, GameObjectXmlTag.GameObjectXmlTag_ScaleX );
-			this.scale.y = UtilXmlConvertVariables.convertToNumber( mapDetailXml, GameObjectXmlTag.GameObjectXmlTag_ScaleY );
-			
 			_mapCol = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameObjectXmlTag.GameObjectXmlTag_mapCol );
 			_mapGrid = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameObjectXmlTag.GameObjectXmlTag_mapRow );
+			setWorldData( _mapCol, _mapGrid );
+		}
+		
+		public function setWorldData( mapColOut:uint, mapGridOut:uint ):void
+		{
+			_mapCol = mapColOut;
+			_mapGrid = mapGridOut;
 			this.x = mapCol * _tileWidth * this.scale.x;
 			this.y = mapGrid * _tileHeight * this.scale.y;
-			_scaleTile( this.scale );
+		}
+		
+		public function createObjectByXml( mapDetailXml:XML ):void
+		{
+			var scaleX:Number = UtilXmlConvertVariables.convertToNumber( mapDetailXml, GameObjectXmlTag.GameObjectXmlTag_ScaleX );
+			var scaleY:Number = UtilXmlConvertVariables.convertToNumber( mapDetailXml, GameObjectXmlTag.GameObjectXmlTag_ScaleY );
 			
 			var spriteWidth:Number = UtilXmlConvertVariables.convertToNumber( mapDetailXml, GameMapBuildingXmlTag.BuildingXmlTag_SpriteWidth );
 			var spriteHeight:Number = UtilXmlConvertVariables.convertToNumber( mapDetailXml, GameMapBuildingXmlTag.BuildingXmlTag_SpriteHeight );
-			loadGraphic( resClass(), true, true, spriteWidth, spriteHeight );
 			
 			var spriteCol:uint = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameMapBuildingXmlTag.BuildingXmlTag_SpriteColumn );
 			var spriteRows:uint = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameMapBuildingXmlTag.BuildingXmlTag_SpriteRows );
 			var spriteLineCnts:uint = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameMapBuildingXmlTag.BuildingXmlTag_SpriteLineCnts );
-			frame = spriteRows * spriteLineCnts + spriteCol ;
+			
+			createObjectByParam( scaleX, scaleY, spriteWidth, spriteHeight, spriteCol, spriteRows, spriteLineCnts );
+		}
+		public function createObjectByParam( 	scaleX:Number, scaleY:Number,
+										spriteWidth:Number, spriteHeight:Number,
+										spriteCol:uint, spriteRows:uint,
+										spriteCnts:uint ):void
+		{
+			this.scale.x = scaleX;
+			this.scale.y = scaleY;
+			_scaleTile( this.scale );
+			loadGraphic( resClass(), true, true, spriteWidth, spriteHeight );
+			frame = spriteRows * spriteCnts + spriteCol ;
 		}
 		public function get mapCol():uint 
 		{

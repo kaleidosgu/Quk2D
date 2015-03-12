@@ -4,6 +4,7 @@ package gamemap
 	 * ...
 	 * @author kaleidos
 	 */
+	import gamemap.Building.BuildingWall;
 	import org.flixel.FlxGroup;
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxXML;
@@ -41,6 +42,12 @@ package gamemap
 			var colNumber:int = xPos / _showWidth;
 			var rowNumber:int = yPos / _showHeight;
 			
+			var build:BuildingWall = buildingFactory.CreateWallTemplate();
+			build.setWorldData( colNumber, rowNumber );
+			_flxGroup.add( build );
+			
+			/*
+			
 			var updateElement:GameMapElementInfo = null;
 			for each ( var element:GameMapElementInfo in _mapData )
 			{
@@ -57,6 +64,7 @@ package gamemap
 				updateElement.gridColumn = colNumber;
 			}
 			updateElement.elementType = mapElementData;
+			*/
 		}
 		
 		public function get showWidth():uint 

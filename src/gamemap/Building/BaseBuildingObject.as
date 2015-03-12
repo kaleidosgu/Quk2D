@@ -16,9 +16,9 @@ package gamemap.Building
 		{
 			super();
 		}
-		override public function createObject( mapDetailXml:XML ):void
+		override public function createObjectByXml( mapDetailXml:XML ):void
 		{
-			super.createObject( mapDetailXml );
+			super.createObjectByXml( mapDetailXml );
 			
 			_buildingType = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameMapBuildingXmlTag.BuildingXmlTag_MapType );
 		}
