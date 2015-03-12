@@ -1,5 +1,6 @@
 package gamemap.Building 
 {
+	import gamemap.GameMapBuildingTyp;
 	import org.flixel.FlxGroup;
 	/**
 	 * ...
@@ -21,6 +22,10 @@ package gamemap.Building
 		override public function resClass():Class
 		{
 			return wallBlock;
+		}
+		override public function getSubTyp():uint
+		{
+			return GameMapBuildingTyp.GameMapBuildingTyp_Wall;
 		}
 	}
 

@@ -6,6 +6,7 @@ package gamemap
 	 */
 	import Base.BaseGameObject;
 	import gamemap.Building.BuildingWall;
+	import gameutil.UtilConvert;
 	import org.flixel.FlxGroup;
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxXML;
@@ -22,6 +23,7 @@ package gamemap
 		private var buildingFactory:GameBuildingFactory = new GameBuildingFactory();
 		
 		private var _flxGroup:FlxGroup;
+		private var _mapDataArray:Array = new Array();
 		public function GameMapEditor( flxGroup:FlxGroup ) 
 		{
 			_flxGroup = flxGroup;
@@ -33,10 +35,28 @@ package gamemap
 			
 			for each ( var mapDetailXml:XML in mapDetailXmlLst )
 			{
-				var wall:FlxSprite = buildingFactory.CreateBuilding( mapDetailXml );
+				var wall:BaseGameObject = buildingFactory.CreateBuilding( mapDetailXml );
 				_flxGroup.add( wall );
+				
+				updateMapData( wall );
 			}
-			
+		}
+		private function updateMapData( gameObj:BaseGameObject ):void
+		{
+			var elementIndex:uint = 0;
+			for each( var elementInfo:GameMapElementInfo in _mapDataArray )
+			{
+				if ( elementInfo.gridRow == gameObj.mapRow && 
+				elementInfo.gridColumn == gameObj.mapCol )
+				{
+					_mapDataArray = _mapDataArray.splice( elementIndex, 1 );
+					break;
+				}
+				elementIndex++;
+			}
+			var newElementInfo:GameMapElementInfo = new GameMapElementInfo();
+			UtilConvert.convertGameObjToElementInfo( gameObj, newElementInfo );
+			_mapDataArray.push( newElementInfo );
 		}
 		public function updateMap( xPos:int, yPos:int, mainTyp:uint, subType:uint ):void
 		{
@@ -54,7 +74,11 @@ package gamemap
 			if ( _createObj )
 			{
 				_createObj.setWorldData( colNumber, rowNumber );
+				var newElementInfo:GameMapElementInfo = new GameMapElementInfo();
+				UtilConvert.convertGameObjToElementInfo( _createObj, newElementInfo );
 				_flxGroup.add( _createObj );	
+				
+				updateMapData( _createObj );
 			}
 			
 			/*

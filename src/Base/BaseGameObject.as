@@ -15,7 +15,7 @@ package Base
 		protected var _tileWidth:Number = 8;
 		protected var _tileHeight:Number = 8;
 		private var _mapCol:uint = 0;
-		private var _mapGrid:uint = 0;
+		private var _mapRow:uint = 0;
 		public function BaseGameObject( ) 
 		{
 			super();
@@ -23,16 +23,16 @@ package Base
 		public function setWorldDataByXml( mapDetailXml:XML ):void
 		{
 			_mapCol = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameObjectXmlTag.GameObjectXmlTag_mapCol );
-			_mapGrid = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameObjectXmlTag.GameObjectXmlTag_mapRow );
-			setWorldData( _mapCol, _mapGrid );
+			_mapRow = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameObjectXmlTag.GameObjectXmlTag_mapRow );
+			setWorldData( _mapCol, _mapRow );
 		}
 		
-		public function setWorldData( mapColOut:uint, mapGridOut:uint ):void
+		public function setWorldData( mapColOut:uint, mapRowOut:uint ):void
 		{
 			_mapCol = mapColOut;
-			_mapGrid = mapGridOut;
+			_mapRow = mapRowOut;
 			this.x = mapCol * _tileWidth * this.scale.x;
-			this.y = mapGrid * _tileHeight * this.scale.y;
+			this.y = mapRow * _tileHeight * this.scale.y;
 		}
 		
 		public function createObjectByXml( mapDetailXml:XML ):void
@@ -70,14 +70,14 @@ package Base
 			_mapCol = value;
 		}
 		
-		public function get mapGrid():uint 
+		public function get mapRow():uint 
 		{
-			return _mapGrid;
+			return _mapRow;
 		}
 		
-		public function set mapGrid(value:uint):void 
+		public function set mapRow(value:uint):void 
 		{
-			_mapGrid = value;
+			_mapRow = value;
 		}
 		
 		protected function _scaleTile( _scaleFact:FlxPoint ):void
@@ -90,6 +90,15 @@ package Base
 		public function resClass():Class
 		{
 			return null;
+		}
+		
+		public function getMainTyp():uint
+		{
+			return 0;
+		}
+		public function getSubTyp():uint
+		{
+			return 0;
 		}
 	}
 

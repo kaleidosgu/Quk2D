@@ -2,6 +2,7 @@ package gamemap.Building
 {
 	import Base.BaseGameObject;
 	import gamemap.GameMapBuildingTyp;
+	import gamemap.GameObjectMainTyp;
 	import util.UtilXmlConvertVariables;
 	import gamemap.GameMapBuildingXmlTag;
 	
@@ -32,6 +33,10 @@ package gamemap.Building
 			_buildingType = value;
 		}
 		
+		override public function getMainTyp():uint
+		{
+			return GameObjectMainTyp.GameObjectMainTyp_Building;
+		}
 	}
 
 }

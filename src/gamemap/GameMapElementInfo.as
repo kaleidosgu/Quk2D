@@ -9,7 +9,8 @@ package gamemap
 
 		private var _posX:Number = 0;
 		private var _posY:Number = 0;
-		private var _elementType:uint = 0;
+		private var _elementMainType:uint = 0;
+		private var _elementSubType:uint = 0;
 		
 		private var _gridColumn:int = -1;
 		private var _gridRow:int = -1;
@@ -38,16 +39,6 @@ package gamemap
 			_posY = value;
 		}
 		
-		public function get elementType():uint 
-		{
-			return _elementType;
-		}
-		
-		public function set elementType(value:uint):void 
-		{
-			_elementType = value;
-		}
-		
 		public function get gridColumn():int 
 		{
 			return _gridColumn;
@@ -66,6 +57,26 @@ package gamemap
 		public function set gridRow(value:int):void 
 		{
 			_gridRow = value;
+		}
+		
+		public function get elementMainType():uint 
+		{
+			return _elementMainType;
+		}
+		
+		public function set elementMainType(value:uint):void 
+		{
+			_elementMainType = value;
+		}
+		
+		public function get elementSubType():uint 
+		{
+			return _elementSubType;
+		}
+		
+		public function set elementSubType(value:uint):void 
+		{
+			_elementSubType = value;
 		}
 		
 	}

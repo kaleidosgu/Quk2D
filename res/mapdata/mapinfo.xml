@@ -19,6 +19,4 @@
     <Trigger>
     </Trigger>
   </MapDetail>
-  <MapDetail mapCol = "3" mapRow = "1" posX = "3.5" posY = "4" mapType = "11" >
-  </MapDetail>
 </MapInfo>
