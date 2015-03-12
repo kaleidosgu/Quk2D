@@ -19,7 +19,7 @@ package gamemap.Building
 			super.createObject( mapDetailXml );
 			
 			loadGraphic( wallBlock, true, true, 8, 8 );
-			frame = 3 * 8 * this.scale.x;
+			frame = 3 * 16 ;
 		}
 	}
 

@@ -12,8 +12,8 @@ package Base
 	 */
 	public class BaseGameObject extends FlxSprite 
 	{
-		protected var _tileWidth:Number = 0;
-		protected var _tileHeight:Number = 0;
+		protected var _tileWidth:Number = 8;
+		protected var _tileHeight:Number = 8;
 		private var _mapCol:uint = 0;
 		private var _mapGrid:uint = 0;
 		public function BaseGameObject( ) 
@@ -27,10 +27,10 @@ package Base
 			
 			_mapCol = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameObjectXmlTag.GameObjectXmlTag_mapCol );
 			_mapGrid = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameObjectXmlTag.GameObjectXmlTag_mapRow );
+			this.x = mapCol * _tileWidth * this.scale.x;
+			this.y = mapGrid * _tileHeight * this.scale.y;
 			_scaleTile( this.scale );
 			
-			this.x = mapGrid * _tileWidth * this.scale.x;
-			this.y = mapCol * _tileHeight * this.scale.y;
 		}
 		public function get mapCol():uint 
 		{
@@ -56,8 +56,8 @@ package Base
 		{
 			width = _tileWidth * _scaleFact.x;
 			height = _tileHeight * _scaleFact.y;
-			offset.x = -(_tileWidth / _scaleFact.x);
-			offset.y = -(_tileHeight / _scaleFact.y);
+			offset.x -= _tileWidth * ( _scaleFact.x - 1 ) / 2; 
+			offset.y -= _tileHeight * ( _scaleFact.y - 1 ) / 2;
 		}	
 	}
 

@@ -17,6 +17,8 @@ package state
 	 */
 	public class GameMapEditorState extends FlxState 
 	{
+		[Embed(source = '../../res/images/world.png')]
+		private static var myblock:Class;
 		[Embed(source="../../res/actionBoard.xml",mimeType="application/octet-stream")]
 		protected var embXML:Class;
 		private var highlightBox:FlxObject;
@@ -46,6 +48,25 @@ package state
 			var xmlLst:XMLList = xmlData.child("xml");
 			dd = xmlLst.length();
 			
+			FlxG.visualDebug = true;
+			
+			/*
+			var testSprite:FlxSprite = new FlxSprite( 0, 0, myblock );
+			testSprite.ignoreDrawDebug = false;
+			//testSprite.x = 15;
+			//testSprite.y = 15;
+			testSprite.loadGraphic( myblock, true, true, 8, 8 );
+			testSprite.frame = 3 * 16;
+			testSprite.scale.x = _showScale;
+			testSprite.scale.y = _showScale;
+			testSprite.offset.x -= 8 * ( _showScale - 1 ) / 2; 
+			testSprite.offset.y -= 8 * ( _showScale - 1 ) / 2;
+			testSprite.x = 0;
+			testSprite.y = 0;
+			
+			this.add( testSprite );
+			*/
+			
 			var myXML:XML =  
     <order> 
         <item id='1' quantity='2'> 
@@ -64,15 +85,9 @@ package state
 			
 			var writeFile:KalResourceDataWrite = new KalResourceDataWrite();
 			writeFile.writeDataToFile( filePathString, myXML.toString() );
-			
-			for each(var movie:XML in xmlData.prop ){
-				var str:String = movie.@serverip.toString();
-				str;
-		　　 }
 		
-		var testString:String = myXML.toString();
-			mapEditor.showWidth = _showWidth;
-			mapEditor.showHeight = _showHeight;
+			//mapEditor.showWidth = _showWidth;
+			//mapEditor.showHeight = _showHeight;
 			highlightBox = new FlxObject(0, 0, _showWidth, _showHeight);
 		}
 		override public function destroy():void
@@ -100,7 +115,7 @@ package state
 			
 			if (FlxG.mouse.pressed())
 			{
-				mapEditor.updateMap( hightLightPoint.x, hightLightPoint.y,1 );
+				//mapEditor.updateMap( hightLightPoint.x, hightLightPoint.y,1 );
 			}
 			super.update();
 		}
