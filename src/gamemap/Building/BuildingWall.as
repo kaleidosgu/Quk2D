@@ -17,9 +17,16 @@ package gamemap.Building
 		override public function createObject( mapDetailXml:XML ):void
 		{
 			super.createObject( mapDetailXml );
-			
-			loadGraphic( wallBlock, true, true, 8, 8 );
+			/*
+			var elementWidth:Number = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameMapBuildingXmlTag.BuildingXmlTag_MapType );
+			var elementHeight:Number = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameMapBuildingXmlTag.BuildingXmlTag_MapType );
+			loadGraphic( wallBlock, true, true, elementWidth, elementWidth );
+			*/
 			frame = 3 * 16 ;
+		}
+		override public function resClass():Class
+		{
+			return wallBlock;
 		}
 	}
 

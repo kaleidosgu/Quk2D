@@ -1,5 +1,5 @@
 <MapInfo>
-  <MapDetail mapCol = "3" mapRow = "1" posX = "3.5" posY = "4" MapType = "7" scaleX = "2" scaleY = "2" >
+  <MapDetail mapCol = "3" mapRow = "1" posX = "3.5" posY = "4" MapType = "7" scaleX = "2" scaleY = "2" spriteWidth = "8" spriteHeight = "8" spriteRows = "3" spriteColumn = "0" spriteLineCounts = "16" >
     <Wall ba = "15" >
     </Wall>
     <Door>

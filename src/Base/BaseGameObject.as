@@ -31,6 +31,14 @@ package Base
 			this.y = mapGrid * _tileHeight * this.scale.y;
 			_scaleTile( this.scale );
 			
+			var spriteWidth:Number = UtilXmlConvertVariables.convertToNumber( mapDetailXml, GameMapBuildingXmlTag.BuildingXmlTag_SpriteWidth );
+			var spriteHeight:Number = UtilXmlConvertVariables.convertToNumber( mapDetailXml, GameMapBuildingXmlTag.BuildingXmlTag_SpriteHeight );
+			loadGraphic( resClass(), true, true, spriteWidth, spriteHeight );
+			
+			var spriteCol:uint = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameMapBuildingXmlTag.BuildingXmlTag_SpriteColumn );
+			var spriteRows:uint = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameMapBuildingXmlTag.BuildingXmlTag_SpriteRows );
+			var spriteLineCnts:uint = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameMapBuildingXmlTag.BuildingXmlTag_SpriteLineCnts );
+			frame = spriteRows * spriteLineCnts + spriteCol ;
 		}
 		public function get mapCol():uint 
 		{
@@ -59,6 +67,10 @@ package Base
 			offset.x -= _tileWidth * ( _scaleFact.x - 1 ) / 2; 
 			offset.y -= _tileHeight * ( _scaleFact.y - 1 ) / 2;
 		}	
+		public function resClass():Class
+		{
+			return null;
+		}
 	}
 
 }
