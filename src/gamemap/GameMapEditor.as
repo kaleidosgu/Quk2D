@@ -4,6 +4,7 @@ package gamemap
 	 * ...
 	 * @author kaleidos
 	 */
+	import Base.BaseGameObject;
 	import gamemap.Building.BuildingWall;
 	import org.flixel.FlxGroup;
 	import org.flixel.FlxSprite;
@@ -37,14 +38,24 @@ package gamemap
 			}
 			
 		}
-		public function updateMap( xPos:int, yPos:int, mapElementData:int ):void
+		public function updateMap( xPos:int, yPos:int, mainTyp:uint, subType:uint ):void
 		{
 			var colNumber:int = xPos / _showWidth;
 			var rowNumber:int = yPos / _showHeight;
+			var _createObj:BaseGameObject = null;
+			if ( mainTyp == GameObjectMainTyp.GameObjectMainTyp_Building )
+			{
+				if ( subType == GameMapBuildingTyp.GameMapBuildingTyp_Wall )
+				{
+					_createObj = buildingFactory.CreateWallTemplate();
+				}
+			}
 			
-			var build:BuildingWall = buildingFactory.CreateWallTemplate();
-			build.setWorldData( colNumber, rowNumber );
-			_flxGroup.add( build );
+			if ( _createObj )
+			{
+				_createObj.setWorldData( colNumber, rowNumber );
+				_flxGroup.add( _createObj );	
+			}
 			
 			/*
 			

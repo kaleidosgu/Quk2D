@@ -1,5 +1,8 @@
 package state 
 {
+	import gamemap.GameMapBuildingTyp;
+	import gamemap.GameObjectMainTyp;
+	import org.flixel.FlxGroup;
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxState;
 	import org.flixel.FlxPoint;
@@ -30,6 +33,11 @@ package state
 		
 		private var mapEditor:GameMapEditor = null;
 		private var xmlT:FlxXML = new FlxXML();
+		
+		private var _curMainType:uint = 0;
+		private var _curSubTyp:uint = 0;
+		
+		private var _wallGroup:FlxGroup = new FlxGroup();
 		public function GameMapEditorState() 
 		{
 			
@@ -38,8 +46,12 @@ package state
 		override public function create():void
 		{
 			super.create();
+			
+			_curMainType = GameObjectMainTyp.GameObjectMainTyp_Building;
+			_curSubTyp = GameMapBuildingTyp.GameMapBuildingTyp_Wall;
 
-			mapEditor = new GameMapEditor( this );
+			mapEditor = new GameMapEditor( _wallGroup );
+			this.add( _wallGroup );
 			mapEditor.generateMapDataFromXml( );
 			var xmlData:XML = xmlT.loadEmbedded(embXML);
 			_showWidth 	= TILE_WIDTH * _showScale ;
@@ -115,7 +127,7 @@ package state
 			
 			if (FlxG.mouse.pressed())
 			{
-				mapEditor.updateMap( hightLightPoint.x, hightLightPoint.y,1 );
+				mapEditor.updateMap( hightLightPoint.x, hightLightPoint.y,_curMainType, _curSubTyp );
 			}
 			super.update();
 		}
