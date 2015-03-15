@@ -7,6 +7,7 @@ package util
 	import flash.filesystem.File;
 	import flash.filesystem.FileStream;
 	import flash.filesystem.FileMode;
+	import flash.utils.ByteArray;
 	public class KalResourceDataRead 
 	{
 		
@@ -25,6 +26,18 @@ package util
 		public function getData():Object
 		{
 			return _txtData;
+		}
+		
+		public function readFileIntoByteArray( dataPath:String, data:ByteArray ):void
+		{
+			var fileOpen:File = new File( dataPath );
+			if ( fileOpen.exists )
+			{
+				var fileStream:FileStream = new FileStream();
+				fileStream.open( fileOpen, FileMode.READ );
+				fileStream.readBytes( data );
+				fileStream.close();
+			}
 		}
 		
 	}

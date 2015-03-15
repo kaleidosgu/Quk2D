@@ -7,3 +7,7 @@
 2015-03-12
 缩放是中心缩放的，所以当缩放之后，需要对坐标进行便宜。如果不知道是如何缩放的，可以把debug模式放开。可以看到未缩放的效果。(前提是boundbox没有进行缩放) ( 缩放比 - 1 ) / 2
 有时候读的数据放在xml多的话，写得也同样变多。
+2015-03-14
+as3的xml构造起来非常困难，问mac保存构造xml的方式。他给了解决方案也不是很适合，可能是API的关系。但是他提供了一个bytearray的方法，可以直接把二进制数据保存/读取。
+2015-03-15
+需要registerClassAlias进行类型绑定，并且包含包信息在里面registerClassAlias("gamemap.GameMapElementInfo", GameMapElementInfo);否则传出的类型识别不出。

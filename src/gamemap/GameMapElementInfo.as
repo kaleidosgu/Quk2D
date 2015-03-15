@@ -1,10 +1,14 @@
 package gamemap 
 {
+	import Base.GameBaseDataObject;
+	import flash.net.registerClassAlias;
+	import flash.utils.ByteArray;
+	import flash.utils.CompressionAlgorithm;
 	/**
 	 * ...
 	 * @author kaleidos
 	 */
-	public class GameMapElementInfo 
+	public class GameMapElementInfo extends GameBaseDataObject
 	{
 
 		private var _posX:Number = 0;
@@ -17,6 +21,17 @@ package gamemap
 		public function GameMapElementInfo() 
 		{
 			
+		}
+		
+		override public function getByteArray():ByteArray
+		{
+			super.getByteArray();
+			var bytArray:ByteArray = new ByteArray();
+			registerClassAlias("gamemap.GameMapElementInfo", GameMapElementInfo);
+			bytArray.writeObject( this );
+			bytArray.position = 0;
+			bytArray.compress(CompressionAlgorithm.DEFLATE);
+			return bytArray;
 		}
 		
 		public function get posX():Number 
