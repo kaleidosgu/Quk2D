@@ -5,11 +5,14 @@ package gamemap
 	 * @author kaleidos
 	 */
 	import Base.BaseGameObject;
+	import fileprocess.FileByteArrayResourcePath;
+	import flash.utils.ByteArray;
 	import gamemap.Building.BuildingWall;
 	import gameutil.UtilConvert;
 	import org.flixel.FlxGroup;
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxXML;
+	import util.KalResourceDataWrite;
 	public class GameMapEditor 
 	{
 		
@@ -23,7 +26,7 @@ package gamemap
 		private var buildingFactory:GameBuildingFactory = new GameBuildingFactory();
 		
 		private var _flxGroup:FlxGroup;
-		private var _mapDataArray:Array = new Array();
+		private var _gameMapInfo:GameMapInfo = new GameMapInfo();
 		public function GameMapEditor( flxGroup:FlxGroup ) 
 		{
 			_flxGroup = flxGroup;
@@ -43,20 +46,17 @@ package gamemap
 		}
 		private function updateMapData( gameObj:BaseGameObject ):void
 		{
-			var elementIndex:uint = 0;
-			for each( var elementInfo:GameMapElementInfo in _mapDataArray )
-			{
-				if ( elementInfo.gridRow == gameObj.mapRow && 
-				elementInfo.gridColumn == gameObj.mapCol )
-				{
-					_mapDataArray = _mapDataArray.splice( elementIndex, 1 );
-					break;
-				}
-				elementIndex++;
-			}
-			var newElementInfo:GameMapElementInfo = new GameMapElementInfo();
-			UtilConvert.convertGameObjToElementInfo( gameObj, newElementInfo );
-			_mapDataArray.push( newElementInfo );
+			_gameMapInfo.updateMapData( gameObj );
+		}
+		public function saveMapIntoFile():void
+		{
+			var bytarr:ByteArray = _gameMapInfo.getByteArray();
+			
+			var kagResPath:FileByteArrayResourcePath = new FileByteArrayResourcePath("test");
+			var filePathString:String = kagResPath.resourcePath;
+			
+			var writeFile:KalResourceDataWrite = new KalResourceDataWrite();
+			writeFile.writeBytesToFile( filePathString, bytarr );
 		}
 		public function updateMap( xPos:int, yPos:int, mainTyp:uint, subType:uint ):void
 		{

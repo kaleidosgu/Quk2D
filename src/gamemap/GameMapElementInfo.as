@@ -23,17 +23,11 @@ package gamemap
 			
 		}
 		
-		override public function getByteArray():ByteArray
+		override protected function registeClassName():void
 		{
-			super.getByteArray();
-			var bytArray:ByteArray = new ByteArray();
+			super.registeClassName();
 			registerClassAlias("gamemap.GameMapElementInfo", GameMapElementInfo);
-			bytArray.writeObject( this );
-			bytArray.position = 0;
-			bytArray.compress(CompressionAlgorithm.DEFLATE);
-			return bytArray;
 		}
-		
 		public function get posX():Number 
 		{
 			return _posX;

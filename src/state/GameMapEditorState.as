@@ -129,6 +129,10 @@ package state
 			{
 				mapEditor.updateMap( hightLightPoint.x, hightLightPoint.y,_curMainType, _curSubTyp );
 			}
+			if ( FlxG.keys.justReleased("J" ) )
+			{
+				mapEditor.saveMapIntoFile();
+			}
 			super.update();
 		}
 		private function updateMap( xPos:int, yPos:int ):void
