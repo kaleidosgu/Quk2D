@@ -18,19 +18,18 @@ package
 	{
 		public function Main()
 		{
-			registerClassAlias("gamemap.GameMapInfo", GameMapInfo);
-			//registerClassAlias("gamemap.GameMapElementInfo", GameMapElementInfo);
+			
 			var kagResPath:FileByteArrayResourcePath = new FileByteArrayResourcePath("test");
 			var filePathString:String = kagResPath.resourcePath;
 			var readFile:KalResourceDataRead = new KalResourceDataRead( filePathString );
 			var dd:ByteArray = new ByteArray();
 			
 			readFile.readFileIntoByteArray( filePathString, dd );
-			dd.position = 0;
-			dd.uncompress(CompressionAlgorithm.DEFLATE);
-			dd.position = 0;
-			var gamemapInfo:Array = dd.readObject();
-			var gameIn:GameMapElementInfo = gamemapInfo[0];
+			var gameInfo:GameMapInfo = new GameMapInfo();
+			gameInfo.setDataFromByteArray( dd );
+			
+			
+			//var gameIn:GameMapElementInfo = gamemapInfo[0];
 			super(800, 600, GameMapEditorState, 1, 20, 20);
 			/*
 			var newMapInf:GameMapElementInfo = new GameMapElementInfo();

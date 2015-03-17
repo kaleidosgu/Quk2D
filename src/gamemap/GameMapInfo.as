@@ -19,17 +19,25 @@ package gamemap
 		}
 		override public function getByteArray():ByteArray
 		{
-			registerClassAlias("gamemap.GameMapElementInfo", GameMapElementInfo);
+			registeClassName();
 			var bytArray:ByteArray = new ByteArray();
-			bytArray.writeObject( _arrayMapElement );
+			
+			var arrayLength:uint = _arrayMapElement.length;
+			bytArray.writeUnsignedInt( arrayLength );
+			for each( var eleInfo:GameMapElementInfo in _arrayMapElement )
+			{
+				bytArray.writeObject( eleInfo );
+			}
 			bytArray.position = 0;
 			bytArray.compress(CompressionAlgorithm.DEFLATE);
 			return bytArray;
 		}
+		
 		override protected function registeClassName():void
 		{
 			super.registeClassName();
 			registerClassAlias("gamemap.GameMapInfo", GameMapInfo);
+			registerClassAlias("gamemap.GameMapElementInfo", GameMapElementInfo);
 		}
 		
 		public function getArray():Array
@@ -42,8 +50,8 @@ package gamemap
 			var elementIndex:uint = 0;
 			for each( var elementInfo:GameMapElementInfo in _arrayMapElement )
 			{
-				if ( elementInfo.gridRow == gameObj.mapRow && 
-				elementInfo.gridColumn == gameObj.mapCol )
+				if ( elementInfo.mapRow == gameObj.gameObjData.mapRow && 
+				elementInfo.mapCol == gameObj.gameObjData.mapCol )
 				{
 					_arrayMapElement = _arrayMapElement.splice( elementIndex, 1 );
 					break;
@@ -54,7 +62,27 @@ package gamemap
 			UtilConvert.convertGameObjToElementInfo( gameObj, newElementInfo );
 			_arrayMapElement.push( newElementInfo );
 		}
-		
+
+		override public function setDataFromByteArray( bytArray:ByteArray ):void
+		{
+			registeClassName();
+			
+			super.setDataFromByteArray( bytArray );
+			bytArray.position = 0;
+			bytArray.uncompress(CompressionAlgorithm.DEFLATE);
+			bytArray.position = 0;
+			var arrayLength:uint = bytArray.readUnsignedInt();
+			for ( var arrayIndex:uint = 0; arrayIndex < arrayLength; arrayIndex++ )
+			{
+				var eleInfo:GameMapElementInfo = null;
+				var readObj:Object = bytArray.readObject();
+				if ( readObj is GameMapElementInfo )
+				{
+					eleInfo = readObj as GameMapElementInfo;
+					_arrayMapElement.push( eleInfo );	
+				}
+			}
+		}		
 	}
 
 }

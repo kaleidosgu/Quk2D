@@ -20,8 +20,12 @@ package gameutil
 			elementInfo.elementSubType 		= gameObj.getSubTyp();
 			elementInfo.posX 				= gameObj.x;
 			elementInfo.posY 				= gameObj.y;
-			elementInfo.gridRow 			= gameObj.mapRow;
-			elementInfo.gridColumn 			= gameObj.mapCol;
+			elementInfo.mapRow 				= gameObj.gameObjData.mapRow;
+			elementInfo.mapCol				= gameObj.gameObjData.mapCol;
+			elementInfo.scaleX				= gameObj.gameObjData.scaleX;
+			elementInfo.scaleY				= gameObj.gameObjData.scaleY;
+			
+			
 		}
 		
 	}

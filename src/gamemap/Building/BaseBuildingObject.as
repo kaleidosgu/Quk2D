@@ -12,7 +12,6 @@ package gamemap.Building
 	 */
 	public class BaseBuildingObject extends BaseGameObject 
 	{
-		protected var _buildingType:uint = GameMapBuildingTyp.GameMapBuildingTyp_None;
 		public function BaseBuildingObject() 
 		{
 			super();
@@ -21,21 +20,7 @@ package gamemap.Building
 		{
 			super.createObjectByXml( mapDetailXml );
 			
-			_buildingType = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameMapBuildingXmlTag.BuildingXmlTag_MapType );
-		}
-		public function get buildingType():uint 
-		{
-			return _buildingType;
-		}
-		
-		public function set buildingType(value:uint):void 
-		{
-			_buildingType = value;
-		}
-		
-		override public function getMainTyp():uint
-		{
-			return GameObjectMainTyp.GameObjectMainTyp_Building;
+			_gameObjData.elementSubType = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameMapBuildingXmlTag.BuildingXmlTag_MapType );
 		}
 	}
 

@@ -5,6 +5,7 @@ package gamemap
 	 * @author kaleidos
 	 */
 	import Base.BaseGameObject;
+	import Base.GameBaseDataObject;
 	import fileprocess.FileByteArrayResourcePath;
 	import flash.utils.ByteArray;
 	import gamemap.Building.BuildingWall;
@@ -12,6 +13,7 @@ package gamemap
 	import org.flixel.FlxGroup;
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxXML;
+	import util.KalResourceDataRead;
 	import util.KalResourceDataWrite;
 	public class GameMapEditor 
 	{
@@ -38,7 +40,30 @@ package gamemap
 			
 			for each ( var mapDetailXml:XML in mapDetailXmlLst )
 			{
-				var wall:BaseGameObject = buildingFactory.CreateBuilding( mapDetailXml );
+				//var wall:BaseGameObject = buildingFactory.CreateBuilding(  );
+				//_flxGroup.add( wall );
+				
+				//updateMapData( wall );
+			}
+		}
+		public function generateMapDataFromByteArray():void
+		{
+			var kagResPath:FileByteArrayResourcePath = new FileByteArrayResourcePath("test");
+			var filePathString:String = kagResPath.resourcePath;
+			var readFile:KalResourceDataRead = new KalResourceDataRead( filePathString );
+			var readedByteArray:ByteArray = new ByteArray();
+			
+			readFile.readFileIntoByteArray( filePathString, readedByteArray );
+			_gameMapInfo.setDataFromByteArray( readedByteArray );
+			updateMapDataFromMapInfo();
+		}
+		private function updateMapDataFromMapInfo():void
+		{
+			var arrayMapElement:Array = _gameMapInfo.getArray();
+			for each( var mapele:GameMapElementInfo in arrayMapElement )
+			{
+				var wall:BaseGameObject = buildingFactory.CreateWall();
+				wall.createObjectByBaseData( mapele );
 				_flxGroup.add( wall );
 				
 				updateMapData( wall );
@@ -67,14 +92,23 @@ package gamemap
 			{
 				if ( subType == GameMapBuildingTyp.GameMapBuildingTyp_Wall )
 				{
-					_createObj = buildingFactory.CreateWallTemplate();
+					_createObj = buildingFactory.CreateWall( );
 				}
 			}
 			
 			if ( _createObj )
 			{
-				_createObj.setWorldData( colNumber, rowNumber );
 				var newElementInfo:GameMapElementInfo = new GameMapElementInfo();
+				newElementInfo.scaleX = 2;
+				newElementInfo.scaleY = 2;
+				newElementInfo.mapCol = colNumber;
+				newElementInfo.mapRow = rowNumber;
+				newElementInfo.spriteWidth = 8;
+				newElementInfo.spriteHeight = 8;
+				newElementInfo.spriteCol = 0;
+				newElementInfo.spriteRows = 3;
+				newElementInfo.spriteCnts = 16;
+				_createObj.createObjectByBaseData( newElementInfo );
 				UtilConvert.convertGameObjToElementInfo( _createObj, newElementInfo );
 				_flxGroup.add( _createObj );	
 				

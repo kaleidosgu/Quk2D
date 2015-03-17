@@ -1,6 +1,7 @@
 package Base 
 {
 	import gamemap.GameMapBuildingXmlTag;
+	import gamemap.GameMapElementInfo;
 	import org.flixel.FlxGroup;
 	import org.flixel.FlxPoint;
 	import org.flixel.FlxSprite;
@@ -12,28 +13,29 @@ package Base
 	 */
 	public class BaseGameObject extends FlxSprite 
 	{
-		protected var _tileWidth:Number = 8;
-		protected var _tileHeight:Number = 8;
-		private var _mapCol:uint = 0;
-		private var _mapRow:uint = 0;
+		protected var _gameObjData:GameBaseDataObject = null;
 		public function BaseGameObject( ) 
 		{
 			super();
+			_gameObjData = new GameBaseDataObject();
 		}	
 		public function setWorldDataByXml( mapDetailXml:XML ):void
 		{
-			_mapCol = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameObjectXmlTag.GameObjectXmlTag_mapCol );
-			_mapRow = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameObjectXmlTag.GameObjectXmlTag_mapRow );
-			setWorldData( _mapCol, _mapRow );
+			setWorldData( 
+				UtilXmlConvertVariables.convertToUint( mapDetailXml, GameObjectXmlTag.GameObjectXmlTag_mapCol ),
+				UtilXmlConvertVariables.convertToUint( mapDetailXml, GameObjectXmlTag.GameObjectXmlTag_mapRow ) 
+				);
 		}
 		
 		public function setWorldData( mapColOut:uint, mapRowOut:uint ):void
 		{
-			_mapCol = mapColOut;
-			_mapRow = mapRowOut;
-			this.x = mapCol * _tileWidth * this.scale.x;
-			this.y = mapRow * _tileHeight * this.scale.y;
-		}
+			_gameObjData.mapCol = mapColOut;
+			_gameObjData.mapRow = mapRowOut;
+			this.x = (_gameObjData.mapCol * _gameObjData.spriteWidth * this.scale.x);
+			this.y = (_gameObjData.mapRow * _gameObjData.spriteHeight * this.scale.y);
+			_gameObjData.posX = x;
+			_gameObjData.posY = y;
+		}   
 		
 		public function createObjectByXml( mapDetailXml:XML ):void
 		{
@@ -49,6 +51,13 @@ package Base
 			
 			createObjectByParam( scaleX, scaleY, spriteWidth, spriteHeight, spriteCol, spriteRows, spriteLineCnts );
 		}
+		public function createObjectByBaseData( baseData:GameBaseDataObject ):void
+		{
+			createObjectByParam( baseData.scaleX, baseData.scaleY, baseData.spriteWidth, baseData.spriteHeight,
+			baseData.spriteCol, baseData.spriteRows,
+			baseData.spriteCnts );
+			setWorldData( baseData.mapCol, baseData.mapRow );
+		}
 		public function createObjectByParam( 	scaleX:Number, scaleY:Number,
 										spriteWidth:Number, spriteHeight:Number,
 										spriteCol:uint, spriteRows:uint,
@@ -56,36 +65,23 @@ package Base
 		{
 			this.scale.x = scaleX;
 			this.scale.y = scaleY;
+			_gameObjData.scaleX = scaleX;
+			_gameObjData.scaleY = scaleY;
 			_scaleTile( this.scale );
 			loadGraphic( resClass(), true, true, spriteWidth, spriteHeight );
+			_gameObjData.spriteRows = spriteRows;
+			_gameObjData.spriteCol 	= spriteCol;
+			_gameObjData.spriteCnts	= spriteCnts;
+			_gameObjData.spriteWidth = spriteWidth;
+			_gameObjData.spriteHeight = spriteHeight;
 			frame = spriteRows * spriteCnts + spriteCol ;
 		}
-		public function get mapCol():uint 
-		{
-			return _mapCol;
-		}
-		
-		public function set mapCol(value:uint):void 
-		{
-			_mapCol = value;
-		}
-		
-		public function get mapRow():uint 
-		{
-			return _mapRow;
-		}
-		
-		public function set mapRow(value:uint):void 
-		{
-			_mapRow = value;
-		}
-		
 		protected function _scaleTile( _scaleFact:FlxPoint ):void
 		{
-			width = _tileWidth * _scaleFact.x;
-			height = _tileHeight * _scaleFact.y;
-			offset.x -= _tileWidth * ( _scaleFact.x - 1 ) / 2; 
-			offset.y -= _tileHeight * ( _scaleFact.y - 1 ) / 2;
+			width = _gameObjData.spriteWidth * _scaleFact.x;
+			height = _gameObjData.spriteHeight * _scaleFact.y;
+			offset.x -= _gameObjData.spriteWidth * ( _scaleFact.x - 1 ) / 2; 
+			offset.y -= _gameObjData.spriteHeight * ( _scaleFact.y - 1 ) / 2;
 		}	
 		public function resClass():Class
 		{
@@ -94,11 +90,21 @@ package Base
 		
 		public function getMainTyp():uint
 		{
-			return 0;
+			return _gameObjData.elementMainType;
 		}
 		public function getSubTyp():uint
 		{
-			return 0;
+			return _gameObjData.elementSubType;
+		}
+		
+		public function get gameObjData():GameBaseDataObject 
+		{
+			return _gameObjData;
+		}
+		
+		public function set gameObjData(value:GameBaseDataObject):void 
+		{
+			_gameObjData = value;
 		}
 	}
 
