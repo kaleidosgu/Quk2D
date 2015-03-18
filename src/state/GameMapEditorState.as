@@ -52,13 +52,10 @@ package state
 
 			mapEditor = new GameMapEditor( _wallGroup );
 			this.add( _wallGroup );
-			mapEditor.generateMapDataFromXml( );
-			var xmlData:XML = xmlT.loadEmbedded(embXML);
+			//mapEditor.generateMapDataFromXml( );
+			mapEditor.generateMapDataFromByteArray();
 			_showWidth 	= TILE_WIDTH * _showScale ;
 			_showHeight	= TILE_HEIGHT * _showScale;
-			var dd:uint = xmlData.length();
-			var xmlLst:XMLList = xmlData.child("xml");
-			dd = xmlLst.length();
 			
 			FlxG.visualDebug = true;
 			

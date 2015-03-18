@@ -53,7 +53,7 @@ package gamemap
 				if ( elementInfo.mapRow == gameObj.gameObjData.mapRow && 
 				elementInfo.mapCol == gameObj.gameObjData.mapCol )
 				{
-					_arrayMapElement = _arrayMapElement.splice( elementIndex, 1 );
+					var delArray:Array = _arrayMapElement.splice( elementIndex, 1 );
 					break;
 				}
 				elementIndex++;
@@ -68,18 +68,21 @@ package gamemap
 			registeClassName();
 			
 			super.setDataFromByteArray( bytArray );
-			bytArray.position = 0;
-			bytArray.uncompress(CompressionAlgorithm.DEFLATE);
-			bytArray.position = 0;
-			var arrayLength:uint = bytArray.readUnsignedInt();
-			for ( var arrayIndex:uint = 0; arrayIndex < arrayLength; arrayIndex++ )
+			if ( bytArray.length != 0 )
 			{
-				var eleInfo:GameMapElementInfo = null;
-				var readObj:Object = bytArray.readObject();
-				if ( readObj is GameMapElementInfo )
+				bytArray.position = 0;
+				bytArray.uncompress(CompressionAlgorithm.DEFLATE);
+				bytArray.position = 0;
+				var arrayLength:uint = bytArray.readUnsignedInt();
+				for ( var arrayIndex:uint = 0; arrayIndex < arrayLength; arrayIndex++ )
 				{
-					eleInfo = readObj as GameMapElementInfo;
-					_arrayMapElement.push( eleInfo );	
+					var eleInfo:GameMapElementInfo = null;
+					var readObj:Object = bytArray.readObject();
+					if ( readObj is GameMapElementInfo )
+					{
+						eleInfo = readObj as GameMapElementInfo;
+						_arrayMapElement.push( eleInfo );	
+					}
 				}
 			}
 		}		

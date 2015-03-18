@@ -65,8 +65,6 @@ package gamemap
 				var wall:BaseGameObject = buildingFactory.CreateWall();
 				wall.createObjectByBaseData( mapele );
 				_flxGroup.add( wall );
-				
-				updateMapData( wall );
 			}
 		}
 		private function updateMapData( gameObj:BaseGameObject ):void
@@ -114,26 +112,6 @@ package gamemap
 				
 				updateMapData( _createObj );
 			}
-			
-			/*
-			
-			var updateElement:GameMapElementInfo = null;
-			for each ( var element:GameMapElementInfo in _mapData )
-			{
-				if ( element.gridColumn == colNumber && element.gridRow == rowNumber )
-				{
-					updateElement = element;
-					break;
-				}
-			}
-			if ( updateElement == null )
-			{
-				updateElement = new GameMapElementInfo();
-				updateElement.gridRow = rowNumber;
-				updateElement.gridColumn = colNumber;
-			}
-			updateElement.elementType = mapElementData;
-			*/
 		}
 		
 		public function get showWidth():uint 
