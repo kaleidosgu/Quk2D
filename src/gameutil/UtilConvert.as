@@ -25,13 +25,11 @@ package gameutil
 			elementInfo.scaleX				= gameObj.gameObjData.scaleX;
 			elementInfo.scaleY				= gameObj.gameObjData.scaleY;
 			
-			elementInfo.spriteWidth = gameObj.gameObjData.spriteWidth;
-			elementInfo.spriteHeight = gameObj.gameObjData.spriteHeight ;
-			elementInfo.spriteCol = gameObj.gameObjData.spriteCol ;
-			elementInfo.spriteRows = gameObj.gameObjData.spriteRows ;
-			elementInfo.spriteCnts = gameObj.gameObjData.spriteCnts ;
-			
-			
+			elementInfo.spriteWidth 		= gameObj.gameObjData.spriteWidth;
+			elementInfo.spriteHeight 		= gameObj.gameObjData.spriteHeight ;
+			elementInfo.spriteCol 			= gameObj.gameObjData.spriteCol ;
+			elementInfo.spriteRows 			= gameObj.gameObjData.spriteRows ;
+			elementInfo.spriteCnts 			= gameObj.gameObjData.spriteCnts ;
 		}
 		
 	}

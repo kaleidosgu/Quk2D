@@ -2,6 +2,7 @@ package state
 {
 	import gamemap.GameMapBuildingTyp;
 	import gamemap.GameObjectMainTyp;
+	import org.flixel.FlxButton;
 	import org.flixel.FlxGroup;
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxState;
@@ -32,12 +33,14 @@ package state
 		private const TILE_HEIGHT:uint = 8;
 		
 		private var mapEditor:GameMapEditor = null;
-		private var xmlT:FlxXML = new FlxXML();
 		
 		private var _curMainType:uint = 0;
 		private var _curSubTyp:uint = 0;
 		
 		private var _wallGroup:FlxGroup = new FlxGroup();
+		
+		public var _wallBtn:FlxButton = null;
+		private var _btnArray:Array = new Array();
 		public function GameMapEditorState() 
 		{
 			
@@ -52,7 +55,6 @@ package state
 
 			mapEditor = new GameMapEditor( _wallGroup );
 			this.add( _wallGroup );
-			//mapEditor.generateMapDataFromXml( );
 			mapEditor.generateMapDataFromByteArray();
 			_showWidth 	= TILE_WIDTH * _showScale ;
 			_showHeight	= TILE_HEIGHT * _showScale;
@@ -75,29 +77,27 @@ package state
 			
 			this.add( testSprite );
 			*/
-			
-			var myXML:XML =  
-    <order> 
-        <item id='1' quantity='2'> 
-            <menuName>burger</menuName> 
-            <price>3.95</price> 
-        </item> 
-        <item id='2' quantity='2'> 
-            <menuName>fries</menuName> 
-            <price>1.45</price> 
-        </item> 
-    </order>;
-			
-	
-			var kagResPath:KalTxtResourcePath = new KalTxtResourcePath("default_write");
-			var filePathString:String = kagResPath.resourcePath;
-			
-			var writeFile:KalResourceDataWrite = new KalResourceDataWrite();
-			writeFile.writeDataToFile( filePathString, myXML.toString() );
 		
 			mapEditor.showWidth = _showWidth;
 			mapEditor.showHeight = _showHeight;
 			highlightBox = new FlxObject(0, 0, _showWidth, _showHeight);
+			
+			createBtn();
+		}
+		private function createBtn():void
+		{
+			_wallBtn = new FlxButton(100, 500, "wall", onBtnWallClick );
+			_wallBtn.color = 0xff729954;
+			_wallBtn.label.color = 0xffd8eba2;
+			add( _wallBtn );
+			
+			_btnArray.push( _wallBtn );
+		}
+		private function onBtnWallClick( ):void
+		{
+			var dd:int = 0;
+			//playButton.exists = false;
+			//FlxG.play(SndHit2);
 		}
 		override public function destroy():void
 		{
@@ -124,17 +124,30 @@ package state
 			
 			if (FlxG.mouse.pressed())
 			{
-				mapEditor.updateMap( hightLightPoint.x, hightLightPoint.y,_curMainType, _curSubTyp );
+				if (isBtnClicked())
+				{
+					mapEditor.updateMap( hightLightPoint.x, hightLightPoint.y,_curMainType, _curSubTyp );
+				}
 			}
-			if ( FlxG.keys.justReleased("J" ) )
+			if ( FlxG.keys.justReleased( "J" ) )
 			{
 				mapEditor.saveMapIntoFile();
 			}
 			super.update();
 		}
-		private function updateMap( xPos:int, yPos:int ):void
+		
+		private function isBtnClicked():Boolean 
 		{
-			
+			var bClick:Boolean = false;
+			for each( var btn:FlxButton in _btnArray )
+			{
+				if (!( btn.overlapsAt( FlxG.mouse.x, FlxG.mouse.y, _wallBtn ) ))
+				{
+					bClick = true;
+					break;
+				}
+			}
+			return bClick;
 		}
 	}
 
