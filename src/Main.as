@@ -19,41 +19,7 @@ package
 		public function Main()
 		{
 			
-			var kagResPath:FileByteArrayResourcePath = new FileByteArrayResourcePath("test");
-			var filePathString:String = kagResPath.resourcePath;
-			var readFile:KalResourceDataRead = new KalResourceDataRead( filePathString );
-			var dd:ByteArray = new ByteArray();
-			
-			readFile.readFileIntoByteArray( filePathString, dd );
-			var gameInfo:GameMapInfo = new GameMapInfo();
-			gameInfo.setDataFromByteArray( dd );
-			
-			
-			//var gameIn:GameMapElementInfo = gamemapInfo[0];
 			super(800, 600, GameMapEditorState, 1, 20, 20);
-			/*
-			var newMapInf:GameMapElementInfo = new GameMapElementInfo();
-			newMapInf.posX = 100;
-			newMapInf.posY = 200;
-			
-			var bytarr:ByteArray = newMapInf.getByteArray();
-			
-			var kagResPath:FileByteArrayResourcePath = new FileByteArrayResourcePath("test");
-			var filePathString:String = kagResPath.resourcePath;
-			
-			var writeFile:KalResourceDataWrite = new KalResourceDataWrite();
-			writeFile.writeBytesToFile( filePathString, bytarr );
-			
-			var readFile:KalResourceDataRead = new KalResourceDataRead( filePathString );
-			var dd:ByteArray = new ByteArray();
-			
-			readFile.readFileIntoByteArray( filePathString, dd );
-			dd.position = 0;
-			dd.uncompress(CompressionAlgorithm.DEFLATE);
-			dd.position = 0;
-			var mapInfo:GameMapElementInfo = dd.readObject();
-			var aa = 0;
-			*/
 		}
 	}
 }

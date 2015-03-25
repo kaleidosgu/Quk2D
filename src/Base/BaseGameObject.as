@@ -67,13 +67,13 @@ package Base
 			this.scale.y = scaleY;
 			_gameObjData.scaleX = scaleX;
 			_gameObjData.scaleY = scaleY;
-			_scaleTile( this.scale );
 			loadGraphic( resClass(), true, true, spriteWidth, spriteHeight );
 			_gameObjData.spriteRows = spriteRows;
 			_gameObjData.spriteCol 	= spriteCol;
 			_gameObjData.spriteCnts	= spriteCnts;
 			_gameObjData.spriteWidth = spriteWidth;
 			_gameObjData.spriteHeight = spriteHeight;
+			_scaleTile( this.scale );
 			frame = spriteRows * spriteCnts + spriteCol ;
 		}
 		protected function _scaleTile( _scaleFact:FlxPoint ):void
