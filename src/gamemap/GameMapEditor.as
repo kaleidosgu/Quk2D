@@ -9,6 +9,7 @@ package gamemap
 	import fileprocess.FileByteArrayResourcePath;
 	import flash.utils.ByteArray;
 	import gamemap.Building.BuildingWall;
+	import gamemap.Staticdata.StaticDataLoader;
 	import gameutil.UtilConvert;
 	import org.flixel.FlxGroup;
 	import org.flixel.FlxSprite;
@@ -18,7 +19,7 @@ package gamemap
 	public class GameMapEditor 
 	{
 		
-		[Embed(source="../../res/mapdata/mapinfo.xml",mimeType="application/octet-stream")]
+		[Embed(source="../../res/mapdata/mapinfo_static.xml",mimeType="application/octet-stream")]
 		protected var embXML:Class;
 		
 		private var _showWidth:uint = 0;
@@ -29,9 +30,19 @@ package gamemap
 		
 		private var _flxGroup:FlxGroup;
 		private var _gameMapInfo:GameMapInfo = new GameMapInfo();
+		
+		private var _objStaticData:Object = new Object();
 		public function GameMapEditor( flxGroup:FlxGroup ) 
 		{
 			_flxGroup = flxGroup;
+			
+			var xmlData:XML = xmlT.loadEmbedded(embXML);
+			var mapDetailXmlLst:XMLList = xmlData.child(GameMapBuildingXmlTag.BuildingWallStaticTag);
+			var loader:StaticDataLoader = new StaticDataLoader();
+			for each ( var mapDetailXml:XML in mapDetailXmlLst )
+			{
+				_objStaticData[GameMapBuildingTyp.GameMapBuildingTyp_Wall] = loader.load( mapDetailXml );	
+			}
 		}
 		public function generateMapDataFromXml():void
 		{
@@ -96,21 +107,17 @@ package gamemap
 			
 			if ( _createObj )
 			{
-				var newElementInfo:GameMapElementInfo = new GameMapElementInfo();
-				newElementInfo.scaleX = 2;
-				newElementInfo.scaleY = 2;
-				newElementInfo.mapCol = colNumber;
-				newElementInfo.mapRow = rowNumber;
-				newElementInfo.spriteWidth = 8;
-				newElementInfo.spriteHeight = 8;
-				newElementInfo.spriteCol = 0;
-				newElementInfo.spriteRows = 3;
-				newElementInfo.spriteCnts = 16;
-				_createObj.createObjectByBaseData( newElementInfo );
-				UtilConvert.convertGameObjToElementInfo( _createObj, newElementInfo );
-				_flxGroup.add( _createObj );	
-				
-				updateMapData( _createObj );
+				var obj:GameMapElementInfo = _objStaticData[GameMapBuildingTyp.GameMapBuildingTyp_Wall];
+				if ( obj )
+				{
+					obj.mapCol = colNumber;
+					obj.mapRow = rowNumber;
+					_createObj.createObjectByBaseData( obj );
+					UtilConvert.convertGameObjToElementInfo( _createObj, obj );
+					_flxGroup.add( _createObj );	
+					
+					updateMapData( _createObj );
+				}
 			}
 		}
 		

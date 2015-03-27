@@ -17,6 +17,8 @@ package gamemap
 		public static var BuildingXmlTag_SpriteRows:String = "spriteRows";
 		public static var BuildingXmlTag_SpriteLineCnts:String = "spriteLineCounts";
 		
+		public static var BuildingWallStaticTag:String = "WallStatic";
+		
 		public static var BuildingXmlTag_:String = "";
 		public function GameMapBuildingXmlTag() 
 		{
