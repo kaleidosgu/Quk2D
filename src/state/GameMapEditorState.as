@@ -132,18 +132,18 @@ package state
 			super.draw();
 			highlightBox.drawDebug();
 		}
-		private function getHightLightBoxPoint():FlxPoint
+		private function getHightLightBoxPoint( posX:Number, posY:Number ):FlxPoint
 		{
-			var flxPoint:FlxPoint = new FlxPoint();
-			flxPoint.x = Math.floor(FlxG.mouse.x / _showWidth) * _showWidth;
-			flxPoint.y = Math.floor(FlxG.mouse.y / _showHeight) * _showHeight;
+			var flxPoint:FlxPoint = new FlxPoint( posX, posY );
+			flxPoint.x = Math.floor(posX / _showWidth) * _showWidth;
+			flxPoint.y = Math.floor(posY / _showHeight) * _showHeight;
 			return flxPoint;
 		}
 		override public function update():void
 		{
-			var hightLightPoint:FlxPoint = getHightLightBoxPoint();
-			highlightBox.x = hightLightPoint.x;
-			highlightBox.y = hightLightPoint.y;
+			var hightLightPoint:FlxPoint = getHightLightBoxPoint(FlxG.mouse.x, FlxG.mouse.y);
+			highlightBox.x = FlxG.mouse.x;
+			highlightBox.y = FlxG.mouse.y;
 			
 			if (FlxG.mouse.pressed())
 			{
