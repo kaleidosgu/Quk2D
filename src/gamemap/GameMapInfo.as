@@ -62,6 +62,21 @@ package gamemap
 			UtilConvert.convertGameObjToElementInfo( gameObj, newElementInfo );
 			_arrayMapElement.push( newElementInfo );
 		}
+		
+		public function removeObj( mapRow:uint, mapCol:uint ):void
+		{
+			var elementIndex:uint = 0;
+			for each( var elementInfo:GameMapElementInfo in _arrayMapElement )
+			{
+				if ( elementInfo.mapRow == mapRow && 
+				elementInfo.mapCol == mapCol )
+				{
+					var delArray:Array = _arrayMapElement.splice( elementIndex, 1 );
+					break;
+				}
+				elementIndex++;
+			}
+		}
 
 		override public function setDataFromByteArray( bytArray:ByteArray ):void
 		{

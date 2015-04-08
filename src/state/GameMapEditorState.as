@@ -41,6 +41,7 @@ package state
 		
 		public var _wallBtn:FlxButton = null;
 		public var _gravityMachineBtn:FlxButton = null;
+		public var _removeBtn:FlxButton = null;
 		private var _btnArray:Array = new Array();
 		public function GameMapEditorState() 
 		{
@@ -51,8 +52,8 @@ package state
 		{
 			super.create();
 			
-			_curMainType = GameObjectMainTyp.GameObjectMainTyp_Building;
-			_curSubTyp = GameMapBuildingTyp.GameMapBuildingTyp_GravityMachine;
+			//_curMainType = GameObjectMainTyp.GameObjectMainTyp_Building;
+			//_curSubTyp = GameMapBuildingTyp.GameMapBuildingTyp_GravityMachine;
 
 			mapEditor = new GameMapEditor( _wallGroup );
 			this.add( _wallGroup );
@@ -87,18 +88,30 @@ package state
 		}
 		private function createBtn():void
 		{
-			_wallBtn = new FlxButton(100, 500, "wall", onBtnWallClick );
+			_wallBtn = new FlxButton(100, 0, "wall", onBtnWallClick );
 			_wallBtn.color = 0xff729954;
 			_wallBtn.label.color = 0xffd8eba2;
 			add( _wallBtn );
 			
-			_gravityMachineBtn = new FlxButton( 200, 500, "Gravity", onGravityClick );
+			_gravityMachineBtn = new FlxButton( 200, 0, "Gravity", onGravityClick );
 			_gravityMachineBtn.color = 0xff729954;
 			_gravityMachineBtn.label.color = 0xffd8eba2;
 			add( _gravityMachineBtn );
 			
+			_removeBtn = new FlxButton( 300, 0, "Remove", onRemoveBtnClick );
+			_removeBtn.color = 0xff729954;
+			_removeBtn.label.color = 0xffd8eba2;
+			add( _removeBtn );
+			
 			_btnArray.push( _wallBtn );
 			_btnArray.push( _gravityMachineBtn );
+			_btnArray.push( _removeBtn );
+			
+		}
+		private function onRemoveBtnClick():void
+		{
+			_curMainType = 0;
+			_curSubTyp = 0;
 		}
 		private function onBtnWallClick():void
 		{

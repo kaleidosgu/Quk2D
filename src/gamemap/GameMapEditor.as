@@ -110,31 +110,48 @@ package gamemap
 		{
 			var colNumber:int = xPos / _showWidth;
 			var rowNumber:int = yPos / _showHeight;
-			var _createObj:BaseGameObject = null;
-			if ( mainTyp == GameObjectMainTyp.GameObjectMainTyp_Building )
+			if ( mainTyp == GameObjectMainTyp.GameObjectMainTyp_None 
+			|| subType == GameMapBuildingTyp.GameMapBuildingTyp_None )
 			{
-				if ( subType == GameMapBuildingTyp.GameMapBuildingTyp_Wall )
+				_gameMapInfo.removeObj( rowNumber, colNumber );
+				for each( var removeObj:BaseGameObject in _flxGroup.members )
 				{
-					_createObj = buildingFactory.CreateWall( );
-				}
-				else if ( subType == GameMapBuildingTyp.GameMapBuildingTyp_GravityMachine )
-				{
-					_createObj = buildingFactory.CreateGravityMachine();
+					if ( removeObj.gameObjData.mapRow == rowNumber 
+					&& removeObj.gameObjData.mapCol == colNumber )
+					{
+						_flxGroup.remove( removeObj,true );
+						break;
+					}
 				}
 			}
-			
-			if ( _createObj )
+			else
 			{
-				var obj:GameMapElementInfo = _objStaticData[subType];
-				if ( obj )
+				var _createObj:BaseGameObject = null;
+				if ( mainTyp == GameObjectMainTyp.GameObjectMainTyp_Building )
 				{
-					obj.mapCol = colNumber;
-					obj.mapRow = rowNumber;
-					_createObj.createObjectByBaseData( obj );
-					UtilConvert.convertGameObjToElementInfo( _createObj, obj );
-					_flxGroup.add( _createObj );	
-					
-					updateMapData( _createObj );
+					if ( subType == GameMapBuildingTyp.GameMapBuildingTyp_Wall )
+					{
+						_createObj = buildingFactory.CreateWall( );
+					}
+					else if ( subType == GameMapBuildingTyp.GameMapBuildingTyp_GravityMachine )
+					{
+						_createObj = buildingFactory.CreateGravityMachine();
+					}
+				}
+				
+				if ( _createObj )
+				{
+					var obj:GameMapElementInfo = _objStaticData[subType];
+					if ( obj )
+					{
+						obj.mapCol = colNumber;
+						obj.mapRow = rowNumber;
+						_createObj.createObjectByBaseData( obj );
+						UtilConvert.convertGameObjToElementInfo( _createObj, obj );
+						_flxGroup.add( _createObj );	
+						
+						updateMapData( _createObj );
+					}
 				}
 			}
 		}
