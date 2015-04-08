@@ -51,7 +51,7 @@ package state
 			super.create();
 			
 			_curMainType = GameObjectMainTyp.GameObjectMainTyp_Building;
-			_curSubTyp = GameMapBuildingTyp.GameMapBuildingTyp_Wall;
+			_curSubTyp = GameMapBuildingTyp.GameMapBuildingTyp_GravityMachine;
 
 			mapEditor = new GameMapEditor( _wallGroup );
 			this.add( _wallGroup );

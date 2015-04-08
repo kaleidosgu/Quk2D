@@ -30,6 +30,9 @@ package gamemap.Staticdata
 			var spriteRows:uint = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameMapBuildingXmlTag.BuildingXmlTag_SpriteRows );
 			var spriteLineCnts:uint = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameMapBuildingXmlTag.BuildingXmlTag_SpriteLineCnts );
 			
+			var mainType:uint = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameObjectXmlTag.GameObjectXmlTag_mainType );
+			var subType:uint = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameObjectXmlTag.GameObjectXmlTag_subType );
+			
 			newStaticData.scaleX = scaleX;
 			newStaticData.scaleY = scaleY;
 			newStaticData.spriteWidth = spriteWidth;
@@ -37,6 +40,8 @@ package gamemap.Staticdata
 			newStaticData.spriteCol = spriteCol;
 			newStaticData.spriteRows = spriteRows;
 			newStaticData.spriteCnts = spriteLineCnts;
+			newStaticData.elementMainType = mainType;
+			newStaticData.elementSubType = subType;
 			return newStaticData;
 		}
 		

@@ -22,6 +22,10 @@ package gamemap.Building
 			
 			_gameObjData.elementSubType = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameMapBuildingXmlTag.BuildingXmlTag_MapType );
 		}
+		override public function getMainTyp():uint
+		{
+			return GameObjectMainTyp.GameObjectMainTyp_Building;
+		}
 	}
 
 }

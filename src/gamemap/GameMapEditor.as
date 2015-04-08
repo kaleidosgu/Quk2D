@@ -37,11 +37,15 @@ package gamemap
 			_flxGroup = flxGroup;
 			
 			var xmlData:XML = xmlT.loadEmbedded(embXML);
-			var mapDetailXmlLst:XMLList = xmlData.child(GameMapBuildingXmlTag.BuildingWallStaticTag);
+			var mapDetailXmlLst:XMLList = xmlData.child(GameMapBuildingXmlTag.BuildingElementStaticTag);
 			var loader:StaticDataLoader = new StaticDataLoader();
 			for each ( var mapDetailXml:XML in mapDetailXmlLst )
 			{
-				_objStaticData[GameMapBuildingTyp.GameMapBuildingTyp_Wall] = loader.load( mapDetailXml );	
+				var gameInfo:GameMapElementInfo = loader.load( mapDetailXml );	
+				if ( gameInfo )
+				{
+					_objStaticData[gameInfo.elementSubType] = gameInfo;
+				}
 			}
 		}
 		public function generateMapDataFromXml():void
@@ -51,10 +55,6 @@ package gamemap
 			
 			for each ( var mapDetailXml:XML in mapDetailXmlLst )
 			{
-				//var wall:BaseGameObject = buildingFactory.CreateBuilding(  );
-				//_flxGroup.add( wall );
-				
-				//updateMapData( wall );
 			}
 		}
 		public function generateMapDataFromByteArray():void
@@ -73,9 +73,23 @@ package gamemap
 			var arrayMapElement:Array = _gameMapInfo.getArray();
 			for each( var mapele:GameMapElementInfo in arrayMapElement )
 			{
-				var wall:BaseGameObject = buildingFactory.CreateWall();
-				wall.createObjectByBaseData( mapele );
-				_flxGroup.add( wall );
+				var gameObj:BaseGameObject = null;
+				if ( mapele.elementMainType == GameObjectMainTyp.GameObjectMainTyp_Building )
+				{
+					if ( mapele.elementSubType == GameMapBuildingTyp.GameMapBuildingTyp_GravityMachine )
+					{
+						gameObj = buildingFactory.CreateGravityMachine();
+					}
+					else if ( mapele.elementSubType == GameMapBuildingTyp.GameMapBuildingTyp_Wall )
+					{
+						gameObj = buildingFactory.CreateWall();
+					}
+				}
+				if ( gameObj != null )
+				{
+					gameObj.createObjectByBaseData( mapele );
+					_flxGroup.add( gameObj );	
+				}
 			}
 		}
 		private function updateMapData( gameObj:BaseGameObject ):void
@@ -103,11 +117,15 @@ package gamemap
 				{
 					_createObj = buildingFactory.CreateWall( );
 				}
+				else if ( subType == GameMapBuildingTyp.GameMapBuildingTyp_GravityMachine )
+				{
+					_createObj = buildingFactory.CreateGravityMachine();
+				}
 			}
 			
 			if ( _createObj )
 			{
-				var obj:GameMapElementInfo = _objStaticData[GameMapBuildingTyp.GameMapBuildingTyp_Wall];
+				var obj:GameMapElementInfo = _objStaticData[subType];
 				if ( obj )
 				{
 					obj.mapCol = colNumber;

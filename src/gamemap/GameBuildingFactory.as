@@ -2,6 +2,7 @@ package gamemap
 {
 	import Base.BaseGameObject;
 	import Base.GameBaseDataObject;
+	import gamemap.Building.BuildingGravityMachine;
 	import gamemap.Building.BuildingWall;
 	import util.UtilXmlConvertVariables;
 	/**
@@ -19,11 +20,6 @@ package gamemap
 			objFunctionFactionXml[GameMapBuildingTyp.GameMapBuildingTyp_Wall] = CreateWallXml;
 			objFunctionFaction[GameMapBuildingTyp.GameMapBuildingTyp_Wall] = CreateWall;
 		}
-		public function CreateGravityMachine():void
-		{
-			
-		}
-		
 		public function CreateTeleport():void
 		{
 			
@@ -49,6 +45,11 @@ package gamemap
 		{
 			var newWall:BuildingWall = new BuildingWall();
 			return newWall;
+		}
+		public function CreateGravityMachine():BuildingGravityMachine
+		{
+			var newMachine:BuildingGravityMachine = new BuildingGravityMachine();
+			return newMachine;
 		}
 		public function CreateWallXml( mapDetailXml:XML ):BuildingWall
 		{
