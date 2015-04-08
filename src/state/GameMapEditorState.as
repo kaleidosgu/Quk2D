@@ -40,6 +40,7 @@ package state
 		private var _wallGroup:FlxGroup = new FlxGroup();
 		
 		public var _wallBtn:FlxButton = null;
+		public var _gravityMachineBtn:FlxButton = null;
 		private var _btnArray:Array = new Array();
 		public function GameMapEditorState() 
 		{
@@ -91,13 +92,22 @@ package state
 			_wallBtn.label.color = 0xffd8eba2;
 			add( _wallBtn );
 			
+			_gravityMachineBtn = new FlxButton( 200, 500, "Gravity", onGravityClick );
+			_gravityMachineBtn.color = 0xff729954;
+			_gravityMachineBtn.label.color = 0xffd8eba2;
+			add( _gravityMachineBtn );
+			
 			_btnArray.push( _wallBtn );
+			_btnArray.push( _gravityMachineBtn );
 		}
-		private function onBtnWallClick( ):void
+		private function onBtnWallClick():void
 		{
-			var dd:int = 0;
-			//playButton.exists = false;
-			//FlxG.play(SndHit2);
+			_curMainType = GameObjectMainTyp.GameObjectMainTyp_Building;
+			_curSubTyp = GameMapBuildingTyp.GameMapBuildingTyp_Wall;
+		}
+		private function onGravityClick():void {
+			_curMainType = GameObjectMainTyp.GameObjectMainTyp_Building;
+			_curSubTyp = GameMapBuildingTyp.GameMapBuildingTyp_GravityMachine;
 		}
 		override public function destroy():void
 		{
@@ -138,12 +148,12 @@ package state
 		
 		private function isBtnClicked():Boolean 
 		{
-			var bClick:Boolean = false;
+			var bClick:Boolean = true;
 			for each( var btn:FlxButton in _btnArray )
 			{
-				if (!( btn.overlapsAt( FlxG.mouse.x, FlxG.mouse.y, _wallBtn ) ))
+				if (( btn.overlapsAt( FlxG.mouse.x, FlxG.mouse.y, btn ) ))
 				{
-					bClick = true;
+					bClick = false;
 					break;
 				}
 			}
