@@ -63,23 +63,6 @@ package state
 			
 			FlxG.visualDebug = true;
 			
-			/*
-			var testSprite:FlxSprite = new FlxSprite( 0, 0, myblock );
-			testSprite.ignoreDrawDebug = false;
-			//testSprite.x = 15;
-			//testSprite.y = 15;
-			testSprite.loadGraphic( myblock, true, true, 8, 8 );
-			testSprite.frame = 3 * 16;
-			testSprite.scale.x = _showScale;
-			testSprite.scale.y = _showScale;
-			testSprite.offset.x -= 8 * ( _showScale - 1 ) / 2; 
-			testSprite.offset.y -= 8 * ( _showScale - 1 ) / 2;
-			testSprite.x = 0;
-			testSprite.y = 0;
-			
-			this.add( testSprite );
-			*/
-		
 			mapEditor.showWidth = _showWidth;
 			mapEditor.showHeight = _showHeight;
 			highlightBox = new FlxObject(0, 0, _showWidth, _showHeight);

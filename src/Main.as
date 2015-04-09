@@ -8,6 +8,7 @@ package
 	import gamemap.GameMapInfo;
 	import org.flixel.*;
 	import state.GameMapEditorState;
+	import state.GamePlayState;
 	import util.KalResourceDataRead;
 	import util.KalResourceDataWrite;
 	import util.KalTxtResourcePath;
@@ -18,8 +19,8 @@ package
 	{
 		public function Main()
 		{
-			
-			super(800, 600, GameMapEditorState, 1, 20, 20);
+			//super(800, 600, GameMapEditorState, 1, 20, 20);
+			super(800, 600, GamePlayState, 1, 60, 60);
 		}
 	}
 }
