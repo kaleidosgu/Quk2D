@@ -1,6 +1,7 @@
 package state 
 {
 	import flash.events.KeyboardEvent;
+	import fsm.PlayerFSM;
 	import gamemap.GameMapEditor;
 	import org.flixel.FlxG;
 	import org.flixel.FlxGroup;
@@ -31,6 +32,8 @@ package state
 		private var inputMgr:InputControllerManager = null;
 		private var uiControl:UIInputController = new UIInputController();
 		private var gamePlayControl:GamePlayInputController = new GamePlayInputController();
+		
+		private var _playerFsm:PlayerFSM = null;
 		public function GamePlayState() 
 		{
 			
@@ -48,19 +51,10 @@ package state
 			mapEditor.showWidth = _showWidth;
 			mapEditor.showHeight = _showHeight;
 			setupPlayer();
+			inputControlSet();
 			
-			inputMgr = new InputControllerManager( FlxG.stage );
-			uiControl.registeController( inputMgr );
-			gamePlayControl.registeController( inputMgr );
-			
-			FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
-		}
-		private function onKeyDown( FlashEvent:KeyboardEvent ):void
-		{
-			if ( FlashEvent.keyCode == FlxG.keys.getKeyCode( "A" ) )
-			{
-				var test:int = 0;
-			}
+			_playerFsm = new PlayerFSM( FlxG.stage, player );
+			_playerFsm.addListener();
 		}
 		private function setupPlayer():void
 		{
@@ -101,6 +95,12 @@ package state
 		{
 			player.drag.x = 300;
 			_playerCollide = false;
+		}
+		private function inputControlSet():void
+		{
+			inputMgr = new InputControllerManager( FlxG.stage );
+			uiControl.registeController( inputMgr );
+			gamePlayControl.registeController( inputMgr );
 		}
 	}
 

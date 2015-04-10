@@ -14,7 +14,6 @@ package gamemap.Building
 		public function BuildingWall() 
 		{
 			super();
-			immovable = true;
 		}
 		override public function createObjectByXml( mapDetailXml:XML ):void
 		{

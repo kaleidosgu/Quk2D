@@ -2,6 +2,7 @@ package util.InputController
 {
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
+	import org.flixel.FlxG;
 	/**
 	 * ...
 	 * @author kaleidos
@@ -21,9 +22,9 @@ package util.InputController
 		{
 			return false;
 		}
-		public function processKeyboardEvent( keyEvt:KeyboardEvent ):Boolean
+		public function processKeyboardEvent( keyEvt:KeyboardEvent, down:Boolean ):Boolean
 		{
-			return true;
+			return false;
 		}
 		
 	}

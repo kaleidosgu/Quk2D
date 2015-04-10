@@ -15,6 +15,7 @@ package gamemap.Building
 		public function BaseBuildingObject() 
 		{
 			super();
+			immovable = true;
 		}
 		override public function createObjectByXml( mapDetailXml:XML ):void
 		{

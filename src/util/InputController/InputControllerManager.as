@@ -1,6 +1,7 @@
 package util.InputController 
 {
 	import flash.display.Stage;
+	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	/**
 	 * ...
@@ -23,17 +24,29 @@ package util.InputController
 		}
 		protected function onKeyUp(FlashEvent:KeyboardEvent):void
 		{
+			loopControllerForKeyEvent( FlashEvent, false );
 		}
 		
 		protected function onKeyDown(FlashEvent:KeyboardEvent):void
 		{
+			loopControllerForKeyEvent( FlashEvent, true );
+		}
+		private function loopControllerForKeyEvent( flashEvent:KeyboardEvent, keyDown:Boolean ):void
+		{
 			for each( var iCon:IInputController in _controllerArray )
 			{
-				var bProcess:Boolean = iCon.processKeyboardEvent( FlashEvent );
+				var bProcess:Boolean = iCon.processKeyboardEvent( flashEvent, keyDown );
 				if ( bProcess )
 				{
 					break;
 				}
+			}
+		}
+		public function dispatchEvent( evt:Event ):void
+		{
+			if ( _stageSprite )
+			{
+				_stageSprite.dispatchEvent( evt );
 			}
 		}
 	}
