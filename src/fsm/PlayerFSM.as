@@ -3,6 +3,8 @@ package fsm
 	import flash.display.Stage;
 	import gameEvent.PlayerInputActionEvent;
 	import gameEvent.PlayerInputActionType;
+	import org.flixel.FlxG;
+	import org.flixel.FlxObject;
 	import org.flixel.FlxSprite;
 	/**
 	 * ...
@@ -39,6 +41,24 @@ package fsm
 				else if ( evt.playerActionType == PlayerInputActionType.Player_Move_Stop )
 				{
 					_player.acceleration.x = 0;
+				}
+				else if ( evt.playerActionType == PlayerInputActionType.Player_Jump )
+				{
+					if ( _player.velocity.y == 0 )
+					{
+						_player.velocity.y = -200;	
+					}
+				}
+				else if ( evt.playerActionType == PlayerInputActionType.Player_Direction )
+				{
+					if ( _player.x >= FlxG.mouse.x )
+					{
+						_player.facing = FlxObject.LEFT;
+					}
+					else
+					{
+						_player.facing = FlxObject.RIGHT;
+					}
 				}
 			}
 		}

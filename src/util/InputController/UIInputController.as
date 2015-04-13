@@ -18,11 +18,15 @@ package util.InputController
 		{
 			mgr.registeController( this );
 		}
-		public function processMouseEvent( mouseEvt:MouseEvent ):Boolean
+		public function ProcessMouseMoveEvent( mouseEvt:MouseEvent ):Boolean
 		{
 			return false;
 		}
 		public function processKeyboardEvent( keyEvt:KeyboardEvent, down:Boolean ):Boolean
+		{
+			return false;
+		}
+		public function processMouseEvent( mouseEvt:MouseEvent ):Boolean
 		{
 			return false;
 		}

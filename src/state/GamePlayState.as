@@ -18,6 +18,7 @@ package state
 	public class GamePlayState extends FlxState 
 	{
 		[Embed(source = "../../res/images/spaceman.png")] private static var ImgSpaceman:Class;
+		[Embed(source = "../../res/images/cursor.png")] private static var ImgCursor:Class;
 		private var _showWidth:uint = 0;
 		private var _showHeight:uint = 0;
 		private var _showScale:uint = 2;
@@ -28,6 +29,7 @@ package state
 		
 		private var _wallGroup:FlxGroup = new FlxGroup();
 		private var player:FlxSprite = null;
+		private var cursorMouse:FlxSprite = null;
 		private var _playerCollide:Boolean = false;
 		private var inputMgr:InputControllerManager = null;
 		private var uiControl:UIInputController = new UIInputController();
@@ -61,6 +63,10 @@ package state
 			player = new FlxSprite(30, 0);
 			player.loadGraphic(ImgSpaceman, true, true, 16);
 			
+			cursorMouse = new FlxSprite( 0, 0 );
+			cursorMouse.loadGraphic( ImgCursor, true, true, 15 );
+			add( cursorMouse );
+			
 			player.width = 14;
 			player.height = 14;
 			player.offset.x = 1;
@@ -90,6 +96,8 @@ package state
 		{
 			super.update();
 			FlxG.collide( player, _wallGroup, playerNocollideTile );
+			cursorMouse.x = FlxG.mouse.x;
+			cursorMouse.y = FlxG.mouse.y;
 		}
 		private function playerNocollideTile( flxObj1:FlxObject, flxObj2:FlxObject ):void
 		{

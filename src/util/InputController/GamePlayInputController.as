@@ -21,8 +21,12 @@ package util.InputController
 			mgr.registeController( this );
 			_mgr = mgr;
 		}
-		public function processMouseEvent( mouseEvt:MouseEvent ):Boolean
+		public function ProcessMouseMoveEvent( mouseEvt:MouseEvent ):Boolean
 		{
+			var evt:PlayerInputActionEvent = null;
+			evt = new PlayerInputActionEvent( PlayerInputActionEvent.PLAYER_INPUT_ACTION_EVENT );
+			evt.playerActionType = PlayerInputActionType.Player_Direction;
+			_mgr.dispatchEvent( evt );
 			return false;
 		}
 		public function processKeyboardEvent( keyEvt:KeyboardEvent, down:Boolean ):Boolean
@@ -53,6 +57,11 @@ package util.InputController
 					evt.playerActionType = PlayerInputActionType.Player_Move_Stop;
 				}
 			}
+			else if ( keyEvt.keyCode == FlxG.keys.getKeyCode( "W" ) )
+			{
+				evt = new PlayerInputActionEvent( PlayerInputActionEvent.PLAYER_INPUT_ACTION_EVENT );
+				evt.playerActionType = PlayerInputActionType.Player_Jump;
+			}
 			if ( evt )
 			{
 				_mgr.dispatchEvent( evt );	
@@ -60,7 +69,11 @@ package util.InputController
 			}
 			return bRes;
 		}
-		
+
+		public function processMouseEvent( mouseEvt:MouseEvent ):Boolean
+		{
+			return false;
+		}		
 	}
 
 }
