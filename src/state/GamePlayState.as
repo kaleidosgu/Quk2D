@@ -3,6 +3,7 @@ package state
 	import flash.events.KeyboardEvent;
 	import fsm.PlayerFSM;
 	import gamemap.GameMapEditor;
+	import gameplay.GameShootingGamePlay;
 	import org.flixel.FlxG;
 	import org.flixel.FlxGroup;
 	import org.flixel.FlxObject;
@@ -36,6 +37,7 @@ package state
 		private var gamePlayControl:GamePlayInputController = new GamePlayInputController();
 		
 		private var _playerFsm:PlayerFSM = null;
+		private var _shootingGamePlay:GameShootingGamePlay = null;
 		public function GamePlayState() 
 		{
 			
@@ -57,6 +59,8 @@ package state
 			
 			_playerFsm = new PlayerFSM( FlxG.stage, player );
 			_playerFsm.addListener();
+			
+			_shootingGamePlay = new GameShootingGamePlay( this, player, FlxG.stage );
 		}
 		private function setupPlayer():void
 		{
@@ -98,6 +102,7 @@ package state
 			FlxG.collide( player, _wallGroup, playerNocollideTile );
 			cursorMouse.x = FlxG.mouse.x;
 			cursorMouse.y = FlxG.mouse.y;
+			_shootingGamePlay.update();
 		}
 		private function playerNocollideTile( flxObj1:FlxObject, flxObj2:FlxObject ):void
 		{

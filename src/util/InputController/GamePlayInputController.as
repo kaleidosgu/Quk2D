@@ -70,9 +70,12 @@ package util.InputController
 			return bRes;
 		}
 
-		public function processMouseEvent( mouseEvt:MouseEvent ):Boolean
+		public function processMouseEvent( mouseEvt:MouseEvent, down:Boolean ):Boolean
 		{
-			return false;
+			var evt:PlayerInputActionEvent = new PlayerInputActionEvent( PlayerInputActionEvent.PLAYER_INPUT_ACTION_EVENT );
+			evt.playerActionType = down ? PlayerInputActionType.Player_Shoot_On : PlayerInputActionType.Player_Shoot_Off;
+			_mgr.dispatchEvent( evt );
+			return true;
 		}		
 	}
 

@@ -26,7 +26,7 @@ package util.InputController
 		{
 			return false;
 		}
-		public function processMouseEvent( mouseEvt:MouseEvent ):Boolean
+		public function processMouseEvent( mouseEvt:MouseEvent, down:Boolean ):Boolean
 		{
 			return false;
 		}

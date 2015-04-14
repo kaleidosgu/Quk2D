@@ -21,11 +21,11 @@ package util.InputController
 			_stageSprite.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
 			
 			_stageSprite.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMoveEvent);
-			//_stageSprite.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
+			_stageSprite.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
+			_stageSprite.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
 		}
 		public function onMouseMoveEvent( evt:MouseEvent ):void
 		{
-			trace("mouse down");
 			for each( var iCon:IInputController in _controllerArray )
 			{
 				var bProcess:Boolean = iCon.ProcessMouseMoveEvent( evt );
@@ -35,11 +35,19 @@ package util.InputController
 				}
 			}
 		}
-		public function onMouseEvent( evt:MouseEvent ):void
+		private function onMouseDown( evt:MouseEvent ):void
+		{
+			onMouseEvent( evt, true );
+		}
+		private function onMouseUp( evt:MouseEvent ):void
+		{
+			onMouseEvent( evt, false );
+		}
+		public function onMouseEvent( evt:MouseEvent, down:Boolean ):void
 		{
 			for each( var iCon:IInputController in _controllerArray )
 			{
-				var bProcess:Boolean = iCon.ProcessMouseMoveEvent( evt );
+				var bProcess:Boolean = iCon.processMouseEvent( evt, down );
 				if ( bProcess )
 				{
 					break;
