@@ -3,3 +3,7 @@ http://www.ducksoup-games.com/games_content/ducksoupDungeon/
 
 https://33.media.tumblr.com/59e0fbef6b00c66b97b7d47612204c66/tumblr_nmqmscTTKp1tah9pwo7_1280.gif
 http://dodgeroll.com/gungeon/
+
+ÉÁµçÐ§¹û
+http://gamedevelopment.tutsplus.com/tutorials/how-to-generate-shockingly-good-2d-lightning-effects--gamedev-2681
+http://flashgamedojo.com/wiki/index.php?title=Dynamic_Lighting_(Flixel)

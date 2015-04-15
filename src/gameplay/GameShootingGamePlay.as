@@ -1,14 +1,18 @@
 package gameplay 
 {
 	import flash.display.Stage;
+	import flash.geom.Point;
 	import gameEvent.PlayerInputActionEvent;
 	import gameEvent.PlayerInputActionType;
+	import org.flixel.FlxEmitter;
 	import org.flixel.FlxG;
 	import org.flixel.FlxObject;
+	import org.flixel.FlxParticle;
 	import org.flixel.FlxPath;
 	import org.flixel.FlxPoint;
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxState;
+	import util.Math.MathRandomUtil;
 	/**
 	 * ...
 	 * @author kaleidos
@@ -21,12 +25,22 @@ package gameplay
 		private var _gameState:FlxState = null;
 		private var _gameStage:Stage = null;
 		private var _lastTime:Number = 0;
+		
+		private var _reloadTime:Number = 30;
+		
+		private var _lightbotArray:Array = new Array();
+		
+		private var _drawLineSprite:FlxSprite = null;
 		public function GameShootingGamePlay( state:FlxState, player:FlxSprite, stage:Stage ) 
 		{
 			_gameState = state;
 			_playerSprite = player;
 			_gameStage = stage;
 			_gameStage.addEventListener( PlayerInputActionEvent.PLAYER_INPUT_ACTION_EVENT, onActionEvt );
+			
+			_drawLineSprite = new FlxSprite(0, 0 );
+			_drawLineSprite.makeGraphic(FlxG.width, FlxG.height, 0x000000 );
+			_gameState.add(_drawLineSprite);
 		}
 		
 		public function update():void
@@ -52,15 +66,83 @@ package gameplay
 		}
 		private function fireBullet( startX:Number, startY:Number, endX:Number, endY:Number ):void
 		{
+			
 			var canShoot:Boolean = false;
 			var currTime:Number = new Date().time;
-			if ( currTime - _lastTime > 700 )
+			if ( currTime - _lastTime > _reloadTime )
 			{
 				_lastTime = currTime;
 				canShoot = true;
 			}
 			if ( canShoot )
 			{
+				_drawLineSprite.fill( 0x000000 );
+				createLightning( startX, startY, endX, endY );
+			}
+		}
+		
+		private function createLightning( startX:Number, startY:Number, endX:Number, endY:Number ):void
+		{
+			var ptXArray:Array = new Array();
+			var currentPointX:Number = startX;
+			ptXArray.push( currentPointX );
+			for ( var ind:uint = 0; ind < 10; ind++ )
+			{
+				currentPointX = currentPointX + MathRandomUtil.randRange( 10, 50 );
+				ptXArray.push ( currentPointX );
+			}
+			var ptArray:Array = new Array();
+			var lastPointY:Number = 0;
+			//ptArray.push( new Point( startX, 0 ) ) ;
+			for each( var ptX:Number in ptXArray )
+			{
+				var localPointY:Number = MathRandomUtil.randRange( -5, 5 );
+				if ( ( lastPointY + localPointY > 10 ) || ( lastPointY + localPointY < -10 ) )
+				{
+					localPointY = -localPointY;
+				}
+				lastPointY = localPointY;
+				ptArray.push( new Point( ptX, localPointY ) );
+			}
+			
+			var arrayGenerated:Boolean = !( _lightbotArray.length == 0 );
+			var bulletIndex:uint = 0;
+			var lastPtElement:Point = null;
+			for each( var ptElement:Point in ptArray )
+			{
+				var posY:Number = ptElement.y + startY;
+				if ( arrayGenerated == false )
+				{
+					var bulletSpriteNew:FlxSprite = new FlxSprite(ptElement.x, posY, ImgBullet );
+					_gameState.add( bulletSpriteNew );	
+					_lightbotArray.push( bulletSpriteNew );
+				}
+				else
+				{
+					var bulletSprite:FlxSprite = _lightbotArray[bulletIndex];
+					bulletSprite.x = ptElement.x;
+					bulletSprite.y = posY;
+				}
+				if ( lastPtElement != null )
+				{
+					_drawLineSprite.drawLine( lastPtElement.x , lastPtElement.y + startY, ptElement.x,  posY, 0xff0000 );
+				}
+				lastPtElement = ptElement;
+				bulletIndex++;
+			}
+		}
+		private function fireBullet2( startX:Number, startY:Number, endX:Number, endY:Number ):void
+		{
+			var canShoot:Boolean = false;
+			var currTime:Number = new Date().time;
+			if ( currTime - _lastTime > _reloadTime )
+			{
+				_lastTime = currTime;
+				canShoot = true;
+			}
+			if ( canShoot )
+			{
+				
 				var startPoint:FlxPoint = new FlxPoint( startX, startY );
 				var endPoint:FlxPoint = new FlxPoint( endX , endY );
 				
@@ -76,6 +158,20 @@ package gameplay
 				var cosAngle:Number = widthLength / rLength;
 				bulletSprite.velocity.x = cosAngle* 1000 ;
 				bulletSprite.velocity.y = sinAngle * 1000 ;
+				
+				/* particle effect
+				var emitter:FlxEmitter = new FlxEmitter(100, 100); //x and y of the emitter
+				emitter.minParticleSpeed.x = -100;
+				emitter.minParticleSpeed.y = -100;
+				
+				emitter.maxParticleSpeed.y = 100;
+				emitter.maxParticleSpeed.x = 100;
+				emitter.maxRotation = 10;
+				emitter.minRotation = 10;
+				kk( emitter );
+				_gameState.add(emitter);
+				emitter.start(true, 0.2,5 );
+				*/
 			}
 		}
 		
@@ -87,6 +183,18 @@ package gameplay
 		public function set shootSwitchOn(value:Boolean):void 
 		{
 			_shootSwitchOn = value;
+		}
+		
+		public function kk(emitter:FlxEmitter ):void
+		{
+			for(var i:int = 0; i < 3; i++)
+			{
+				var particle:FlxParticle = new FlxParticle();
+				particle.makeGraphic(2, 2, 0xffffffff);
+				particle.exists = false;
+				particle.lifespan = 50;
+				emitter.add(particle);
+			}
 		}
 		
 	}
