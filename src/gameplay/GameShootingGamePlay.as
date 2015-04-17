@@ -86,9 +86,9 @@ package gameplay
 			var ptXArray:Array = new Array();
 			var currentPointX:Number = startX;
 			ptXArray.push( currentPointX );
-			for ( var ind:uint = 0; ind < 10; ind++ )
+			for ( var ind:uint = 0; ind < 50; ind++ )
 			{
-				currentPointX = currentPointX + MathRandomUtil.randRange( 10, 50 );
+				currentPointX = currentPointX + MathRandomUtil.randRange( 5, 10 );
 				ptXArray.push ( currentPointX );
 			}
 			var ptArray:Array = new Array();
@@ -96,7 +96,7 @@ package gameplay
 			//ptArray.push( new Point( startX, 0 ) ) ;
 			for each( var ptX:Number in ptXArray )
 			{
-				var localPointY:Number = MathRandomUtil.randRange( -5, 5 );
+				var localPointY:Number = MathRandomUtil.randRange( -25, 25 );
 				if ( ( lastPointY + localPointY > 10 ) || ( lastPointY + localPointY < -10 ) )
 				{
 					localPointY = -localPointY;
