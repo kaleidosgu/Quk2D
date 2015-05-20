@@ -49,7 +49,8 @@ package gameplay
 			{
 				if ( _playerSprite )
 				{
-					fireBullet( _playerSprite.x, _playerSprite.y, FlxG.mouse.x, FlxG.mouse.y );
+					//fireBullet( _playerSprite.x, _playerSprite.y, FlxG.mouse.x, FlxG.mouse.y );
+					fireBullet2( _playerSprite.x, _playerSprite.y, FlxG.mouse.x, FlxG.mouse.y );
 				}
 			}
 		}
@@ -64,7 +65,7 @@ package gameplay
 				_shootSwitchOn = false;
 			}
 		}
-		private function fireBullet( startX:Number, startY:Number, endX:Number, endY:Number ):void
+		private function fireBulletLighting( startX:Number, startY:Number, endX:Number, endY:Number ):void
 		{
 			
 			var canShoot:Boolean = false;
