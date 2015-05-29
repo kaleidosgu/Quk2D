@@ -169,7 +169,7 @@ package gameplay
 				emitter.maxParticleSpeed.x = 100;
 				emitter.maxRotation = 10;
 				emitter.minRotation = 10;
-				kk( emitter );
+				generateEmitter( emitter );
 				_gameState.add(emitter);
 				emitter.start(true, 0.2,5 );
 				*/
@@ -186,7 +186,7 @@ package gameplay
 			_shootSwitchOn = value;
 		}
 		
-		public function kk(emitter:FlxEmitter ):void
+		public function generateEmitter(emitter:FlxEmitter ):void
 		{
 			for(var i:int = 0; i < 3; i++)
 			{

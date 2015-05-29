@@ -87,24 +87,16 @@ package state
 			
 			add(player);
 		}
-		override public function destroy():void
-		{
-			super.destroy();
-		}
-		
-		public override function draw():void
-		{
-			super.draw();
-		}
 		override public function update():void
 		{
 			super.update();
-			FlxG.collide( player, _wallGroup, playerNocollideTile );
+			FlxG.collide( player, _wallGroup, playerNoCollideTile );
 			cursorMouse.x = FlxG.mouse.x;
 			cursorMouse.y = FlxG.mouse.y;
 			_shootingGamePlay.update();
 		}
-		private function playerNocollideTile( flxObj1:FlxObject, flxObj2:FlxObject ):void
+		//todo 这里碰撞后无效，是否仍旧需要放在这里？
+		private function playerNoCollideTile( flxObj1:FlxObject, flxObj2:FlxObject ):void
 		{
 			player.drag.x = 300;
 			_playerCollide = false;
@@ -114,6 +106,15 @@ package state
 			inputMgr = new InputControllerManager( FlxG.stage );
 			uiControl.registeController( inputMgr );
 			gamePlayControl.registeController( inputMgr );
+		}
+		override public function destroy():void
+		{
+			super.destroy();
+		}
+		
+		public override function draw():void
+		{
+			super.draw();
 		}
 	}
 
