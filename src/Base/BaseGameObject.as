@@ -2,7 +2,10 @@ package Base
 {
 	import gamemap.GameMapBuildingXmlTag;
 	import gamemap.GameMapElementInfo;
+	import org.flixel.FlxBasic;
+	import org.flixel.FlxG;
 	import org.flixel.FlxGroup;
+	import org.flixel.FlxObject;
 	import org.flixel.FlxPoint;
 	import org.flixel.FlxSprite;
 	import util.UtilXmlConvertVariables;
@@ -14,6 +17,8 @@ package Base
 	public class BaseGameObject extends FlxSprite 
 	{
 		protected var _gameObjData:GameBaseDataObject = null;
+		private var _arrayActorCollide:Array = null;
+		private var _selfGroup:FlxGroup	= null;
 		public function BaseGameObject( ) 
 		{
 			super();
@@ -105,6 +110,34 @@ package Base
 		public function set gameObjData(value:GameBaseDataObject):void 
 		{
 			_gameObjData = value;
+		}
+		
+		public function get arrayActorCollide():Array 
+		{
+			return _arrayActorCollide;
+		}
+		
+		public function set arrayActorCollide(value:Array):void 
+		{
+			_arrayActorCollide = value;
+		}
+		
+		public function setSelfGroup(value:FlxGroup):void 
+		{
+			_selfGroup = value;
+			value.add( this );
+		}
+		override public function update():void
+		{
+			super.update();
+			for each( var actor:FlxBasic in _arrayActorCollide )
+			{
+				//FlxG.collide( actor, _selfGroup, actorCollided );	
+			}
+		}
+		protected function actorCollided( flxObj1:FlxObject, flxObj2:FlxObject ):void
+		{
+			
 		}
 	}
 

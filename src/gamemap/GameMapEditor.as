@@ -11,8 +11,10 @@ package gamemap
 	import gamemap.Building.BuildingWall;
 	import gamemap.Staticdata.StaticDataLoader;
 	import gameutil.UtilConvert;
+	import org.flixel.FlxBasic;
 	import org.flixel.FlxGroup;
 	import org.flixel.FlxSprite;
+	import org.flixel.FlxState;
 	import org.flixel.FlxXML;
 	import util.KalResourceDataRead;
 	import util.KalResourceDataWrite;
@@ -28,13 +30,18 @@ package gamemap
 		private var xmlT:FlxXML = new FlxXML();
 		private var buildingFactory:GameBuildingFactory = new GameBuildingFactory();
 		
-		private var _flxGroup:FlxGroup;
+		//todo delete
+		//private var _flxGroup:FlxGroup;
 		private var _gameMapInfo:GameMapInfo = new GameMapInfo();
 		
 		private var _objStaticData:Object = new Object();
-		public function GameMapEditor( flxGroup:FlxGroup ) 
+		
+		private var _objBuildingGroupData:Object = new Object();
+		private var _flxStateIn:FlxState = null;
+		private var _arrayCollideActor:Array = new Array();
+		public function GameMapEditor( _flxState:FlxState ) 
 		{
-			_flxGroup = flxGroup;
+			_flxStateIn = _flxState;
 			
 			var xmlData:XML = xmlT.loadEmbedded(embXML);
 			var mapDetailXmlLst:XMLList = xmlData.child(GameMapBuildingXmlTag.BuildingElementStaticTag);
@@ -57,9 +64,9 @@ package gamemap
 			{
 			}
 		}
-		public function generateMapDataFromByteArray():void
+		public function generateMapDataFromByteArray( resFileName:String ):void
 		{
-			var kagResPath:FileByteArrayResourcePath = new FileByteArrayResourcePath("test");
+			var kagResPath:FileByteArrayResourcePath = new FileByteArrayResourcePath( resFileName );
 			var filePathString:String = kagResPath.resourcePath;
 			var readFile:KalResourceDataRead = new KalResourceDataRead( filePathString );
 			var readedByteArray:ByteArray = new ByteArray();
@@ -67,6 +74,18 @@ package gamemap
 			readFile.readFileIntoByteArray( filePathString, readedByteArray );
 			_gameMapInfo.setDataFromByteArray( readedByteArray );
 			updateMapDataFromMapInfo();
+		}
+		private function getBuildingGroup( buildingTyp:int ):FlxGroup
+		{
+			var _BuildingGroup:FlxGroup = _objBuildingGroupData[buildingTyp];
+			
+			if ( _BuildingGroup == null )
+			{
+				_BuildingGroup = new FlxGroup();
+				_objBuildingGroupData[buildingTyp] = _BuildingGroup;
+				_flxStateIn.add( _BuildingGroup );
+			}
+			return _BuildingGroup;
 		}
 		private function updateMapDataFromMapInfo():void
 		{
@@ -76,6 +95,7 @@ package gamemap
 				var gameObj:BaseGameObject = null;
 				if ( mapele.elementMainType == GameObjectMainTyp.GameObjectMainTyp_Building )
 				{
+					var _BuildingGroup:FlxGroup = getBuildingGroup( mapele.elementSubType );
 					if ( mapele.elementSubType == GameMapBuildingTyp.GameMapBuildingTyp_GravityMachine )
 					{
 						gameObj = buildingFactory.CreateGravityMachine();
@@ -87,8 +107,9 @@ package gamemap
 				}
 				if ( gameObj != null )
 				{
+					gameObj.setSelfGroup( _BuildingGroup );
 					gameObj.createObjectByBaseData( mapele );
-					_flxGroup.add( gameObj );	
+					gameObj.arrayActorCollide = _arrayCollideActor;
 				}
 			}
 		}
@@ -113,8 +134,9 @@ package gamemap
 			if ( mainTyp == GameObjectMainTyp.GameObjectMainTyp_None 
 			|| subType == GameMapBuildingTyp.GameMapBuildingTyp_None )
 			{
+				//todo 删除这里有问题
 				_gameMapInfo.removeObj( rowNumber, colNumber );
-				for each( var removeObj:BaseGameObject in _flxGroup.members )
+				/*for each( var removeObj:BaseGameObject in _flxGroup.members )
 				{
 					if ( removeObj.gameObjData.mapRow == rowNumber 
 					&& removeObj.gameObjData.mapCol == colNumber )
@@ -122,7 +144,7 @@ package gamemap
 						_flxGroup.remove( removeObj,true );
 						break;
 					}
-				}
+				}*/
 			}
 			else
 			{
@@ -148,7 +170,8 @@ package gamemap
 						obj.mapRow = rowNumber;
 						_createObj.createObjectByBaseData( obj );
 						UtilConvert.convertGameObjToElementInfo( _createObj, obj );
-						_flxGroup.add( _createObj );	
+						var _buildingGroup:FlxGroup = getBuildingGroup( subType );
+						_buildingGroup.add( _createObj );	
 						
 						updateMapData( _createObj );
 					}
@@ -174,6 +197,11 @@ package gamemap
 		public function set showHeight(value:uint):void 
 		{
 			_showHeight = value;
+		}
+		
+		public function addCollideActor( actorFlx:FlxBasic ):void
+		{
+			_arrayCollideActor.push( actorFlx );
 		}
 	}
 

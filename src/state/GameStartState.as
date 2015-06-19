@@ -79,7 +79,7 @@ package state
 		{
 			// Tilemaps can be collided just like any other FlxObject, and flixel
 			// automatically collides each individual tile with the object.
-			FlxG.collide(player, tileGroup);
+			FlxG.collide(player, tileGroup, onTileGroupCollide );
 			
 			/*
 			var hightLightPoint:FlxPoint = getHightLightBoxPoint();
@@ -96,6 +96,11 @@ package state
 			
 		}
 		
+		private function onTileGroupCollide( flxObj1:FlxObject, flxObj2:FlxObject ):void
+		{
+			//flxObj1.acceleration.y -= 50;
+			player.velocity.y -= 350;
+		}
 		private function updatePlayer():void
 		{
 			wrap(player);

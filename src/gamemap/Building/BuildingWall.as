@@ -2,6 +2,7 @@ package gamemap.Building
 {
 	import gamemap.GameMapBuildingTyp;
 	import org.flixel.FlxGroup;
+	import org.flixel.FlxObject;
 	/**
 	 * ...
 	 * @author kaleidos
@@ -26,6 +27,11 @@ package gamemap.Building
 		override public function getSubTyp():uint
 		{
 			return GameMapBuildingTyp.GameMapBuildingTyp_Wall;
+		}
+		override protected function actorCollided( flxObj1:FlxObject, flxObj2:FlxObject ):void
+		{
+			super.actorCollided ( flxObj1, flxObj2 );
+			//flxObj1.drag.x = 300;
 		}
 	}
 

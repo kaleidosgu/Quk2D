@@ -41,7 +41,7 @@ package gamemap
 		{
 			
 		}
-		public function CreateWall(  ):BuildingWall
+		public function CreateWall():BuildingWall
 		{
 			var newWall:BuildingWall = new BuildingWall();
 			return newWall;
@@ -74,9 +74,6 @@ package gamemap
 			else
 			{
 				newWall = new BuildingWall();
-				//newWall.createObjectByXml( objXml );
-				//newWallsetWorldData;
-				//createObjectByParam
 			}
 			return newWall;
 		}

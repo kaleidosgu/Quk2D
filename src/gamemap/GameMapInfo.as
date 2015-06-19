@@ -68,8 +68,7 @@ package gamemap
 			var elementIndex:uint = 0;
 			for each( var elementInfo:GameMapElementInfo in _arrayMapElement )
 			{
-				if ( elementInfo.mapRow == mapRow && 
-				elementInfo.mapCol == mapCol )
+				if ( elementInfo.mapRow == mapRow && elementInfo.mapCol == mapCol )
 				{
 					var delArray:Array = _arrayMapElement.splice( elementIndex, 1 );
 					break;

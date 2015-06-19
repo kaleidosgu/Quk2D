@@ -28,7 +28,6 @@ package state
 		
 		private var mapEditor:GameMapEditor = null;
 		
-		private var _wallGroup:FlxGroup = new FlxGroup();
 		private var player:FlxSprite = null;
 		private var cursorMouse:FlxSprite = null;
 		private var _playerCollide:Boolean = false;
@@ -46,15 +45,15 @@ package state
 		override public function create():void
 		{
 			super.create();
-			mapEditor = new GameMapEditor( _wallGroup );
-			this.add( _wallGroup );
-			mapEditor.generateMapDataFromByteArray();
+			setupPlayer();
+			mapEditor = new GameMapEditor( this );
+			mapEditor.addCollideActor( player );
+			mapEditor.generateMapDataFromByteArray( "test" );
 			_showWidth 	= TILE_WIDTH * _showScale ;
 			_showHeight	= TILE_HEIGHT * _showScale;
 						
 			mapEditor.showWidth = _showWidth;
 			mapEditor.showHeight = _showHeight;
-			setupPlayer();
 			inputControlSet();
 			
 			_playerFsm = new PlayerFSM( FlxG.stage, player );
@@ -90,16 +89,9 @@ package state
 		override public function update():void
 		{
 			super.update();
-			FlxG.collide( player, _wallGroup, playerNoCollideTile );
 			cursorMouse.x = FlxG.mouse.x;
 			cursorMouse.y = FlxG.mouse.y;
 			_shootingGamePlay.update();
-		}
-		//todo 这里碰撞后无效，是否仍旧需要放在这里？
-		private function playerNoCollideTile( flxObj1:FlxObject, flxObj2:FlxObject ):void
-		{
-			player.drag.x = 300;
-			_playerCollide = false;
 		}
 		private function inputControlSet():void
 		{

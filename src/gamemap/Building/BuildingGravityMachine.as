@@ -1,6 +1,7 @@
 package gamemap.Building 
 {
 	import gamemap.GameMapBuildingTyp;
+	import org.flixel.FlxObject;
 	/**
 	 * ...
 	 * @author kaleidos
@@ -22,6 +23,11 @@ package gamemap.Building
 			return GameMapBuildingTyp.GameMapBuildingTyp_GravityMachine;
 		}
 		
+		override protected function actorCollided( flxObj1:FlxObject, flxObj2:FlxObject ):void
+		{
+			super.actorCollided ( flxObj1, flxObj2 );
+			//flxObj1.velocity.y -= 300;
+		}
 	}
 
 }
