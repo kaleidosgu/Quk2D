@@ -12,7 +12,9 @@ package gamemap
 	import gamemap.Staticdata.StaticDataLoader;
 	import gameutil.UtilConvert;
 	import org.flixel.FlxBasic;
+	import org.flixel.FlxG;
 	import org.flixel.FlxGroup;
+	import org.flixel.FlxObject;
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxState;
 	import org.flixel.FlxXML;
@@ -38,7 +40,7 @@ package gamemap
 		
 		private var _objBuildingGroupData:Object = new Object();
 		private var _flxStateIn:FlxState = null;
-		private var _arrayCollideActor:Array = new Array();
+		private var _playerGroup:FlxGroup = new FlxGroup();
 		public function GameMapEditor( _flxState:FlxState ) 
 		{
 			_flxStateIn = _flxState;
@@ -109,7 +111,6 @@ package gamemap
 				{
 					gameObj.setSelfGroup( _BuildingGroup );
 					gameObj.createObjectByBaseData( mapele );
-					gameObj.arrayActorCollide = _arrayCollideActor;
 				}
 			}
 		}
@@ -199,9 +200,26 @@ package gamemap
 			_showHeight = value;
 		}
 		
-		public function addCollideActor( actorFlx:FlxBasic ):void
+		public function addActor( flxobj:FlxObject ):void
 		{
-			_arrayCollideActor.push( actorFlx );
+			_playerGroup.add( flxobj );
+		}
+
+		protected function collideWall( flxObj1:FlxObject, flxObj2:FlxObject ):void
+		{
+			flxObj1.drag.x = 300;
+		}
+		protected function collideGravity( flxObj1:FlxObject, flxObj2:FlxObject ):void
+		{
+			flxObj1.velocity.y -= 300;
+		}
+		public function update():void
+		{
+			//todo
+			var wallGroup:FlxGroup = _objBuildingGroupData[GameMapBuildingTyp.GameMapBuildingTyp_Wall];
+			var gravityGroup:FlxGroup = _objBuildingGroupData[GameMapBuildingTyp.GameMapBuildingTyp_GravityMachine];
+			FlxG.collide( _playerGroup, wallGroup, collideWall );	
+			FlxG.collide( _playerGroup, gravityGroup, collideGravity );	
 		}
 	}
 

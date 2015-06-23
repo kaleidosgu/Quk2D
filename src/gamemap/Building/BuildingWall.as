@@ -28,11 +28,6 @@ package gamemap.Building
 		{
 			return GameMapBuildingTyp.GameMapBuildingTyp_Wall;
 		}
-		override protected function actorCollided( flxObj1:FlxObject, flxObj2:FlxObject ):void
-		{
-			super.actorCollided ( flxObj1, flxObj2 );
-			//flxObj1.drag.x = 300;
-		}
 	}
 
 }

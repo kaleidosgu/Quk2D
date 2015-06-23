@@ -17,7 +17,6 @@ package Base
 	public class BaseGameObject extends FlxSprite 
 	{
 		protected var _gameObjData:GameBaseDataObject = null;
-		private var _arrayActorCollide:Array = null;
 		private var _selfGroup:FlxGroup	= null;
 		public function BaseGameObject( ) 
 		{
@@ -112,16 +111,6 @@ package Base
 			_gameObjData = value;
 		}
 		
-		public function get arrayActorCollide():Array 
-		{
-			return _arrayActorCollide;
-		}
-		
-		public function set arrayActorCollide(value:Array):void 
-		{
-			_arrayActorCollide = value;
-		}
-		
 		public function setSelfGroup(value:FlxGroup):void 
 		{
 			_selfGroup = value;
@@ -130,14 +119,6 @@ package Base
 		override public function update():void
 		{
 			super.update();
-			for each( var actor:FlxBasic in _arrayActorCollide )
-			{
-				//FlxG.collide( actor, _selfGroup, actorCollided );	
-			}
-		}
-		protected function actorCollided( flxObj1:FlxObject, flxObj2:FlxObject ):void
-		{
-			
 		}
 	}
 

@@ -47,7 +47,9 @@ package state
 			super.create();
 			setupPlayer();
 			mapEditor = new GameMapEditor( this );
-			mapEditor.addCollideActor( player );
+			
+			mapEditor.addActor( player );
+			
 			mapEditor.generateMapDataFromByteArray( "test" );
 			_showWidth 	= TILE_WIDTH * _showScale ;
 			_showHeight	= TILE_HEIGHT * _showScale;
@@ -85,6 +87,7 @@ package state
 			player.addAnimation("jump", [4]);
 			
 			add(player);
+			
 		}
 		override public function update():void
 		{
@@ -92,6 +95,7 @@ package state
 			cursorMouse.x = FlxG.mouse.x;
 			cursorMouse.y = FlxG.mouse.y;
 			_shootingGamePlay.update();
+			mapEditor.update();
 		}
 		private function inputControlSet():void
 		{
