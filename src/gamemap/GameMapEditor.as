@@ -94,17 +94,11 @@ package gamemap
 			for each( var mapele:GameMapElementInfo in arrayMapElement )
 			{
 				var gameObj:BaseGameObject = null;
+				var _BuildingGroup:FlxGroup = null;
 				if ( mapele.elementMainType == GameObjectMainTyp.GameObjectMainTyp_Building )
 				{
-					var _BuildingGroup:FlxGroup = getBuildingGroup( mapele.elementSubType );
-					if ( mapele.elementSubType == GameMapBuildingTyp.GameMapBuildingTyp_GravityMachine )
-					{
-						gameObj = buildingFactory.CreateGravityMachine();
-					}
-					else if ( mapele.elementSubType == GameMapBuildingTyp.GameMapBuildingTyp_Wall )
-					{
-						gameObj = buildingFactory.CreateWall();
-					}
+					_BuildingGroup = getBuildingGroup( mapele.elementSubType );
+					gameObj = buildingFactory.CreateBuildingByType( mapele.elementSubType );
 				}
 				if ( gameObj != null )
 				{

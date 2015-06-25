@@ -70,7 +70,7 @@ package state
 			
 			createBtn();
 			
-			_txtFlx = new FlxText(400, 5, 200 );
+			_txtFlx = new FlxText(500, 5, 200 );
 			add( _txtFlx );
 		}
 		private function addButtonObj( nameString:String, callBackFunction:Function ):void
@@ -84,6 +84,7 @@ package state
 		{
 			addButtonObj( "wall", onBtnWallClick );
 			addButtonObj( "Gravity", onGravityClick );
+			addButtonObj( "Teleport", onTeleportClick );
 			addButtonObj( "Remove", onRemoveBtnClick );
 			
 			var posStart:Number = 100;

@@ -4,6 +4,7 @@ package gamemap
 	import Base.GameBaseDataObject;
 	import gamemap.Building.BaseBuildingObject;
 	import gamemap.Building.BuildingGravityMachine;
+	import gamemap.Building.BuildingTeleport;
 	import gamemap.Building.BuildingWall;
 	import util.UtilXmlConvertVariables;
 	/**
@@ -25,7 +26,7 @@ package gamemap
 			
 			objBuildingClass[GameMapBuildingTyp.GameMapBuildingTyp_Wall] = BuildingWall;
 			objBuildingClass[GameMapBuildingTyp.GameMapBuildingTyp_GravityMachine] = BuildingGravityMachine;
-			//objBuildingClass[GameMapBuildingTyp.GameMapBuildingTyp_Wall] = BuildingWall;
+			objBuildingClass[GameMapBuildingTyp.GameMapBuildingTyp_Teleport] = BuildingTeleport;
 		}
 		public function CreateTeleport():void
 		{
