@@ -9,6 +9,7 @@ package state
 	import org.flixel.FlxPoint;
 	import org.flixel.FlxObject;
 	import org.flixel.FlxG;
+	import org.flixel.FlxText;
 	import org.flixel.FlxXML;
 	
 	import util.KalTxtResourcePath;
@@ -43,6 +44,7 @@ package state
 		public var _gravityMachineBtn:FlxButton = null;
 		public var _removeBtn:FlxButton = null;
 		private var _btnArray:Array = new Array();
+		private var _txtFlx:FlxText	= null;
 		public function GameMapEditorState() 
 		{
 			
@@ -51,13 +53,9 @@ package state
 		override public function create():void
 		{
 			super.create();
-			
-			//_curMainType = GameObjectMainTyp.GameObjectMainTyp_Building;
-			//_curSubTyp = GameMapBuildingTyp.GameMapBuildingTyp_GravityMachine;
-
-			mapEditor = new GameMapEditor( _wallGroup );
+			mapEditor = new GameMapEditor( this );
 			this.add( _wallGroup );
-			mapEditor.generateMapDataFromByteArray();
+			mapEditor.generateMapDataFromByteArray( "test" );
 			_showWidth 	= TILE_WIDTH * _showScale ;
 			_showHeight	= TILE_HEIGHT * _showScale;
 			
@@ -68,6 +66,9 @@ package state
 			highlightBox = new FlxObject(0, 0, _showWidth, _showHeight);
 			
 			createBtn();
+			
+			_txtFlx = new FlxText(400, 5, 200 );
+			add( _txtFlx );
 		}
 		private function createBtn():void
 		{
@@ -130,6 +131,10 @@ package state
 			
 			if (FlxG.mouse.pressed())
 			{
+				if ( _curMainType == 0 || _curSubTyp == 0 )
+				{
+					_txtFlx.text = "Please chose Element.";
+				}
 				if (isBtnClicked())
 				{
 					mapEditor.updateMap( hightLightPoint.x, hightLightPoint.y,_curMainType, _curSubTyp );
