@@ -22,6 +22,10 @@ package gamemap.Building
 		{
 			return GameMapBuildingTyp.GameMapBuildingTyp_GravityMachine;
 		}
+		public function getGravityValue():int
+		{
+			return 300;
+		}
 	}
 
 }

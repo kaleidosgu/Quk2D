@@ -8,6 +8,7 @@ package gamemap
 	import Base.GameBaseDataObject;
 	import fileprocess.FileByteArrayResourcePath;
 	import flash.utils.ByteArray;
+	import gamemap.Building.BuildingGravityMachine;
 	import gamemap.Building.BuildingWall;
 	import gamemap.Staticdata.StaticDataLoader;
 	import gameutil.UtilConvert;
@@ -32,8 +33,6 @@ package gamemap
 		private var xmlT:FlxXML = new FlxXML();
 		private var buildingFactory:GameBuildingFactory = new GameBuildingFactory();
 		
-		//todo delete
-		//private var _flxGroup:FlxGroup;
 		private var _gameMapInfo:GameMapInfo = new GameMapInfo();
 		
 		private var _objStaticData:Object = new Object();
@@ -135,17 +134,7 @@ package gamemap
 			if ( mainTyp == GameObjectMainTyp.GameObjectMainTyp_None 
 			|| subType == GameMapBuildingTyp.GameMapBuildingTyp_None )
 			{
-				//todo 删除这里有问题
 				_gameMapInfo.removeObj( rowNumber, colNumber );
-				/*for each( var removeObj:BaseGameObject in _flxGroup.members )
-				{
-					if ( removeObj.gameObjData.mapRow == rowNumber 
-					&& removeObj.gameObjData.mapCol == colNumber )
-					{
-						_flxGroup.remove( removeObj,true );
-						break;
-					}
-				}*/
 			}
 			else
 			{
@@ -211,13 +200,18 @@ package gamemap
 		}
 		protected function collideGravity( flxObj1:FlxObject, flxObj2:FlxObject ):void
 		{
-			flxObj1.velocity.y -= 300;
+			if ( flxObj2 is BuildingGravityMachine )
+			{
+				var gravityObj:BuildingGravityMachine = flxObj2 as BuildingGravityMachine ;
+				flxObj1.velocity.y -= gravityObj.getGravityValue();
+			}
 		}
 		public function update():void
 		{
 			//todo
 			var wallGroup:FlxGroup = _objBuildingGroupData[GameMapBuildingTyp.GameMapBuildingTyp_Wall];
 			var gravityGroup:FlxGroup = _objBuildingGroupData[GameMapBuildingTyp.GameMapBuildingTyp_GravityMachine];
+
 			FlxG.collide( _playerGroup, wallGroup, collideWall );	
 			FlxG.collide( _playerGroup, gravityGroup, collideGravity );	
 		}
