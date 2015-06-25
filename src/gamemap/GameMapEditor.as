@@ -141,14 +141,7 @@ package gamemap
 				var _createObj:BaseGameObject = null;
 				if ( mainTyp == GameObjectMainTyp.GameObjectMainTyp_Building )
 				{
-					if ( subType == GameMapBuildingTyp.GameMapBuildingTyp_Wall )
-					{
-						_createObj = buildingFactory.CreateWall( );
-					}
-					else if ( subType == GameMapBuildingTyp.GameMapBuildingTyp_GravityMachine )
-					{
-						_createObj = buildingFactory.CreateGravityMachine();
-					}
+					_createObj = buildingFactory.CreateBuildingByType( subType );	
 				}
 				
 				if ( _createObj )

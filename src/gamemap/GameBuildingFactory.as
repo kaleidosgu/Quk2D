@@ -2,6 +2,7 @@ package gamemap
 {
 	import Base.BaseGameObject;
 	import Base.GameBaseDataObject;
+	import gamemap.Building.BaseBuildingObject;
 	import gamemap.Building.BuildingGravityMachine;
 	import gamemap.Building.BuildingWall;
 	import util.UtilXmlConvertVariables;
@@ -15,10 +16,16 @@ package gamemap
 		private var objFunctionFactionXml:Object = new Object();
 		private var objFunctionFaction:Object = new Object();
 		private var objBuildingXml:Object = new Object();
+		
+		private var objBuildingClass:Object = new Object();
 		public function GameBuildingFactory() 
 		{
 			objFunctionFactionXml[GameMapBuildingTyp.GameMapBuildingTyp_Wall] = CreateWallXml;
 			objFunctionFaction[GameMapBuildingTyp.GameMapBuildingTyp_Wall] = CreateWall;
+			
+			objBuildingClass[GameMapBuildingTyp.GameMapBuildingTyp_Wall] = BuildingWall;
+			objBuildingClass[GameMapBuildingTyp.GameMapBuildingTyp_GravityMachine] = BuildingGravityMachine;
+			//objBuildingClass[GameMapBuildingTyp.GameMapBuildingTyp_Wall] = BuildingWall;
 		}
 		public function CreateTeleport():void
 		{
@@ -40,6 +47,16 @@ package gamemap
 		public function CreateWater():void
 		{
 			
+		}
+		public function CreateBuildingByType( buildingTyp:int ):BaseBuildingObject
+		{
+			var baseBuildingObj:BaseBuildingObject = null;
+			var buildingClass:Class = objBuildingClass[buildingTyp];
+			if ( buildingClass != null )
+			{
+				baseBuildingObj = new buildingClass();
+			}
+			return baseBuildingObj;
 		}
 		public function CreateWall():BuildingWall
 		{

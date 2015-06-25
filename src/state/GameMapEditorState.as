@@ -112,6 +112,10 @@ package state
 			_curMainType = GameObjectMainTyp.GameObjectMainTyp_Building;
 			_curSubTyp = GameMapBuildingTyp.GameMapBuildingTyp_GravityMachine;
 		}
+		private function onTeleportClick():void {
+			_curMainType = GameObjectMainTyp.GameObjectMainTyp_Building;
+			_curSubTyp = GameMapBuildingTyp.GameMapBuildingTyp_Teleport;
+		}
 		override public function destroy():void
 		{
 			super.destroy();
@@ -137,12 +141,15 @@ package state
 			
 			if (FlxG.mouse.pressed())
 			{
-				if ( _curMainType == 0 || _curSubTyp == 0 )
-				{
-					_txtFlx.text = "Please chose Element.";
-				}
 				if (isBtnClicked())
 				{
+				}
+				else
+				{
+					if ( _curMainType == 0 || _curSubTyp == 0 )
+					{
+						_txtFlx.text = "Please chose Element.";
+					}
 					mapEditor.updateMap( hightLightPoint.x, hightLightPoint.y,_curMainType, _curSubTyp );
 				}
 			}
@@ -155,12 +162,12 @@ package state
 		
 		private function isBtnClicked():Boolean 
 		{
-			var bClick:Boolean = true;
+			var bClick:Boolean = false;
 			for each( var btn:FlxButton in _btnArray )
 			{
 				if (( btn.overlapsAt( FlxG.mouse.x, FlxG.mouse.y, btn ) ))
 				{
-					bClick = false;
+					bClick = true;
 					break;
 				}
 			}
