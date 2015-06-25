@@ -45,6 +45,9 @@ package state
 		public var _removeBtn:FlxButton = null;
 		private var _btnArray:Array = new Array();
 		private var _txtFlx:FlxText	= null;
+		private var _buttonObjectArray:Array = new Array();
+		private var _buttonNameTag:String = "btnNameTag";
+		private var _buttonFunctionTag:String = "btnFunctionTag";
 		public function GameMapEditorState() 
 		{
 			
@@ -70,27 +73,30 @@ package state
 			_txtFlx = new FlxText(400, 5, 200 );
 			add( _txtFlx );
 		}
+		private function addButtonObj( nameString:String, callBackFunction:Function ):void
+		{
+			var objBtn:Object = new Object();
+			objBtn[_buttonNameTag] = nameString;
+			objBtn[_buttonFunctionTag] = callBackFunction;
+			_buttonObjectArray.push( objBtn );
+		}
 		private function createBtn():void
 		{
-			_wallBtn = new FlxButton(100, 0, "wall", onBtnWallClick );
-			_wallBtn.color = 0xff729954;
-			_wallBtn.label.color = 0xffd8eba2;
-			add( _wallBtn );
+			addButtonObj( "wall", onBtnWallClick );
+			addButtonObj( "Gravity", onGravityClick );
+			addButtonObj( "Remove", onRemoveBtnClick );
 			
-			_gravityMachineBtn = new FlxButton( 200, 0, "Gravity", onGravityClick );
-			_gravityMachineBtn.color = 0xff729954;
-			_gravityMachineBtn.label.color = 0xffd8eba2;
-			add( _gravityMachineBtn );
-			
-			_removeBtn = new FlxButton( 300, 0, "Remove", onRemoveBtnClick );
-			_removeBtn.color = 0xff729954;
-			_removeBtn.label.color = 0xffd8eba2;
-			add( _removeBtn );
-			
-			_btnArray.push( _wallBtn );
-			_btnArray.push( _gravityMachineBtn );
-			_btnArray.push( _removeBtn );
-			
+			var posStart:Number = 100;
+			var posDiff:Number = 100;
+			for each( var btnObj:Object in _buttonObjectArray )
+			{
+				var btnIns:FlxButton = new FlxButton(posStart, 0, btnObj[_buttonNameTag], btnObj[_buttonFunctionTag] );
+				btnIns.color = 0xff729954;
+				btnIns.label.color = 0xffd8eba2;
+				add( btnIns );
+				_btnArray.push( btnIns );
+				posStart += posDiff;
+			}
 		}
 		private function onRemoveBtnClick():void
 		{
