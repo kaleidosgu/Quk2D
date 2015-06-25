@@ -193,14 +193,21 @@ package gamemap
 				flxObj1.velocity.y -= gravityObj.getGravityValue();
 			}
 		}
+		protected function collideTeleport( flxObj1:FlxObject, flxObj2:FlxObject ):void
+		{
+			flxObj1.x = 500;
+			flxObj1.y = 300;
+		}
 		public function update():void
 		{
 			//todo
 			var wallGroup:FlxGroup = _objBuildingGroupData[GameMapBuildingTyp.GameMapBuildingTyp_Wall];
 			var gravityGroup:FlxGroup = _objBuildingGroupData[GameMapBuildingTyp.GameMapBuildingTyp_GravityMachine];
+			var teleportGroup:FlxGroup = _objBuildingGroupData[GameMapBuildingTyp.GameMapBuildingTyp_Teleport];
 
 			FlxG.collide( _playerGroup, wallGroup, collideWall );	
 			FlxG.collide( _playerGroup, gravityGroup, collideGravity );	
+			FlxG.collide( _playerGroup, teleportGroup, collideTeleport );	
 		}
 	}
 
