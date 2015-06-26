@@ -14,7 +14,7 @@ package gamemap.Building
 		private var _downFlag:Boolean = true;
 		private var _startPosY:Number = 0;
 		private var _moveDiff:Number = 50;
-		private var _moveSpeed:Number = 2;
+		private var _moveSpeed:Number = 1;
 		public function BuildingElevator() 
 		{
 			

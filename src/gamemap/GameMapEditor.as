@@ -204,10 +204,15 @@ package gamemap
 			var wallGroup:FlxGroup = _objBuildingGroupData[GameMapBuildingTyp.GameMapBuildingTyp_Wall];
 			var gravityGroup:FlxGroup = _objBuildingGroupData[GameMapBuildingTyp.GameMapBuildingTyp_GravityMachine];
 			var teleportGroup:FlxGroup = _objBuildingGroupData[GameMapBuildingTyp.GameMapBuildingTyp_Teleport];
+			var elevatorGroup:FlxGroup = _objBuildingGroupData[GameMapBuildingTyp.GameMapBuildingTyp_Elevator];
 
 			FlxG.collide( _playerGroup, wallGroup, collideWall );	
 			FlxG.collide( _playerGroup, gravityGroup, collideGravity );	
 			FlxG.collide( _playerGroup, teleportGroup, collideTeleport );	
+			FlxG.collide( _playerGroup, elevatorGroup, collideElevator );	
+		}
+		protected function collideElevator( flxObj1:FlxObject, flxObj2:FlxObject ):void
+		{
 		}
 	}
 
