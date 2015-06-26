@@ -3,6 +3,7 @@ package gamemap
 	import Base.BaseGameObject;
 	import Base.GameBaseDataObject;
 	import gamemap.Building.BaseBuildingObject;
+	import gamemap.Building.BuildingElevator;
 	import gamemap.Building.BuildingGravityMachine;
 	import gamemap.Building.BuildingTeleport;
 	import gamemap.Building.BuildingWall;
@@ -27,6 +28,8 @@ package gamemap
 			objBuildingClass[GameMapBuildingTyp.GameMapBuildingTyp_Wall] = BuildingWall;
 			objBuildingClass[GameMapBuildingTyp.GameMapBuildingTyp_GravityMachine] = BuildingGravityMachine;
 			objBuildingClass[GameMapBuildingTyp.GameMapBuildingTyp_Teleport] = BuildingTeleport;
+			objBuildingClass[GameMapBuildingTyp.GameMapBuildingTyp_Elevator] = BuildingElevator;
+			
 		}
 		public function CreateTeleport():void
 		{

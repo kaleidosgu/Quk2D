@@ -85,6 +85,7 @@ package state
 			addButtonObj( "wall", onBtnWallClick );
 			addButtonObj( "Gravity", onGravityClick );
 			addButtonObj( "Teleport", onTeleportClick );
+			addButtonObj( "Elevator", onElevatorClick );
 			addButtonObj( "Remove", onRemoveBtnClick );
 			
 			var posStart:Number = 100;
@@ -116,6 +117,10 @@ package state
 		private function onTeleportClick():void {
 			_curMainType = GameObjectMainTyp.GameObjectMainTyp_Building;
 			_curSubTyp = GameMapBuildingTyp.GameMapBuildingTyp_Teleport;
+		}
+		private function onElevatorClick():void {
+			_curMainType = GameObjectMainTyp.GameObjectMainTyp_Building;
+			_curSubTyp = GameMapBuildingTyp.GameMapBuildingTyp_Elevator;
 		}
 		override public function destroy():void
 		{
