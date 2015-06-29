@@ -9,3 +9,4 @@ http://gamedevelopment.tutsplus.com/tutorials/how-to-generate-shockingly-good-2d
 http://flashgamedojo.com/wiki/index.php?title=Dynamic_Lighting_(Flixel)
 
 http://www.mutantalienassault.com/
+http://www.antonkudin.me/megasphere/

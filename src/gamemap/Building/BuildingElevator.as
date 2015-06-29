@@ -13,11 +13,13 @@ package gamemap.Building
 		private static var elevatorClass:Class;
 		private var _downFlag:Boolean = true;
 		private var _startPosY:Number = 0;
-		private var _moveDiff:Number = 50;
+		private var _accelerationNumber:Number = 50;
 		private var _moveSpeed:Number = 1;
 		public function BuildingElevator() 
 		{
-			
+			this.maxVelocity.x = 80;
+			this.maxVelocity.y = 160;
+			this.acceleration.y = _accelerationNumber;
 		}
 		override public function createObjectByXml( mapDetailXml:XML ):void
 		{
@@ -34,21 +36,23 @@ package gamemap.Building
 		override public function update():void
 		{
 			super.update();
-			if ( _downFlag == true )
+			/*if ( _downFlag == true )
 			{
 				this.y += _moveSpeed;
 			}
 			else
 			{
 				this.y -= _moveSpeed;
-			}
-			if ( this.y <= _startPosY - _moveDiff )
+			}*/
+			if ( this.y <= _startPosY - _accelerationNumber )
 			{
 				_downFlag = true;
+				this.acceleration.y = _accelerationNumber;
 			}
-			else if ( this.y > _startPosY + _moveDiff )
+			else if ( this.y > _startPosY + _accelerationNumber )
 			{
 				_downFlag = false;
+				this.acceleration.y = -_accelerationNumber;
 			}
 		}
 		override public function createObjectByBaseData( baseData:GameBaseDataObject ):void

@@ -40,6 +40,8 @@ package gamemap
 		private var _objBuildingGroupData:Object = new Object();
 		private var _flxStateIn:FlxState = null;
 		private var _playerGroup:FlxGroup = new FlxGroup();
+		
+		private var _arrayMapElement:Array = new Array();
 		public function GameMapEditor( _flxState:FlxState ) 
 		{
 			_flxStateIn = _flxState;
@@ -104,6 +106,7 @@ package gamemap
 				{
 					gameObj.setSelfGroup( _BuildingGroup );
 					gameObj.createObjectByBaseData( mapele );
+					_arrayMapElement.push ( gameObj );
 				}
 			}
 		}
@@ -128,7 +131,26 @@ package gamemap
 			if ( mainTyp == GameObjectMainTyp.GameObjectMainTyp_None 
 			|| subType == GameMapBuildingTyp.GameMapBuildingTyp_None )
 			{
-				_gameMapInfo.removeObj( rowNumber, colNumber );
+				var elementInfo:GameMapElementInfo = _gameMapInfo.removeObj( rowNumber, colNumber );
+				if ( elementInfo != null )
+				{
+					var _buildingGroup:FlxGroup = getBuildingGroup( elementInfo.elementSubType );
+					if ( _buildingGroup != null )
+					{
+						var objIndex:uint = 0;
+						for each( var removeObj:BaseGameObject in _arrayMapElement )
+						{
+							if ( removeObj.gameObjData.mapCol == colNumber &&
+							removeObj.gameObjData.mapRow == rowNumber )
+							{
+								_buildingGroup.remove( removeObj );
+								_arrayMapElement.splice( objIndex, 1 );
+								objIndex++;
+								break;
+							}
+						}
+					}
+				}
 			}
 			else
 			{
@@ -151,6 +173,7 @@ package gamemap
 						_buildingGroup.add( _createObj );	
 						
 						updateMapData( _createObj );
+						_arrayMapElement.push ( _createObj );
 					}
 				}
 			}
