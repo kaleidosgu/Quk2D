@@ -124,35 +124,37 @@ package gamemap
 			var writeFile:KalResourceDataWrite = new KalResourceDataWrite();
 			writeFile.writeBytesToFile( filePathString, bytarr );
 		}
-		public function updateMap( xPos:int, yPos:int, mainTyp:uint, subType:uint ):void
+		public function removeMapElement( xPos:int, yPos:int ):void
 		{
 			var colNumber:int = xPos / _showWidth;
 			var rowNumber:int = yPos / _showHeight;
-			if ( mainTyp == GameObjectMainTyp.GameObjectMainTyp_None 
-			|| subType == GameMapBuildingTyp.GameMapBuildingTyp_None )
+			var elementInfo:GameMapElementInfo = _gameMapInfo.removeObj( rowNumber, colNumber );
+			if ( elementInfo != null )
 			{
-				var elementInfo:GameMapElementInfo = _gameMapInfo.removeObj( rowNumber, colNumber );
-				if ( elementInfo != null )
+				var _buildingGroupRemove:FlxGroup = getBuildingGroup( elementInfo.elementSubType );
+				if ( _buildingGroupRemove != null )
 				{
-					var _buildingGroup:FlxGroup = getBuildingGroup( elementInfo.elementSubType );
-					if ( _buildingGroup != null )
+					var objIndex:uint = 0;
+					for each( var removeObj:BaseGameObject in _arrayMapElement )
 					{
-						var objIndex:uint = 0;
-						for each( var removeObj:BaseGameObject in _arrayMapElement )
+						if ( removeObj.gameObjData.mapCol == colNumber &&
+						removeObj.gameObjData.mapRow == rowNumber )
 						{
-							if ( removeObj.gameObjData.mapCol == colNumber &&
-							removeObj.gameObjData.mapRow == rowNumber )
-							{
-								_buildingGroup.remove( removeObj );
-								_arrayMapElement.splice( objIndex, 1 );
-								objIndex++;
-								break;
-							}
+							_buildingGroupRemove.remove( removeObj );
+							_arrayMapElement.splice( objIndex, 1 );
+							objIndex++;
+							break;
 						}
 					}
 				}
 			}
-			else
+		}
+		public function updateMap( xPos:int, yPos:int, mainTyp:uint, subType:uint ):void
+		{
+			var colNumber:int = xPos / _showWidth;
+			var rowNumber:int = yPos / _showHeight;
+			if ( mainTyp != GameObjectMainTyp.GameObjectMainTyp_None 
+			&& subType != GameMapBuildingTyp.GameMapBuildingTyp_None )
 			{
 				var _createObj:BaseGameObject = null;
 				if ( mainTyp == GameObjectMainTyp.GameObjectMainTyp_Building )

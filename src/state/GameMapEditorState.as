@@ -154,9 +154,12 @@ package state
 				{
 					if ( _curMainType == 0 || _curSubTyp == 0 )
 					{
-						_txtFlx.text = "Please chose Element.";
+						mapEditor.removeMapElement( hightLightPoint.x, hightLightPoint.y );
 					}
-					mapEditor.updateMap( hightLightPoint.x, hightLightPoint.y,_curMainType, _curSubTyp );
+					else
+					{
+						mapEditor.updateMap( hightLightPoint.x, hightLightPoint.y,_curMainType, _curSubTyp );	
+					}
 				}
 			}
 			if ( FlxG.keys.justReleased( "J" ) )
