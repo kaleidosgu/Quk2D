@@ -12,6 +12,7 @@ package gamemap
 		public static var BuildingXmlTag_MapType:String = "MapType";
 		public static var BuildingXmlTag_SpriteWidth:String = "spriteWidth";
 		public static var BuildingXmlTag_SpriteHeight:String = "spriteHeight";
+		public static var BuildingXmlTag_ItemType:String = "ItemType";
 		
 		public static var BuildingXmlTag_SpriteColumn:String = "spriteColumn";
 		public static var BuildingXmlTag_SpriteRows:String = "spriteRows";
