@@ -31,7 +31,7 @@ package gamemap
 		private var _showHeight:uint = 0;
 		private var _mapData:Array = new Array();
 		private var xmlT:FlxXML = new FlxXML();
-		private var buildingFactory:GameBuildingFactory = new GameBuildingFactory();
+		private var objectFactory:GameObjectFactory = new GameObjectFactory();
 		
 		private var _gameMapInfo:GameMapInfo = new GameMapInfo();
 		
@@ -100,7 +100,7 @@ package gamemap
 				if ( mapele.elementMainType == GameObjectMainTyp.GameObjectMainTyp_Building )
 				{
 					_BuildingGroup = getBuildingGroup( mapele.elementSubType );
-					gameObj = buildingFactory.CreateBuildingByType( mapele.elementSubType );
+					gameObj = objectFactory.CreateGameObjectByType( mapele.elementMainType, mapele.elementSubType );
 				}
 				if ( gameObj != null )
 				{
@@ -159,7 +159,7 @@ package gamemap
 				var _createObj:BaseGameObject = null;
 				if ( mainTyp == GameObjectMainTyp.GameObjectMainTyp_Building )
 				{
-					_createObj = buildingFactory.CreateBuildingByType( subType );	
+					_createObj = objectFactory.CreateGameObjectByType( mainTyp, subType );	
 				}
 				
 				if ( _createObj )
