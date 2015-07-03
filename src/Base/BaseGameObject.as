@@ -120,6 +120,10 @@ package Base
 		{
 			super.update();
 		}
+		public function collideTrig( flxObj1:FlxObject, flxObj2:FlxObject ):void
+		{
+			
+		}
 	}
 
 }

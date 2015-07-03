@@ -28,6 +28,12 @@ package gamemap.Building
 		{
 			return GameMapBuildingTyp.GameMapBuildingTyp_Wall;
 		}
+		
+		override public function collideTrig( flxObj1:FlxObject, flxObj2:FlxObject ):void
+		{
+			super.collideTrig( flxObj1, flxObj2 );
+			flxObj1.drag.x = 300;
+		}
 	}
 
 }

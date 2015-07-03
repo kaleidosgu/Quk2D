@@ -1,6 +1,7 @@
 package gamemap.Building 
 {
 	import gamemap.GameMapBuildingTyp;
+	import org.flixel.FlxObject;
 	/**
 	 * ...
 	 * @author kaleidos
@@ -26,7 +27,13 @@ package gamemap.Building
 		{
 			return GameMapBuildingTyp.GameMapBuildingTyp_Teleport;
 		}
-		
+
+		override public function collideTrig( flxObj1:FlxObject, flxObj2:FlxObject ):void
+		{
+			super.collideTrig( flxObj1, flxObj2 );
+			flxObj1.x = 500;
+			flxObj1.y = 300;
+		}
 	}
 
 }

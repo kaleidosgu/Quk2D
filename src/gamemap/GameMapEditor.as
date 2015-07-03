@@ -209,23 +209,13 @@ package gamemap
 		{
 			_playerGroup.add( flxobj );
 		}
-
-		protected function collideWall( flxObj1:FlxObject, flxObj2:FlxObject ):void
+		protected function commonCollideFunction( flxObj1:FlxObject, flxObj2:FlxObject ):void
 		{
-			flxObj1.drag.x = 300;
-		}
-		protected function collideGravity( flxObj1:FlxObject, flxObj2:FlxObject ):void
-		{
-			if ( flxObj2 is BuildingGravityMachine )
+			if ( flxObj2 is BaseGameObject )
 			{
-				var gravityObj:BuildingGravityMachine = flxObj2 as BuildingGravityMachine ;
-				flxObj1.velocity.y -= gravityObj.getGravityValue();
+				var baseObj:BaseGameObject = flxObj2 as BaseGameObject ;
+				baseObj.collideTrig( flxObj1, flxObj2 );
 			}
-		}
-		protected function collideTeleport( flxObj1:FlxObject, flxObj2:FlxObject ):void
-		{
-			flxObj1.x = 500;
-			flxObj1.y = 300;
 		}
 		public function update():void
 		{
@@ -235,13 +225,10 @@ package gamemap
 			var teleportGroup:FlxGroup = _objBuildingGroupData[GameMapBuildingTyp.GameMapBuildingTyp_Teleport];
 			var elevatorGroup:FlxGroup = _objBuildingGroupData[GameMapBuildingTyp.GameMapBuildingTyp_Elevator];
 
-			FlxG.collide( _playerGroup, wallGroup, collideWall );	
-			FlxG.collide( _playerGroup, gravityGroup, collideGravity );	
-			FlxG.collide( _playerGroup, teleportGroup, collideTeleport );	
-			FlxG.collide( _playerGroup, elevatorGroup, collideElevator );	
-		}
-		protected function collideElevator( flxObj1:FlxObject, flxObj2:FlxObject ):void
-		{
+			FlxG.collide( _playerGroup, wallGroup, commonCollideFunction );	
+			FlxG.collide( _playerGroup, gravityGroup, commonCollideFunction );	
+			FlxG.collide( _playerGroup, teleportGroup, commonCollideFunction );	
+			FlxG.collide( _playerGroup, elevatorGroup, commonCollideFunction );	
 		}
 	}
 

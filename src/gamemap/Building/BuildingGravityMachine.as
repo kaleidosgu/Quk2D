@@ -26,6 +26,15 @@ package gamemap.Building
 		{
 			return 300;
 		}
+		override public function collideTrig( flxObj1:FlxObject, flxObj2:FlxObject ):void
+		{
+			super.collideTrig( flxObj1, flxObj2 );
+			if ( flxObj2 is BuildingGravityMachine )
+			{
+				var gravityObj:BuildingGravityMachine = flxObj2 as BuildingGravityMachine ;
+				flxObj1.velocity.y -= gravityObj.getGravityValue();
+			}
+		}
 	}
 
 }
