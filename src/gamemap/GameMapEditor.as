@@ -37,13 +37,18 @@ package gamemap
 		
 		private var _objStaticData:Object = new Object();
 		
-		private var _objBuildingGroupData:Object = new Object();
 		private var _flxStateIn:FlxState = null;
 		private var _playerGroup:FlxGroup = new FlxGroup();
 		
 		private var _arrayMapElement:Array = new Array();
+		
+		private var gameMapGroupObject:Object = new Object();
+		private var _objBuildingGroupData:Object = new Object();
+		private var _objItemGroupData:Object = new Object();
 		public function GameMapEditor( _flxState:FlxState ) 
 		{
+			gameMapGroupObject[GameObjectMainTyp.GameObjectMainTyp_Building] 	= _objBuildingGroupData ;
+			gameMapGroupObject[GameObjectMainTyp.GameObjectMainTyp_Item] 		= _objItemGroupData ;
 			_flxStateIn = _flxState;
 			
 			var xmlData:XML = xmlT.loadEmbedded(embXML);
@@ -78,17 +83,22 @@ package gamemap
 			_gameMapInfo.setDataFromByteArray( readedByteArray );
 			updateMapDataFromMapInfo();
 		}
-		private function getBuildingGroup( buildingTyp:int ):FlxGroup
+		private function getGameElementGroup( mainType:int, subType:int ):FlxGroup
 		{
-			var _BuildingGroup:FlxGroup = _objBuildingGroupData[buildingTyp];
-			
-			if ( _BuildingGroup == null )
+			var _GameGroupObj:Object = gameMapGroupObject[mainType];
+			var _gameElementGroup:FlxGroup = null;
+			if ( _GameGroupObj != null )
 			{
-				_BuildingGroup = new FlxGroup();
-				_objBuildingGroupData[buildingTyp] = _BuildingGroup;
-				_flxStateIn.add( _BuildingGroup );
+				_gameElementGroup = _GameGroupObj[subType];
+			
+				if ( _gameElementGroup == null )
+				{
+					_gameElementGroup = new FlxGroup();
+					_GameGroupObj[subType] = _gameElementGroup;
+					_flxStateIn.add( _gameElementGroup );
+				}	
 			}
-			return _BuildingGroup;
+			return _gameElementGroup;
 		}
 		private function updateMapDataFromMapInfo():void
 		{
@@ -96,15 +106,12 @@ package gamemap
 			for each( var mapele:GameMapElementInfo in arrayMapElement )
 			{
 				var gameObj:BaseGameObject = null;
-				var _BuildingGroup:FlxGroup = null;
-				if ( mapele.elementMainType == GameObjectMainTyp.GameObjectMainTyp_Building )
-				{
-					_BuildingGroup = getBuildingGroup( mapele.elementSubType );
-					gameObj = objectFactory.CreateGameObjectByType( mapele.elementMainType, mapele.elementSubType );
-				}
+				var _elementGroup:FlxGroup = null;
+				_elementGroup = getGameElementGroup( mapele.elementMainType, mapele.elementSubType );
+				gameObj = objectFactory.CreateGameObjectByType( mapele.elementMainType, mapele.elementSubType );
 				if ( gameObj != null )
 				{
-					gameObj.setSelfGroup( _BuildingGroup );
+					gameObj.setSelfGroup( _elementGroup );
 					gameObj.createObjectByBaseData( mapele );
 					_arrayMapElement.push ( gameObj );
 				}
@@ -131,7 +138,7 @@ package gamemap
 			var elementInfo:GameMapElementInfo = _gameMapInfo.removeObj( rowNumber, colNumber );
 			if ( elementInfo != null )
 			{
-				var _buildingGroupRemove:FlxGroup = getBuildingGroup( elementInfo.elementSubType );
+				var _buildingGroupRemove:FlxGroup = getGameElementGroup( elementInfo.elementMainType,elementInfo.elementSubType );
 				if ( _buildingGroupRemove != null )
 				{
 					var objIndex:uint = 0;
@@ -157,10 +164,7 @@ package gamemap
 			&& subType != GameMapBuildingTyp.GameMapBuildingTyp_None )
 			{
 				var _createObj:BaseGameObject = null;
-				if ( mainTyp == GameObjectMainTyp.GameObjectMainTyp_Building )
-				{
-					_createObj = objectFactory.CreateGameObjectByType( mainTyp, subType );	
-				}
+				_createObj = objectFactory.CreateGameObjectByType( mainTyp, subType );	
 				
 				if ( _createObj )
 				{
@@ -171,7 +175,7 @@ package gamemap
 						obj.mapRow = rowNumber;
 						_createObj.createObjectByBaseData( obj );
 						UtilConvert.convertGameObjToElementInfo( _createObj, obj );
-						var _buildingGroup:FlxGroup = getBuildingGroup( subType );
+						var _buildingGroup:FlxGroup = getGameElementGroup( mainTyp, subType );
 						_buildingGroup.add( _createObj );	
 						
 						updateMapData( _createObj );

@@ -1,6 +1,7 @@
 package state 
 {
 	import gamemap.GameMapBuildingTyp;
+	import gamemap.GameMapItemTyp;
 	import gamemap.GameObjectMainTyp;
 	import org.flixel.FlxButton;
 	import org.flixel.FlxGroup;
@@ -87,23 +88,39 @@ package state
 			addButtonObj( "Teleport", onTeleportClick );
 			addButtonObj( "Elevator", onElevatorClick );
 			addButtonObj( "Remove", onRemoveBtnClick );
+			addButtonObj( "Health", onHealthBtnClick );
 			
-			var posStart:Number = 100;
-			var posDiff:Number = 100;
+			var posXStart:Number = 100;
+			var posYStart:Number = 0;
+			var posXDiff:Number = 100;
+			var btnIndex:uint = 0;
+			var posYDiff:Number = 30;
+			var cntBtnColumn:uint = 5;
 			for each( var btnObj:Object in _buttonObjectArray )
 			{
-				var btnIns:FlxButton = new FlxButton(posStart, 0, btnObj[_buttonNameTag], btnObj[_buttonFunctionTag] );
+				if ( btnIndex / cntBtnColumn > 0 && ( btnIndex % cntBtnColumn == 0 ) )
+				{
+					posXStart = 100;
+					posYStart += posYDiff;
+				}
+				var btnIns:FlxButton = new FlxButton(posXStart, posYStart, btnObj[_buttonNameTag], btnObj[_buttonFunctionTag] );
 				btnIns.color = 0xff729954;
 				btnIns.label.color = 0xffd8eba2;
 				add( btnIns );
 				_btnArray.push( btnIns );
-				posStart += posDiff;
+				posXStart += posXDiff;
+				btnIndex++;
 			}
 		}
 		private function onRemoveBtnClick():void
 		{
 			_curMainType = 0;
 			_curSubTyp = 0;
+		}
+		private function onHealthBtnClick():void
+		{
+			_curMainType = GameObjectMainTyp.GameObjectMainTyp_Item;
+			_curSubTyp = GameMapItemTyp.GameMapItemTyp_Health;
 		}
 		private function onBtnWallClick():void
 		{

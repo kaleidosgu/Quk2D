@@ -7,6 +7,7 @@ package gamemap
 	import gamemap.Building.BuildingGravityMachine;
 	import gamemap.Building.BuildingTeleport;
 	import gamemap.Building.BuildingWall;
+	import gamemap.GameItem.ItemHealth;
 	import util.UtilXmlConvertVariables;
 	/**
 	 * ...
@@ -24,6 +25,8 @@ package gamemap
 			objBuildingClass[GameMapBuildingTyp.GameMapBuildingTyp_GravityMachine] 	= BuildingGravityMachine;
 			objBuildingClass[GameMapBuildingTyp.GameMapBuildingTyp_Teleport] 		= BuildingTeleport;
 			objBuildingClass[GameMapBuildingTyp.GameMapBuildingTyp_Elevator] 		= BuildingElevator;
+			
+			objItemClass[GameMapItemTyp.GameMapItemTyp_Health]						= ItemHealth;
 			
 			objGameType[GameObjectMainTyp.GameObjectMainTyp_Building] 	= objBuildingClass;
 			objGameType[GameObjectMainTyp.GameObjectMainTyp_Item] 		= objItemClass;
