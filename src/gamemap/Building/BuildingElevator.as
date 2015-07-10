@@ -19,7 +19,8 @@ package gamemap.Building
 		{
 			this.maxVelocity.x = 80;
 			this.maxVelocity.y = 160;
-			this.acceleration.y = _accelerationNumber;
+			//this.acceleration.y = _accelerationNumber;
+			this.velocity.y = _accelerationNumber;
 		}
 		override public function createObjectByXml( mapDetailXml:XML ):void
 		{
@@ -47,12 +48,12 @@ package gamemap.Building
 			if ( this.y <= _startPosY - _accelerationNumber )
 			{
 				_downFlag = true;
-				this.acceleration.y = _accelerationNumber;
+				this.velocity.y = _accelerationNumber;
 			}
 			else if ( this.y > _startPosY + _accelerationNumber )
 			{
 				_downFlag = false;
-				this.acceleration.y = -_accelerationNumber;
+				this.velocity.y = -_accelerationNumber;
 			}
 		}
 		override public function createObjectByBaseData( baseData:GameBaseDataObject ):void

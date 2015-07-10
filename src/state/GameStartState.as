@@ -52,6 +52,10 @@ package state
 			player.addAnimation("jump", [4, 5, 6]);
 			
 			add(player);
+			player.angularVelocity = 100;
+			//player.angularAcceleration = 100;
+			player.origin.x = 0;
+			player.origin.y = 0;
 		}
 		private function createBlockGroup():void
 		{
@@ -99,7 +103,7 @@ package state
 		private function onTileGroupCollide( flxObj1:FlxObject, flxObj2:FlxObject ):void
 		{
 			//flxObj1.acceleration.y -= 50;
-			player.velocity.y -= 350;
+			//player.velocity.y -= 350;
 		}
 		private function updatePlayer():void
 		{

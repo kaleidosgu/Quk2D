@@ -143,7 +143,6 @@ package gameplay
 			}
 			if ( canShoot )
 			{
-				
 				var startPoint:FlxPoint = new FlxPoint( startX, startY );
 				var endPoint:FlxPoint = new FlxPoint( endX , endY );
 				
