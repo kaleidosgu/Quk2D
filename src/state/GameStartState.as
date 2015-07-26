@@ -52,8 +52,8 @@ package state
 			player.addAnimation("jump", [4, 5, 6]);
 			
 			add(player);
-			player.angularVelocity = 100;
-			//player.angularAcceleration = 100;
+			player.angularVelocity = 300;
+			player.angularAcceleration = 100;
 			player.origin.x = 0;
 			player.origin.y = 0;
 		}
