@@ -22,9 +22,9 @@ package
 		public function Main()
 		{
 			//super(800, 600, GameMapEditorState, 1, 20, 20);
-			//super(800, 600, GamePlayState, 1, 60, 60);
+			super(800, 600, GamePlayState, 1, 60, 60);
 			//super(800, 600, TestState, 1, 60, 60);
-			super(800, 600, GameStartState, 1, 60, 60);
+			//super(800, 600, GameStartState, 1, 60, 60);
 		}
 	}
 }

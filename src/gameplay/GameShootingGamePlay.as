@@ -4,6 +4,7 @@ package gameplay
 	import flash.geom.Point;
 	import gameEvent.PlayerInputActionEvent;
 	import gameEvent.PlayerInputActionType;
+	import gameplay.WeaponSystem.PlayerWeaponStatus;
 	import org.flixel.FlxEmitter;
 	import org.flixel.FlxG;
 	import org.flixel.FlxObject;
@@ -26,11 +27,13 @@ package gameplay
 		private var _gameStage:Stage = null;
 		private var _lastTime:Number = 0;
 		
-		private var _reloadTime:Number = 30;
+		private var _reloadTime:Number = 1000;
 		
 		private var _lightbotArray:Array = new Array();
 		
 		private var _drawLineSprite:FlxSprite = null;
+		
+		private var _playerWeaponStatus:PlayerWeaponStatus = new PlayerWeaponStatus();
 		public function GameShootingGamePlay( state:FlxState, player:FlxSprite, stage:Stage ) 
 		{
 			_gameState = state;
@@ -67,7 +70,6 @@ package gameplay
 		}
 		private function fireBulletLighting( startX:Number, startY:Number, endX:Number, endY:Number ):void
 		{
-			
 			var canShoot:Boolean = false;
 			var currTime:Number = new Date().time;
 			if ( currTime - _lastTime > _reloadTime )
@@ -134,13 +136,7 @@ package gameplay
 		}
 		private function fireBullet2( startX:Number, startY:Number, endX:Number, endY:Number ):void
 		{
-			var canShoot:Boolean = false;
-			var currTime:Number = new Date().time;
-			if ( currTime - _lastTime > _reloadTime )
-			{
-				_lastTime = currTime;
-				canShoot = true;
-			}
+			var canShoot:Boolean = _playerWeaponStatus.isValidCDTime();
 			if ( canShoot )
 			{
 				var startPoint:FlxPoint = new FlxPoint( startX, startY );
@@ -158,20 +154,6 @@ package gameplay
 				var cosAngle:Number = widthLength / rLength;
 				bulletSprite.velocity.x = cosAngle* 1000 ;
 				bulletSprite.velocity.y = sinAngle * 1000 ;
-				
-				/* particle effect
-				var emitter:FlxEmitter = new FlxEmitter(100, 100); //x and y of the emitter
-				emitter.minParticleSpeed.x = -100;
-				emitter.minParticleSpeed.y = -100;
-				
-				emitter.maxParticleSpeed.y = 100;
-				emitter.maxParticleSpeed.x = 100;
-				emitter.maxRotation = 10;
-				emitter.minRotation = 10;
-				generateEmitter( emitter );
-				_gameState.add(emitter);
-				emitter.start(true, 0.2,5 );
-				*/
 			}
 		}
 		
@@ -195,6 +177,21 @@ package gameplay
 				particle.lifespan = 50;
 				emitter.add(particle);
 			}
+		}
+		
+		private function emitFuncUnused():void
+		{
+			var emitter:FlxEmitter = new FlxEmitter(100, 100); //x and y of the emitter
+			emitter.minParticleSpeed.x = -100;
+			emitter.minParticleSpeed.y = -100;
+			
+			emitter.maxParticleSpeed.y = 100;
+			emitter.maxParticleSpeed.x = 100;
+			emitter.maxRotation = 10;
+			emitter.minRotation = 10;
+			generateEmitter( emitter );
+			_gameState.add(emitter);
+			emitter.start(true, 0.2,5 );
 		}
 		
 	}
