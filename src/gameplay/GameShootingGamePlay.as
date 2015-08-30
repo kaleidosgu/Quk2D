@@ -5,6 +5,7 @@ package gameplay
 	import gameEvent.PlayerInputActionEvent;
 	import gameEvent.PlayerInputActionType;
 	import gameplay.WeaponSystem.PlayerWeaponStatus;
+	import gameplay.WeaponSystem.WeaponAttributeLoadFromXml;
 	import org.flixel.FlxEmitter;
 	import org.flixel.FlxG;
 	import org.flixel.FlxObject;
@@ -34,6 +35,7 @@ package gameplay
 		private var _drawLineSprite:FlxSprite = null;
 		
 		private var _playerWeaponStatus:PlayerWeaponStatus = new PlayerWeaponStatus();
+		private var _weaponLoader:WeaponAttributeLoadFromXml = null;
 		public function GameShootingGamePlay( state:FlxState, player:FlxSprite, stage:Stage ) 
 		{
 			_gameState = state;
@@ -44,6 +46,9 @@ package gameplay
 			_drawLineSprite = new FlxSprite(0, 0 );
 			_drawLineSprite.makeGraphic(FlxG.width, FlxG.height, 0x000000 );
 			_gameState.add(_drawLineSprite);
+			
+			_weaponLoader = new WeaponAttributeLoadFromXml();
+			_weaponLoader.loadDataFromXml();
 		}
 		
 		public function update():void
