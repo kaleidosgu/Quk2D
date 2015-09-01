@@ -11,7 +11,6 @@ package gameplay.WeaponSystem
 		[Embed(source = "../../../res/weapondata/weapon.xml",mimeType = "application/octet-stream")]
 		protected var embWeaponXml:Class;
 		private var xmlT:FlxXML = new FlxXML();
-		//[Embed(source="../../../res/mapdata/mapinfo_static.xml",mimeType="application/octet-stream")]		protected var embXML:Class;
 		
 		public function WeaponAttributeLoadFromXml() 
 		{

@@ -1,4 +1,4 @@
 <weaponInfo>
-  <weaponDetail cdtime = "3.3" >
+  <weaponDetail weaponType="1" fireSpeed="" damageValue="" countsPerFire="" damageShift="" reboundCounts="" damageField="" fireRange="" linearShape="" changeCD="" fireCD="" >
   </weaponDetail>
 </weaponInfo>
