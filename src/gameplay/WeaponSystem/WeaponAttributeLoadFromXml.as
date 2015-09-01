@@ -23,7 +23,7 @@ package gameplay.WeaponSystem
 			
 			for each ( var weaponDetail:XML in weaponStaticXmlLst )
 			{
-				var numData:Number = UtilXmlConvertVariables.convertToNumber( weaponDetail, "cdtime" );
+				var numData:Number = UtilXmlConvertVariables.convertToNumber( weaponDetail, "weaponType" );
 				numData = 0;
 			}
 		}
