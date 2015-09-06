@@ -29,7 +29,12 @@ package util
 			var strValue:String = attributeValue.toString();
 			return strValue;
 		}
-		
+
+		public static function convertToBool( xmlInfo:XML, attributeName:String ):Boolean
+		{
+			var retValue:Boolean = UtilXmlConvertVariables.convertToUint( xmlInfo, attributeName ) > 0 ;
+			return retValue;
+		}
 	}
 
 }

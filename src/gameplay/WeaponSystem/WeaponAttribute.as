@@ -6,6 +6,7 @@ package gameplay.WeaponSystem
 	 */
 	public class WeaponAttribute 
 	{
+		private var _weaponType:uint		= 0;	//武器类型
 		private var _fireSpeed:Number 		= 0;	//射速
 		private var _damageValue:uint		= 0;	//伤害
 		private var _countsPerFire:uint		= 0;	//每次发射数量
@@ -119,6 +120,16 @@ package gameplay.WeaponSystem
 		public function set fireCD(value:Number):void 
 		{
 			_fireCD = value;
+		}
+		
+		public function get weaponType():uint 
+		{
+			return _weaponType;
+		}
+		
+		public function set weaponType(value:uint):void 
+		{
+			_weaponType = value;
 		}
 		
 	}

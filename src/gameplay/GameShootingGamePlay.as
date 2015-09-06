@@ -36,6 +36,7 @@ package gameplay
 		
 		private var _playerWeaponStatus:PlayerWeaponStatus = new PlayerWeaponStatus();
 		private var _weaponLoader:WeaponAttributeLoadFromXml = null;
+		private var _dictWeaponAttr:Object = new Object();
 		public function GameShootingGamePlay( state:FlxState, player:FlxSprite, stage:Stage ) 
 		{
 			_gameState = state;
@@ -48,7 +49,7 @@ package gameplay
 			_gameState.add(_drawLineSprite);
 			
 			_weaponLoader = new WeaponAttributeLoadFromXml();
-			_weaponLoader.loadDataFromXml();
+			_weaponLoader.loadDataFromXml( _dictWeaponAttr );
 		}
 		
 		public function update():void

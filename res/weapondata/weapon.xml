@@ -1,4 +1,4 @@
 <weaponInfo>
-  <weaponDetail weaponType="1" fireSpeed="" damageValue="" countsPerFire="" damageShift="" reboundCounts="" damageField="" fireRange="" linearShape="" changeCD="" fireCD="" >
+  <weaponDetail weaponType="1" fireSpeed="3.5" damageValue="3" countsPerFire="1" damageShift="1.5" reboundCounts="3" damageField="5.1" fireRange="1.3" linearShape="0" changeCD="2.2" fireCD="3.3" >
   </weaponDetail>
 </weaponInfo>

@@ -16,15 +16,34 @@ package gameplay.WeaponSystem
 		{
 			
 		}
-		public function loadDataFromXml():void
+		public function loadDataFromXml( objWeaponAttri:Object ):void
 		{
 			var xmlData:XML = xmlT.loadEmbedded( embWeaponXml );
 			var weaponStaticXmlLst:XMLList = xmlData.child("weaponDetail");
 			
 			for each ( var weaponDetail:XML in weaponStaticXmlLst )
 			{
-				var numData:Number = UtilXmlConvertVariables.convertToNumber( weaponDetail, "weaponType" );
-				numData = 0;
+				var weaponAttr:WeaponAttribute = new WeaponAttribute();
+				weaponAttr.weaponType 		= UtilXmlConvertVariables.convertToUint( weaponDetail, "weaponType" );
+				weaponAttr.fireSpeed 		= UtilXmlConvertVariables.convertToNumber( weaponDetail, "fireSpeed" );
+				weaponAttr.damageValue 		= UtilXmlConvertVariables.convertToUint( weaponDetail, "damageValue" );
+				weaponAttr.countsPerFire 	= UtilXmlConvertVariables.convertToUint( weaponDetail, "countsPerFire" );
+				weaponAttr.damageShift 		= UtilXmlConvertVariables.convertToNumber( weaponDetail, "damageShift" );
+				weaponAttr.reboundCounts 	= UtilXmlConvertVariables.convertToUint( weaponDetail, "reboundCounts" );
+				weaponAttr.damageFields 	= UtilXmlConvertVariables.convertToNumber( weaponDetail, "damageField" );
+				weaponAttr.fireRange 		= UtilXmlConvertVariables.convertToNumber( weaponDetail, "fireRange" );
+				weaponAttr.linearShape 		= UtilXmlConvertVariables.convertToBool( weaponDetail, "linearShape" );
+				weaponAttr.changeCD 		= UtilXmlConvertVariables.convertToNumber( weaponDetail, "changeCD" );
+				weaponAttr.fireCD 			= UtilXmlConvertVariables.convertToNumber( weaponDetail, "fireCD" );
+				var newWeapon:WeaponAttribute = objWeaponAttri[weaponAttr.weaponType];
+				if ( newWeapon == null )
+				{
+					objWeaponAttri[weaponAttr.weaponType] = weaponAttr;
+				}
+				else
+				{
+					trace( new Error().getStackTrace());
+				}
 			}
 		}
 		
