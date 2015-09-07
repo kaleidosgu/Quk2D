@@ -4,6 +4,7 @@ package util.InputController
 	import flash.events.MouseEvent;
 	import gameEvent.PlayerInputActionEvent;
 	import gameEvent.PlayerInputActionType;
+	import gameplay.WeaponSystem.WeaponTypeDefine;
 	import org.flixel.FlxG;
 	/**
 	 * ...
@@ -12,9 +13,18 @@ package util.InputController
 	public class GamePlayInputController implements IInputController 
 	{
 		private var _mgr:InputControllerManager = null;
+		private var _weaponStringAndTypMap:Object = null;
 		public function GamePlayInputController() 
 		{
-			
+			_weaponStringAndTypMap = new Object();
+			_weaponStringAndTypMap[FlxG.keys.getKeyCode("ONE")] = WeaponTypeDefine.WEAPON_TYPE_MACHINE_GUN;
+			_weaponStringAndTypMap[FlxG.keys.getKeyCode("TWO")] = WeaponTypeDefine.WEAPON_TYPE_SHOT_GUN;
+			_weaponStringAndTypMap[FlxG.keys.getKeyCode("THREE")] = WeaponTypeDefine.WEAPON_TYPE_GRENADE_LAUNCHER;
+			_weaponStringAndTypMap[FlxG.keys.getKeyCode("FOUR")] = WeaponTypeDefine.WEAPON_TYPE_ROCKET_LAUNCHER;
+			_weaponStringAndTypMap[FlxG.keys.getKeyCode("FIVE")] = WeaponTypeDefine.WEAPON_TYPE_LIGHTING_LAUNCHER;
+			_weaponStringAndTypMap[FlxG.keys.getKeyCode("SIX")] = WeaponTypeDefine.WEAPON_TYPE_PLASMA_GUN;
+			_weaponStringAndTypMap[FlxG.keys.getKeyCode("SEVEN")] = WeaponTypeDefine.WEAPON_TYPE_RAIL_GUN;
+			_weaponStringAndTypMap[FlxG.keys.getKeyCode("EIGHT")] = WeaponTypeDefine.WEAPON_TYPE_GAUNTLET;
 		}
 		public function registeController( mgr:InputControllerManager ):void
 		{
@@ -62,17 +72,15 @@ package util.InputController
 				evt = new PlayerInputActionEvent( PlayerInputActionEvent.PLAYER_INPUT_ACTION_EVENT );
 				evt.playerActionType = PlayerInputActionType.Player_Jump;
 			}
-			else if ( keyEvt.keyCode == FlxG.keys.getKeyCode( "ONE" ) )
+			else
 			{
-				evt = new PlayerInputActionEvent( PlayerInputActionEvent.PLAYER_INPUT_ACTION_EVENT );
-				evt.playerActionType = PlayerInputActionType.Player_ChangeWeapon;
-				evt.changeWeaponTyp = 1;
-			}
-			else if ( keyEvt.keyCode == FlxG.keys.getKeyCode( "TWO" ) )
-			{
-				evt = new PlayerInputActionEvent( PlayerInputActionEvent.PLAYER_INPUT_ACTION_EVENT );
-				evt.playerActionType = PlayerInputActionType.Player_ChangeWeapon;
-				evt.changeWeaponTyp = 2;
+				if ( _weaponStringAndTypMap[keyEvt.keyCode] != null )
+				{
+					var weaponTyp:uint = _weaponStringAndTypMap[keyEvt.keyCode];
+					evt = new PlayerInputActionEvent( PlayerInputActionEvent.PLAYER_INPUT_ACTION_EVENT );
+					evt.playerActionType = PlayerInputActionType.Player_ChangeWeapon;
+					evt.changeWeaponTyp = weaponTyp;
+				}
 			}
 			if ( evt )
 			{
