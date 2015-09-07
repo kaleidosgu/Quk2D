@@ -62,6 +62,18 @@ package util.InputController
 				evt = new PlayerInputActionEvent( PlayerInputActionEvent.PLAYER_INPUT_ACTION_EVENT );
 				evt.playerActionType = PlayerInputActionType.Player_Jump;
 			}
+			else if ( keyEvt.keyCode == FlxG.keys.getKeyCode( "ONE" ) )
+			{
+				evt = new PlayerInputActionEvent( PlayerInputActionEvent.PLAYER_INPUT_ACTION_EVENT );
+				evt.playerActionType = PlayerInputActionType.Player_ChangeWeapon;
+				evt.changeWeaponTyp = 1;
+			}
+			else if ( keyEvt.keyCode == FlxG.keys.getKeyCode( "TWO" ) )
+			{
+				evt = new PlayerInputActionEvent( PlayerInputActionEvent.PLAYER_INPUT_ACTION_EVENT );
+				evt.playerActionType = PlayerInputActionType.Player_ChangeWeapon;
+				evt.changeWeaponTyp = 2;
+			}
 			if ( evt )
 			{
 				_mgr.dispatchEvent( evt );	

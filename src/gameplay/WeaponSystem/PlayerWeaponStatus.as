@@ -23,7 +23,7 @@ package gameplay.WeaponSystem
 			
 			_ammoPackage = new WeaponAmmoPackage();
 			_ammoPackage.increaseWeaponAmmo( WeaponTypeDefine.WEAPON_TYPE_MACHINE_GUN, 10 );
-			_ammoPackage.increaseWeaponAmmo( WeaponTypeDefine.WEAPON_TYPE_SHOT_GUN, 30 );
+			_ammoPackage.increaseWeaponAmmo( WeaponTypeDefine.WEAPON_TYPE_SHOT_GUN, 15 );
 		}
 		public function isValidChangetime():Boolean
 		{
@@ -68,17 +68,32 @@ package gameplay.WeaponSystem
 		public function canChangeWeapon( weaponTyp:uint ):Boolean
 		{
 			var res:Boolean = false;
-			if ( isValidCDTime() )
+			if ( _currentWeaponAttr != null )
 			{
-				if ( _ammoPackage[weaponTyp] != null )
+				if ( _currentWeaponAttr.weaponType != weaponTyp )
 				{
-					res = true;
+					var tmpWeaponAttr:WeaponAttribute = _dictWeaponAttr[weaponTyp];
+					if ( tmpWeaponAttr != null )
+					{
+						if ( isValidCDTime() )
+						{
+							if ( _ammoPackage.hasWeapon( weaponTyp ) )
+							{
+								res = true;
+							}
+						}
+					}
 				}
 			}
 			return res;
 		}
 		public function changeWeapon( weaponTyp:uint ):Boolean
 		{
+			var tmpWeaponAttr:WeaponAttribute = _dictWeaponAttr[weaponTyp];
+			if ( tmpWeaponAttr != null )
+			{
+				_currentWeaponAttr = tmpWeaponAttr;
+			}
 			return true;
 		}
 	}

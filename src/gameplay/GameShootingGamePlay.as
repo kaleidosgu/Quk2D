@@ -74,6 +74,13 @@ package gameplay
 			{
 				_shootSwitchOn = false;
 			}
+			else if ( evt.playerActionType == PlayerInputActionType.Player_ChangeWeapon )
+			{
+				if ( _playerWeaponStatus.canChangeWeapon( evt.changeWeaponTyp ) )
+				{
+					_playerWeaponStatus.changeWeapon( evt.changeWeaponTyp );
+				}
+			}
 		}
 		private function fireBulletLighting( startX:Number, startY:Number, endX:Number, endY:Number ):void
 		{

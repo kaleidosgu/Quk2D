@@ -11,11 +11,6 @@ package gameplay.WeaponSystem
 		public function WeaponAmmoPackage() 
 		{
 			_ammoPackage = new Object();
-			
-			for ( var weaponIndex:uint = WeaponTypeDefine.WEAPON_TYPE_MACHINE_GUN; weaponIndex < WeaponTypeDefine.WEAPON_TYPE_MAX; weaponIndex++ )
-			{
-				_ammoPackage[weaponIndex] = 0;
-			}
 		}
 		public function increaseWeaponAmmo( weaponTyp:uint, ammoValue:uint ):void
 		{
@@ -25,7 +20,7 @@ package gameplay.WeaponSystem
 			}
 			else
 			{
-				//todo 记log
+				_ammoPackage[weaponTyp] = ammoValue;
 			}
 		}
 		public function decreaseWeaponAmmo( weaponTyp:uint, ammoValue:uint ):void
@@ -49,6 +44,15 @@ package gameplay.WeaponSystem
 			else
 			{
 				//todo 记log
+			}
+			return res;
+		}
+		public function hasWeapon( weaponTyp:uint ):Boolean
+		{
+			var res:Boolean = false;
+			if ( _ammoPackage[weaponTyp] != null )
+			{
+				res = true;
 			}
 			return res;
 		}
