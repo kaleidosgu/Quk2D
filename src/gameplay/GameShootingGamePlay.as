@@ -5,6 +5,7 @@ package gameplay
 	import gameEvent.PlayerInputActionEvent;
 	import gameEvent.PlayerInputActionType;
 	import gameplay.WeaponSystem.PlayerWeaponStatus;
+	import gameplay.WeaponSystem.WeaponAmmoPackage;
 	import gameplay.WeaponSystem.WeaponAttribute;
 	import gameplay.WeaponSystem.WeaponTypeDefine;
 	import org.flixel.FlxEmitter;
@@ -34,6 +35,7 @@ package gameplay
 		private var _drawLineSprite:FlxSprite = null;
 		
 		private var _playerWeaponStatus:PlayerWeaponStatus = new PlayerWeaponStatus();
+		
 		public function GameShootingGamePlay( state:FlxState, player:FlxSprite, stage:Stage ) 
 		{
 			_gameState = state;
@@ -47,6 +49,10 @@ package gameplay
 			
 		}
 		
+		public function changeWeapon( weaponType:uint ):void
+		{
+			
+		}
 		public function update():void
 		{
 			if ( _shootSwitchOn )
@@ -137,7 +143,7 @@ package gameplay
 		}
 		private function fireBullet2( startX:Number, startY:Number, endX:Number, endY:Number ):void
 		{
-			var canShoot:Boolean = _playerWeaponStatus.isValidCDTime();
+			var canShoot:Boolean = _playerWeaponStatus.canShoot();
 			if ( canShoot )
 			{
 				var startPoint:FlxPoint = new FlxPoint( startX, startY );
@@ -155,6 +161,12 @@ package gameplay
 				var cosAngle:Number = widthLength / rLength;
 				bulletSprite.velocity.x = cosAngle* 1000 ;
 				bulletSprite.velocity.y = sinAngle * 1000 ;
+				_playerWeaponStatus.shoot();
+			}
+			else
+			{
+				//todo
+				//不能发射的音效
 			}
 		}
 		

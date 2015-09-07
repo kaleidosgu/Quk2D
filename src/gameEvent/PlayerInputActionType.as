@@ -14,6 +14,7 @@ package gameEvent
 		public static var Player_Direction:uint = 5;
 		public static var Player_Shoot_On:uint = 6;
 		public static var Player_Shoot_Off:uint = 7;
+		public static var Player_ChangeWeapon:uint = 8;
 		public function PlayerInputActionType() 
 		{
 			

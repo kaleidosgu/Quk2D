@@ -15,6 +15,8 @@ package gameplay.WeaponSystem
 		public static var WEAPON_TYPE_PLASMA_GUN:uint			= 6;
 		public static var WEAPON_TYPE_RAIL_GUN:uint				= 7;
 		public static var WEAPON_TYPE_GAUNTLET:uint				= 8;
+		
+		public static var WEAPON_TYPE_MAX:uint					= 9;
 		public function WeaponTypeDefine() 
 		{
 			
