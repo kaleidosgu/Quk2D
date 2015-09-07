@@ -17,6 +17,10 @@ package gameplay.WeaponSystem
 		private var _linearShape:Boolean	= false;//线性形状
 		private var _changeCD:Number		= 0;	//换弹CD
 		private var _fireCD:Number			= 0;	//发射CD
+		
+		//new
+		private var _canExplore:Boolean		= false;//可否爆炸
+		private var _exploreFields:Number	= 0;	//爆炸后范围
 		public function WeaponAttribute() 
 		{
 			

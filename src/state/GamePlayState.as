@@ -29,6 +29,7 @@ package state
 		private var mapEditor:GameMapEditor = null;
 		
 		private var player:FlxSprite = null;
+		private var targetSprite:FlxSprite = null;
 		private var cursorMouse:FlxSprite = null;
 		private var _playerCollide:Boolean = false;
 		private var inputMgr:InputControllerManager = null;
@@ -45,10 +46,14 @@ package state
 		override public function create():void
 		{
 			super.create();
-			setupPlayer();
+			player = new FlxSprite();
+			targetSprite = new FlxSprite();
+			setupPlayer( player, 30, 0 );
+			setupPlayer( targetSprite,100,0 );
 			mapEditor = new GameMapEditor( this );
 			
 			mapEditor.addActor( player );
+			mapEditor.addActor( targetSprite );
 			
 			mapEditor.generateMapDataFromByteArray( "test" );
 			_showWidth 	= TILE_WIDTH * _showScale ;
@@ -63,31 +68,31 @@ package state
 			
 			_shootingGamePlay = new GameShootingGamePlay( this, player, FlxG.stage );
 		}
-		private function setupPlayer():void
+		private function setupPlayer( playerSprite:FlxSprite, posX:Number, posY:Number ):void
 		{
-			player = new FlxSprite(30, 0);
-			player.loadGraphic(ImgSpaceman, true, true, 16);
+			playerSprite.x = posX;
+			playerSprite.y = posY;
+			playerSprite.loadGraphic(ImgSpaceman, true, true, 16);
 			
 			cursorMouse = new FlxSprite( 0, 0 );
 			cursorMouse.loadGraphic( ImgCursor, true, true, 15 );
 			add( cursorMouse );
 			
-			player.width = 14;
-			player.height = 14;
-			player.offset.x = 1;
-			player.offset.y = 1;
+			playerSprite.width = 14;
+			playerSprite.height = 14;
+			playerSprite.offset.x = 1;
+			playerSprite.offset.y = 1;
 			
-			player.acceleration.y = 300;
-			player.maxVelocity.x = 80;
-			player.maxVelocity.y = 160;
+			playerSprite.acceleration.y = 300;
+			playerSprite.maxVelocity.x = 80;
+			playerSprite.maxVelocity.y = 160;
 			
 			//animations
-			player.addAnimation("idle", [0]);
-			player.addAnimation("run", [1, 2, 3, 0], 12);
-			player.addAnimation("jump", [4]);
+			playerSprite.addAnimation("idle", [0]);
+			playerSprite.addAnimation("run", [1, 2, 3, 0], 12);
+			playerSprite.addAnimation("jump", [4]);
 			
-			add(player);
-			
+			add(playerSprite);
 		}
 		override public function update():void
 		{
