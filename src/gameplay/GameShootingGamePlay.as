@@ -5,7 +5,8 @@ package gameplay
 	import gameEvent.PlayerInputActionEvent;
 	import gameEvent.PlayerInputActionType;
 	import gameplay.WeaponSystem.PlayerWeaponStatus;
-	import gameplay.WeaponSystem.WeaponAttributeLoadFromXml;
+	import gameplay.WeaponSystem.WeaponAttribute;
+	import gameplay.WeaponSystem.WeaponTypeDefine;
 	import org.flixel.FlxEmitter;
 	import org.flixel.FlxG;
 	import org.flixel.FlxObject;
@@ -27,16 +28,12 @@ package gameplay
 		private var _gameState:FlxState = null;
 		private var _gameStage:Stage = null;
 		private var _lastTime:Number = 0;
-		
-		private var _reloadTime:Number = 1000;
-		
+
 		private var _lightbotArray:Array = new Array();
 		
 		private var _drawLineSprite:FlxSprite = null;
 		
 		private var _playerWeaponStatus:PlayerWeaponStatus = new PlayerWeaponStatus();
-		private var _weaponLoader:WeaponAttributeLoadFromXml = null;
-		private var _dictWeaponAttr:Object = new Object();
 		public function GameShootingGamePlay( state:FlxState, player:FlxSprite, stage:Stage ) 
 		{
 			_gameState = state;
@@ -48,8 +45,6 @@ package gameplay
 			_drawLineSprite.makeGraphic(FlxG.width, FlxG.height, 0x000000 );
 			_gameState.add(_drawLineSprite);
 			
-			_weaponLoader = new WeaponAttributeLoadFromXml();
-			_weaponLoader.loadDataFromXml( _dictWeaponAttr );
 		}
 		
 		public function update():void
@@ -78,7 +73,7 @@ package gameplay
 		{
 			var canShoot:Boolean = false;
 			var currTime:Number = new Date().time;
-			if ( currTime - _lastTime > _reloadTime )
+			if ( currTime - _lastTime > 1000 )
 			{
 				_lastTime = currTime;
 				canShoot = true;

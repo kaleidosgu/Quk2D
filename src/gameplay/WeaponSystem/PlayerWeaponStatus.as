@@ -10,16 +10,18 @@ package gameplay.WeaponSystem
 		//private var _currentWeaponType:uint 		= WEAPON_TYPE_NONE;
 		private var _currentWeaponType:uint 		= WeaponTypeDefine.WEAPON_TYPE_ROCKET_LAUNCHER;
 		private var _currentWeaponList:Object 		= new Object();
-		private var _staticWeaponAttribute:Object	= new Object();
 		private var _currentChangeCDTime:Number 	= 0;
 		private var _currentFireCDTime:Number		= 0;
 		
+		private var _weaponLoader:WeaponAttributeLoadFromXml = null;
+		private var _dictWeaponAttr:Object = new Object();
+		private var _currentWeaponAttr:WeaponAttribute = null;
 		public function PlayerWeaponStatus() 
 		{
-			//TODO这里的数据需要通过读取静态数据更换掉
-			var _tempWeaponStaticAttr:WeaponAttribute = new WeaponAttribute();
-			_tempWeaponStaticAttr.changeCD	= 500;
-			_staticWeaponAttribute[WeaponTypeDefine.WEAPON_TYPE_ROCKET_LAUNCHER] = _tempWeaponStaticAttr;
+			_weaponLoader = new WeaponAttributeLoadFromXml();
+			_weaponLoader.loadDataFromXml( _dictWeaponAttr );
+			
+			_currentWeaponAttr = _dictWeaponAttr[WeaponTypeDefine.WEAPON_TYPE_MACHINE_GUN];
 		}
 		public function hasWeaponHolding( weaponType:uint ):Boolean
 		{
@@ -38,10 +40,9 @@ package gameplay.WeaponSystem
 		{
 			var bValidTime:Boolean = false;
 			var currTime:Number = new Date().time;
-			var currWeaponStaticAttr:WeaponAttribute = _staticWeaponAttribute[_currentWeaponType];
-			if ( currWeaponStaticAttr != null )
+			if ( _currentWeaponAttr != null )
 			{
-				if ( currTime - _currentChangeCDTime > currWeaponStaticAttr.changeCD )
+				if ( currTime - _currentChangeCDTime > _currentWeaponAttr.changeCD )
 				{
 					_currentChangeCDTime = currTime;
 					bValidTime = true;
