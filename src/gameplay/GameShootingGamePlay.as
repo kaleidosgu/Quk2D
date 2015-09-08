@@ -10,6 +10,7 @@ package gameplay
 	import gameplay.WeaponSystem.WeaponTypeDefine;
 	import org.flixel.FlxEmitter;
 	import org.flixel.FlxG;
+	import org.flixel.FlxGroup;
 	import org.flixel.FlxObject;
 	import org.flixel.FlxParticle;
 	import org.flixel.FlxPath;
@@ -36,8 +37,10 @@ package gameplay
 		
 		private var _playerWeaponStatus:PlayerWeaponStatus = new PlayerWeaponStatus();
 		
-		public function GameShootingGamePlay( state:FlxState, player:FlxSprite, stage:Stage ) 
+		private var _bulletGroup:FlxGroup = null;
+		public function GameShootingGamePlay( state:FlxState, player:FlxSprite, stage:Stage, outBulletGroup:FlxGroup ) 
 		{
+			_bulletGroup = outBulletGroup;
 			_gameState = state;
 			_playerSprite = player;
 			_gameStage = stage;
@@ -169,6 +172,7 @@ package gameplay
 				bulletSprite.velocity.x = cosAngle* 1000 ;
 				bulletSprite.velocity.y = sinAngle * 1000 ;
 				_playerWeaponStatus.shoot();
+				_bulletGroup.add( bulletSprite );
 			}
 			else
 			{

@@ -4,11 +4,13 @@ package state
 	import fsm.PlayerFSM;
 	import gamemap.GameMapEditor;
 	import gameplay.GameShootingGamePlay;
+	import gameplay.WeaponSystem.BulletCollideMonitor;
 	import org.flixel.FlxG;
 	import org.flixel.FlxGroup;
 	import org.flixel.FlxObject;
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxState;
+	import player.BasePlayerObject;
 	import util.InputController.GamePlayInputController;
 	import util.InputController.InputControllerManager;
 	import util.InputController.UIInputController;
@@ -28,8 +30,8 @@ package state
 		
 		private var mapEditor:GameMapEditor = null;
 		
-		private var player:FlxSprite = null;
-		private var targetSprite:FlxSprite = null;
+		private var player:BasePlayerObject = null;
+		private var targetSprite:BasePlayerObject = null;
 		private var cursorMouse:FlxSprite = null;
 		private var _playerCollide:Boolean = false;
 		private var inputMgr:InputControllerManager = null;
@@ -38,19 +40,27 @@ package state
 		
 		private var _playerFsm:PlayerFSM = null;
 		private var _shootingGamePlay:GameShootingGamePlay = null;
+		
+		private var _playerGroup:FlxGroup 	= null;
+		private var _bulletGroup:FlxGroup	= null;
+		
+		private var _bulletCollideMonitor:BulletCollideMonitor = null;
 		public function GamePlayState() 
 		{
+			_playerGroup 	= new FlxGroup();
+			_bulletGroup	= new FlxGroup();
 			
+			_bulletCollideMonitor = new BulletCollideMonitor(_bulletGroup, _playerGroup );
 		}
 		
 		override public function create():void
 		{
 			super.create();
-			player = new FlxSprite();
-			targetSprite = new FlxSprite();
+			player = new BasePlayerObject();
+			targetSprite = new BasePlayerObject();
 			setupPlayer( player, 30, 0 );
 			setupPlayer( targetSprite,100,0 );
-			mapEditor = new GameMapEditor( this );
+			mapEditor = new GameMapEditor( this,_playerGroup );
 			
 			mapEditor.addActor( player );
 			mapEditor.addActor( targetSprite );
@@ -66,9 +76,9 @@ package state
 			_playerFsm = new PlayerFSM( FlxG.stage, player );
 			_playerFsm.addListener();
 			
-			_shootingGamePlay = new GameShootingGamePlay( this, player, FlxG.stage );
+			_shootingGamePlay = new GameShootingGamePlay( this, player, FlxG.stage,_bulletGroup );
 		}
-		private function setupPlayer( playerSprite:FlxSprite, posX:Number, posY:Number ):void
+		private function setupPlayer( playerSprite:BasePlayerObject, posX:Number, posY:Number ):void
 		{
 			playerSprite.x = posX;
 			playerSprite.y = posY;
@@ -101,6 +111,7 @@ package state
 			cursorMouse.y = FlxG.mouse.y;
 			_shootingGamePlay.update();
 			mapEditor.update();
+			_bulletCollideMonitor.update();
 		}
 		private function inputControlSet():void
 		{

@@ -23,6 +23,10 @@ package Base
 			super();
 			_gameObjData = new GameBaseDataObject();
 		}	
+		public function collideByOtherObj( otherObj:BaseGameObject ):void
+		{
+			
+		}
 		public function setWorldDataByXml( mapDetailXml:XML ):void
 		{
 			setWorldData( 

@@ -38,15 +38,16 @@ package gamemap
 		private var _objStaticData:Object = new Object();
 		
 		private var _flxStateIn:FlxState = null;
-		private var _playerGroup:FlxGroup = new FlxGroup();
+		private var _playerGroup:FlxGroup = null;
 		
 		private var _arrayMapElement:Array = new Array();
 		
 		private var gameMapGroupObject:Object = new Object();
 		private var _objBuildingGroupData:Object = new Object();
 		private var _objItemGroupData:Object = new Object();
-		public function GameMapEditor( _flxState:FlxState ) 
+		public function GameMapEditor( _flxState:FlxState,outPlayerGroup:FlxGroup ) 
 		{
+			_playerGroup = outPlayerGroup;
 			gameMapGroupObject[GameObjectMainTyp.GameObjectMainTyp_Building] 	= _objBuildingGroupData ;
 			gameMapGroupObject[GameObjectMainTyp.GameObjectMainTyp_Item] 		= _objItemGroupData ;
 			_flxStateIn = _flxState;
