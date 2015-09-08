@@ -12,11 +12,16 @@ package gameplay.WeaponSystem
 		protected var embWeaponXml:Class;
 		private var xmlT:FlxXML = new FlxXML();
 		
+		private var _dictWeaponAttr:Object = new Object();
 		public function WeaponAttributeLoadFromXml() 
 		{
-			
+			loadDataFromXml( _dictWeaponAttr );
 		}
-		public function loadDataFromXml( objWeaponAttri:Object ):void
+		public function getWeaponAttr( weaponTyp:uint ):WeaponAttribute
+		{
+			return _dictWeaponAttr[weaponTyp];
+		}
+		private function loadDataFromXml( objWeaponAttri:Object ):void
 		{
 			var xmlData:XML = xmlT.loadEmbedded( embWeaponXml );
 			var weaponStaticXmlLst:XMLList = xmlData.child("weaponDetail");

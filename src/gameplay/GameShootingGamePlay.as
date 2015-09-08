@@ -4,9 +4,11 @@ package gameplay
 	import flash.geom.Point;
 	import gameEvent.PlayerInputActionEvent;
 	import gameEvent.PlayerInputActionType;
+	import gameplay.WeaponSystem.BulletAmmo.BaseBulletObject;
 	import gameplay.WeaponSystem.PlayerWeaponStatus;
 	import gameplay.WeaponSystem.WeaponAmmoPackage;
 	import gameplay.WeaponSystem.WeaponAttribute;
+	import gameplay.WeaponSystem.WeaponAttributeLoadFromXml;
 	import gameplay.WeaponSystem.WeaponTypeDefine;
 	import org.flixel.FlxEmitter;
 	import org.flixel.FlxG;
@@ -35,7 +37,9 @@ package gameplay
 		
 		private var _drawLineSprite:FlxSprite = null;
 		
-		private var _playerWeaponStatus:PlayerWeaponStatus = new PlayerWeaponStatus();
+		private var _playerWeaponStatus:PlayerWeaponStatus = null;
+		
+		private var _weaponLoader:WeaponAttributeLoadFromXml = null;
 		
 		private var _bulletGroup:FlxGroup = null;
 		public function GameShootingGamePlay( state:FlxState, player:FlxSprite, stage:Stage, outBulletGroup:FlxGroup ) 
@@ -49,6 +53,10 @@ package gameplay
 			_drawLineSprite = new FlxSprite(0, 0 );
 			_drawLineSprite.makeGraphic(FlxG.width, FlxG.height, 0x000000 );
 			_gameState.add(_drawLineSprite);
+			
+			_weaponLoader = new WeaponAttributeLoadFromXml();
+			
+			_playerWeaponStatus = new PlayerWeaponStatus( _weaponLoader );
 			
 		}
 		
@@ -159,7 +167,11 @@ package gameplay
 				var startPoint:FlxPoint = new FlxPoint( startX, startY );
 				var endPoint:FlxPoint = new FlxPoint( endX , endY );
 				
-				var bulletSprite:FlxSprite = new FlxSprite(startX, startY, ImgBullet );
+				//var bulletSprite:FlxSprite = new FlxSprite(startX, startY, ImgBullet );
+				var bulletSprite:BaseBulletObject = new BaseBulletObject( );
+				bulletSprite.x = startX;
+				bulletSprite.y = startY;
+				bulletSprite.loadGraphic( ImgBullet );
 				_gameState.add( bulletSprite );
 				
 				bulletSprite.x = startPoint.x;

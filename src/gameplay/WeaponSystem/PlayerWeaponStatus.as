@@ -10,20 +10,19 @@ package gameplay.WeaponSystem
 		private var _currentChangeCDTime:Number 	= 0;
 		private var _currentFireCDTime:Number		= 0;
 		
-		private var _weaponLoader:WeaponAttributeLoadFromXml = null;
-		private var _dictWeaponAttr:Object = new Object();
 		private var _currentWeaponAttr:WeaponAttribute = null;
 		
 		private var _ammoPackage:WeaponAmmoPackage = null;
-		public function PlayerWeaponStatus() 
+		private var _xmlLoader:WeaponAttributeLoadFromXml = null;
+		public function PlayerWeaponStatus( inXmlLoader:WeaponAttributeLoadFromXml ) 
 		{
-			_weaponLoader = new WeaponAttributeLoadFromXml();
-			_weaponLoader.loadDataFromXml( _dictWeaponAttr );
-			_currentWeaponAttr = _dictWeaponAttr[WeaponTypeDefine.WEAPON_TYPE_MACHINE_GUN];
-			
 			_ammoPackage = new WeaponAmmoPackage();
 			_ammoPackage.increaseWeaponAmmo( WeaponTypeDefine.WEAPON_TYPE_MACHINE_GUN, 10 );
 			_ammoPackage.increaseWeaponAmmo( WeaponTypeDefine.WEAPON_TYPE_SHOT_GUN, 15 );
+			_xmlLoader = inXmlLoader;
+			
+			_currentWeaponAttr = _xmlLoader.getWeaponAttr( WeaponTypeDefine.WEAPON_TYPE_MACHINE_GUN );
+			
 		}
 		public function isValidChangetime():Boolean
 		{
@@ -72,7 +71,7 @@ package gameplay.WeaponSystem
 			{
 				if ( _currentWeaponAttr.weaponType != weaponTyp )
 				{
-					var tmpWeaponAttr:WeaponAttribute = _dictWeaponAttr[weaponTyp];
+					var tmpWeaponAttr:WeaponAttribute = _xmlLoader.getWeaponAttr(weaponTyp);
 					if ( tmpWeaponAttr != null )
 					{
 						if ( isValidCDTime() )
@@ -89,7 +88,7 @@ package gameplay.WeaponSystem
 		}
 		public function changeWeapon( weaponTyp:uint ):Boolean
 		{
-			var tmpWeaponAttr:WeaponAttribute = _dictWeaponAttr[weaponTyp];
+			var tmpWeaponAttr:WeaponAttribute = _xmlLoader.getWeaponAttr(weaponTyp);
 			if ( tmpWeaponAttr != null )
 			{
 				_currentWeaponAttr = tmpWeaponAttr;

@@ -49,8 +49,6 @@ package state
 		{
 			_playerGroup 	= new FlxGroup();
 			_bulletGroup	= new FlxGroup();
-			
-			_bulletCollideMonitor = new BulletCollideMonitor(_bulletGroup, _playerGroup );
 		}
 		
 		override public function create():void
@@ -58,6 +56,9 @@ package state
 			super.create();
 			player = new BasePlayerObject();
 			targetSprite = new BasePlayerObject();
+			
+			_bulletCollideMonitor = new BulletCollideMonitor(_bulletGroup, _playerGroup,player );
+			
 			setupPlayer( player, 30, 0 );
 			setupPlayer( targetSprite,100,0 );
 			mapEditor = new GameMapEditor( this,_playerGroup );
