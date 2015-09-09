@@ -57,6 +57,7 @@ package state
 			player = new BasePlayerObject();
 			targetSprite = new BasePlayerObject();
 			
+			this.add( _bulletGroup );
 			_bulletCollideMonitor = new BulletCollideMonitor(_bulletGroup, _playerGroup,player );
 			
 			setupPlayer( player, 30, 0 );

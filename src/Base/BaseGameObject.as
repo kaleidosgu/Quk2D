@@ -128,6 +128,14 @@ package Base
 		{
 			
 		}
+		
+		protected function removeFromGroup():void
+		{
+			if ( _selfGroup != null )
+			{
+				_selfGroup.remove( this );
+			}
+		}
 	}
 
 }

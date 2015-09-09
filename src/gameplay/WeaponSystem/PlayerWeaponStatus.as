@@ -95,6 +95,10 @@ package gameplay.WeaponSystem
 			}
 			return true;
 		}
+		public function currentWeaponAttr():WeaponAttribute
+		{
+			return _currentWeaponAttr;
+		}
 	}
 
 }

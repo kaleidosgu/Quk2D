@@ -172,7 +172,7 @@ package gameplay
 				bulletSprite.x = startX;
 				bulletSprite.y = startY;
 				bulletSprite.loadGraphic( ImgBullet );
-				_gameState.add( bulletSprite );
+				bulletSprite.setSelfGroup( _bulletGroup );
 				
 				bulletSprite.x = startPoint.x;
 				bulletSprite.y = startPoint.y;
@@ -184,7 +184,7 @@ package gameplay
 				bulletSprite.velocity.x = cosAngle* 1000 ;
 				bulletSprite.velocity.y = sinAngle * 1000 ;
 				_playerWeaponStatus.shoot();
-				_bulletGroup.add( bulletSprite );
+				bulletSprite.weaponAttr = _playerWeaponStatus.currentWeaponAttr();
 			}
 			else
 			{
