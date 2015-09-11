@@ -25,7 +25,7 @@ package gameplay.WeaponSystem
 		
 		public function update():void
 		{
-			FlxG.collide( _playerGroup, _bulletGroup, playerCollideBullet );	
+			FlxG.overlap( _playerGroup, _bulletGroup, playerCollideBullet );
 		}
 		protected function playerCollideBullet( playerObj:BaseGameObject, bulletObj:BaseGameObject ):void
 		{

@@ -22,7 +22,7 @@ package gameplay.WeaponSystem.BulletAmmo
 		}
 		public function harmPlayer( basePlayer:BasePlayerObject ):void
 		{
-			
+			basePlayer.velocity.x += 100;
 		}
 		public function shiftPosPlayer( basePlayer:BasePlayerObject ):void
 		{
@@ -45,7 +45,6 @@ package gameplay.WeaponSystem.BulletAmmo
 		override public function collideByOtherObj( otherObj:BaseGameObject ):void
 		{
 			super.collideByOtherObj( otherObj );
-			removeFromGroup();
 			if ( otherObj is BasePlayerObject )
 			{
 				var basePlayer:BasePlayerObject = otherObj as BasePlayerObject;
@@ -56,6 +55,7 @@ package gameplay.WeaponSystem.BulletAmmo
 			{
 				//todo 传递的不是player打log信息
 			}
+			removeFromGroup();
 		}
 	}
 

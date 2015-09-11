@@ -60,6 +60,10 @@ package state
 			this.add( _bulletGroup );
 			_bulletCollideMonitor = new BulletCollideMonitor(_bulletGroup, _playerGroup,player );
 			
+			cursorMouse = new FlxSprite( 0, 0 );
+			cursorMouse.loadGraphic( ImgCursor, true, true, 15 );
+			add( cursorMouse );
+			
 			setupPlayer( player, 30, 0 );
 			setupPlayer( targetSprite,100,0 );
 			mapEditor = new GameMapEditor( this,_playerGroup );
@@ -85,10 +89,6 @@ package state
 			playerSprite.x = posX;
 			playerSprite.y = posY;
 			playerSprite.loadGraphic(ImgSpaceman, true, true, 16);
-			
-			cursorMouse = new FlxSprite( 0, 0 );
-			cursorMouse.loadGraphic( ImgCursor, true, true, 15 );
-			add( cursorMouse );
 			
 			playerSprite.width = 14;
 			playerSprite.height = 14;
