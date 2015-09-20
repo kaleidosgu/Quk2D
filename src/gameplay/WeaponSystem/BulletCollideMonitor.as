@@ -15,6 +15,7 @@ package gameplay.WeaponSystem
 		
 		private var _bulletGroup:FlxGroup 	= null;
 		private var _playerGroup:FlxGroup	= null;
+		private var _arrayBuildingGroup:Array = null;
 		private var _mainPlayer:BasePlayerObject = null;
 		public function BulletCollideMonitor( inBulletGroup:FlxGroup, inPlayerGroup:FlxGroup, inMainPlayer:BasePlayerObject ) 
 		{
@@ -26,6 +27,13 @@ package gameplay.WeaponSystem
 		public function update():void
 		{
 			FlxG.overlap( _playerGroup, _bulletGroup, playerCollideBullet );
+			if ( _arrayBuildingGroup != null )
+			{
+				for each( var buildingGroup:FlxGroup in _arrayBuildingGroup )
+				{
+					FlxG.overlap( _bulletGroup, buildingGroup, BulletCollideBuilding );
+				}
+			}
 		}
 		protected function playerCollideBullet( playerObj:BaseGameObject, bulletObj:BaseGameObject ):void
 		{
@@ -39,7 +47,16 @@ package gameplay.WeaponSystem
 				}
 			}
 		}
-		
+		protected function BulletCollideBuilding( bulletObj:BaseGameObject, buildingObj:BaseGameObject ):void
+		{
+			//替换成building
+			//playerObj.collideByOtherObj( bulletObj );
+			bulletObj.collideByOtherObj( buildingObj );
+		}
+		public function setBuildingGroup( arrayGroup:Array ):void
+		{
+			_arrayBuildingGroup = arrayGroup;
+		}
 	}
 
 }

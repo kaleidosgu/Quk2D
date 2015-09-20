@@ -25,6 +25,8 @@ package gamemap
 		public static var GameMapBuildingTyp_Door:uint = 8;
 		//触发器
 		public static var GameMapBuildingTyp_Trigger:uint = 9;
+		
+		public static var GameMapBuildingTyp_Max:uint = 10;
 		public function GameMapBuildingTyp() 
 		{
 			

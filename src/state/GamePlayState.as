@@ -66,7 +66,7 @@ package state
 			
 			setupPlayer( player, 30, 0 );
 			setupPlayer( targetSprite,100,0 );
-			mapEditor = new GameMapEditor( this,_playerGroup );
+			mapEditor = new GameMapEditor( this, _playerGroup );
 			
 			mapEditor.addActor( player );
 			mapEditor.addActor( targetSprite );
@@ -82,7 +82,10 @@ package state
 			_playerFsm = new PlayerFSM( FlxG.stage, player );
 			_playerFsm.addListener();
 			
-			_shootingGamePlay = new GameShootingGamePlay( this, player, FlxG.stage,_bulletGroup );
+			_shootingGamePlay = new GameShootingGamePlay( this, player, FlxG.stage, _bulletGroup );
+			
+			_bulletCollideMonitor.setBuildingGroup( mapEditor.getBuildingGroup() );
+			
 		}
 		private function setupPlayer( playerSprite:BasePlayerObject, posX:Number, posY:Number ):void
 		{

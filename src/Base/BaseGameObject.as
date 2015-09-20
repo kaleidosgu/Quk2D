@@ -25,7 +25,7 @@ package Base
 		}	
 		public function collideByOtherObj( otherObj:BaseGameObject ):void
 		{
-			
+			removeFromGroup();
 		}
 		public function setWorldDataByXml( mapDetailXml:XML ):void
 		{

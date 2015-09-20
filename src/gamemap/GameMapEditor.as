@@ -231,6 +231,19 @@ package gamemap
 			FlxG.collide( _playerGroup, teleportGroup, commonCollideFunction );	
 			FlxG.collide( _playerGroup, elevatorGroup, commonCollideFunction );	
 		}
+		public function getBuildingGroup():Array
+		{
+			var arrayGroup:Array = new Array();
+			for ( var idxGroup:uint = GameMapBuildingTyp.GameMapBuildingTyp_None + 1; idxGroup < GameMapBuildingTyp.GameMapBuildingTyp_Max; idxGroup++ )
+			{
+				var idxOfGroup:FlxGroup = _objBuildingGroupData[idxGroup];
+				if ( idxOfGroup != null )
+				{
+					arrayGroup.push( idxOfGroup );
+				}
+			}
+			return arrayGroup;
+		}
 	}
 
 }
