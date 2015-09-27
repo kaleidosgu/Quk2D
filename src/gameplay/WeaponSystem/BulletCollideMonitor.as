@@ -2,9 +2,11 @@ package gameplay.WeaponSystem
 {
 	import Base.BaseGameObject;
 	import gamemap.GameObjectMainTyp;
+	import gameplay.GameExplosionGenerator;
 	import org.flixel.FlxG;
 	import org.flixel.FlxGroup;
 	import org.flixel.FlxSprite;
+	import org.flixel.FlxState;
 	import player.BasePlayerObject;
 	/**
 	 * ...
@@ -17,11 +19,13 @@ package gameplay.WeaponSystem
 		private var _playerGroup:FlxGroup	= null;
 		private var _arrayBuildingGroup:Array = null;
 		private var _mainPlayer:BasePlayerObject = null;
-		public function BulletCollideMonitor( inBulletGroup:FlxGroup, inPlayerGroup:FlxGroup, inMainPlayer:BasePlayerObject ) 
+		private var _gameState:FlxState = null;
+		public function BulletCollideMonitor( inBulletGroup:FlxGroup, inPlayerGroup:FlxGroup, inMainPlayer:BasePlayerObject, gameState:FlxState ) 
 		{
 			_bulletGroup 	= inBulletGroup;
 			_playerGroup	= inPlayerGroup;
 			_mainPlayer		= inMainPlayer;
+			_gameState		= gameState;
 		}
 		
 		public function update():void
@@ -44,6 +48,7 @@ package gameplay.WeaponSystem
 				{
 					playerObj.collideByOtherObj( bulletObj );
 					bulletObj.collideByOtherObj( playerObj );
+					GameExplosionGenerator.getIns().generateExplosion( playerObj.x, playerObj.y, _gameState );
 				}
 			}
 		}

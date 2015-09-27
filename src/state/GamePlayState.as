@@ -58,7 +58,7 @@ package state
 			targetSprite = new BasePlayerObject();
 			
 			this.add( _bulletGroup );
-			_bulletCollideMonitor = new BulletCollideMonitor(_bulletGroup, _playerGroup,player );
+			_bulletCollideMonitor = new BulletCollideMonitor(_bulletGroup, _playerGroup,player, this );
 			
 			cursorMouse = new FlxSprite( 0, 0 );
 			cursorMouse.loadGraphic( ImgCursor, true, true, 15 );

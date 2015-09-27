@@ -42,6 +42,7 @@ package gameplay
 		private var _weaponLoader:WeaponAttributeLoadFromXml = null;
 		
 		private var _bulletGroup:FlxGroup = null;
+		
 		public function GameShootingGamePlay( state:FlxState, player:FlxSprite, stage:Stage, outBulletGroup:FlxGroup ) 
 		{
 			_bulletGroup = outBulletGroup;
@@ -202,34 +203,6 @@ package gameplay
 		{
 			_shootSwitchOn = value;
 		}
-		
-		public function generateEmitter(emitter:FlxEmitter ):void
-		{
-			for(var i:int = 0; i < 3; i++)
-			{
-				var particle:FlxParticle = new FlxParticle();
-				particle.makeGraphic(2, 2, 0xffffffff);
-				particle.exists = false;
-				particle.lifespan = 50;
-				emitter.add(particle);
-			}
-		}
-		
-		private function emitFuncUnused():void
-		{
-			var emitter:FlxEmitter = new FlxEmitter(100, 100); //x and y of the emitter
-			emitter.minParticleSpeed.x = -100;
-			emitter.minParticleSpeed.y = -100;
-			
-			emitter.maxParticleSpeed.y = 100;
-			emitter.maxParticleSpeed.x = 100;
-			emitter.maxRotation = 10;
-			emitter.minRotation = 10;
-			generateEmitter( emitter );
-			_gameState.add(emitter);
-			emitter.start(true, 0.2,5 );
-		}
-		
 	}
 
 }
