@@ -24,7 +24,24 @@ package gameplay.WeaponSystem.BulletAmmo
 		{
 			if ( _weaponAttr != null )
 			{
-				basePlayer.velocity.x += _weaponAttr.damageShift;
+				var srcX:Number = this.x + this.width 	/ 2;
+				var srcY:Number = this.y + this.height 	/ 2;
+				var dstX:Number = basePlayer.x + basePlayer.width / 2;
+				var dstY:Number = basePlayer.y + basePlayer.height / 2;
+				
+				//var newWidth:Number = dstX - srcX;
+				//var newHeight:Number = dstY - srcY;
+				var newWidth:Number = srcX - dstX;
+				var newHeight:Number = srcY - dstY;
+				var rLength:Number = Math.sqrt( newWidth * newWidth + newHeight * newHeight );
+				
+				var sinAng:Number = newHeight / rLength;
+				var cosAng:Number = newWidth  / rLength;
+				
+				var diffX:Number = cosAng * _weaponAttr.damageShift;
+				var diffY:Number = sinAng * _weaponAttr.damageShift;
+				basePlayer.velocity.x += diffX;
+				basePlayer.velocity.y += diffY;
 			}
 		}
 		public function shiftPosPlayer( basePlayer:BasePlayerObject ):void

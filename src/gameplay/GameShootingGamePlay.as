@@ -6,8 +6,6 @@ package gameplay
 	import gameEvent.PlayerInputActionType;
 	import gameplay.WeaponSystem.BulletAmmo.BaseBulletObject;
 	import gameplay.WeaponSystem.PlayerWeaponStatus;
-	import gameplay.WeaponSystem.WeaponAmmoPackage;
-	import gameplay.WeaponSystem.WeaponAttribute;
 	import gameplay.WeaponSystem.WeaponAttributeLoadFromXml;
 	import gameplay.WeaponSystem.WeaponTypeDefine;
 	import org.flixel.FlxEmitter;

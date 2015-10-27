@@ -1,0 +1,5 @@
+var newWidth:Number = dstX - srcX;
+var newHeight:Number = dstY - srcY;
+var rLength:Number = Math.sqrt( newWidth*newWidth + newHeight * newHeight );
+var sinAng:Number = newHeight / rLength;
+var cosAng:Number = newWidth / rLength;
