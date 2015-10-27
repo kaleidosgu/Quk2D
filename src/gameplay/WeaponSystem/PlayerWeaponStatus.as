@@ -17,7 +17,7 @@ package gameplay.WeaponSystem
 		public function PlayerWeaponStatus( inXmlLoader:WeaponAttributeLoadFromXml ) 
 		{
 			_ammoPackage = new WeaponAmmoPackage();
-			_ammoPackage.increaseWeaponAmmo( WeaponTypeDefine.WEAPON_TYPE_MACHINE_GUN, 10 );
+			_ammoPackage.increaseWeaponAmmo( WeaponTypeDefine.WEAPON_TYPE_MACHINE_GUN, 300 );
 			_ammoPackage.increaseWeaponAmmo( WeaponTypeDefine.WEAPON_TYPE_SHOT_GUN, 15 );
 			_xmlLoader = inXmlLoader;
 			

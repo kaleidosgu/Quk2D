@@ -22,7 +22,10 @@ package gameplay.WeaponSystem.BulletAmmo
 		}
 		public function harmPlayer( basePlayer:BasePlayerObject ):void
 		{
-			basePlayer.velocity.x += 100;
+			if ( _weaponAttr != null )
+			{
+				basePlayer.velocity.x += _weaponAttr.damageShift;
+			}
 		}
 		public function shiftPosPlayer( basePlayer:BasePlayerObject ):void
 		{

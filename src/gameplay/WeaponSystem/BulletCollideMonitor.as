@@ -48,7 +48,7 @@ package gameplay.WeaponSystem
 				{
 					playerObj.collideByOtherObj( bulletObj );
 					bulletObj.collideByOtherObj( playerObj );
-					GameExplosionGenerator.getIns().generateExplosion( playerObj.x, playerObj.y, _gameState );
+					//GameExplosionGenerator.getIns().generateExplosion( playerObj.x, playerObj.y, _gameState );
 				}
 			}
 		}
@@ -57,6 +57,7 @@ package gameplay.WeaponSystem
 			//替换成building
 			//playerObj.collideByOtherObj( bulletObj );
 			bulletObj.collideByOtherObj( buildingObj );
+			GameExplosionGenerator.getIns().generateExplosion( bulletObj.x, bulletObj.y, _gameState );
 		}
 		public function setBuildingGroup( arrayGroup:Array ):void
 		{
