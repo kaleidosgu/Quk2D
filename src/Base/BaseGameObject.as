@@ -136,6 +136,10 @@ package Base
 				_selfGroup.remove( this );
 			}
 		}
+		public function getPrePoint():FlxPoint
+		{
+			return _point;
+		}
 	}
 
 }

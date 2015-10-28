@@ -24,15 +24,15 @@ package gameplay.WeaponSystem.BulletAmmo
 		{
 			if ( _weaponAttr != null )
 			{
-				var srcX:Number = this.x + this.width 	/ 2;
-				var srcY:Number = this.y + this.height 	/ 2;
+				var srcPreX:Number = this.getPrePoint().x + this.width / 2;
+				var srcPreY:Number = this.getPrePoint().y + this.height / 2;
+				
 				var dstX:Number = basePlayer.x + basePlayer.width / 2;
 				var dstY:Number = basePlayer.y + basePlayer.height / 2;
 				
-				//var newWidth:Number = dstX - srcX;
-				//var newHeight:Number = dstY - srcY;
-				var newWidth:Number = srcX - dstX;
-				var newHeight:Number = srcY - dstY;
+				var newWidth:Number = dstX - srcPreX;
+				var newHeight:Number = dstY - srcPreY;
+				
 				var rLength:Number = Math.sqrt( newWidth * newWidth + newHeight * newHeight );
 				
 				var sinAng:Number = newHeight / rLength;

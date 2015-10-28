@@ -180,10 +180,12 @@ package gameplay
 				var rLength:Number = Math.sqrt( widthLength * widthLength + heightLength * heightLength );
 				var sinAngle:Number = heightLength / rLength;
 				var cosAngle:Number = widthLength / rLength;
-				bulletSprite.velocity.x = cosAngle* 1000 ;
-				bulletSprite.velocity.y = sinAngle * 1000 ;
-				_playerWeaponStatus.shoot();
+				
 				bulletSprite.weaponAttr = _playerWeaponStatus.currentWeaponAttr();
+				
+				bulletSprite.velocity.x = cosAngle * bulletSprite.weaponAttr.fireSpeed ;
+				bulletSprite.velocity.y = sinAngle * bulletSprite.weaponAttr.fireSpeed ;
+				_playerWeaponStatus.shoot();
 			}
 			else
 			{
