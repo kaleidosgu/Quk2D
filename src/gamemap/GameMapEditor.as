@@ -10,6 +10,11 @@ package gamemap
 	import flash.utils.ByteArray;
 	import gamemap.Building.BuildingGravityMachine;
 	import gamemap.Building.BuildingWall;
+	import gamemap.GameMapBuildingXmlTag;
+	import gamemap.GameMapElementInfo;
+	import gamemap.GameMapInfo;
+	import gamemap.GameObjectFactory;
+	import gamemap.GameObjectMainTyp;
 	import gamemap.Staticdata.StaticDataLoader;
 	import gameutil.UtilConvert;
 	import org.flixel.FlxBasic;
@@ -63,6 +68,7 @@ package gamemap
 					_objStaticData[gameInfo.elementSubType] = gameInfo;
 				}
 			}
+
 		}
 		public function generateMapDataFromXml():void
 		{

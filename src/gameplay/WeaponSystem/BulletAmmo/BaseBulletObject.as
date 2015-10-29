@@ -3,6 +3,7 @@ package gameplay.WeaponSystem.BulletAmmo
 	import Base.BaseGameObject;
 	import gamemap.GameObjectMainTyp;
 	import gameplay.WeaponSystem.WeaponAttribute;
+	import gameutil.MathUtilTrigonometric;
 	import player.BasePlayerObject;
 	
 	/**
@@ -12,6 +13,7 @@ package gameplay.WeaponSystem.BulletAmmo
 	public class BaseBulletObject extends BaseGameObject 
 	{
 		private var _weaponAttr:WeaponAttribute = null;
+		private var _mathTrig:MathUtilTrigonometric = new MathUtilTrigonometric();
 		public function BaseBulletObject() 
 		{
 		}
@@ -24,19 +26,11 @@ package gameplay.WeaponSystem.BulletAmmo
 		{
 			if ( _weaponAttr != null )
 			{
-				var srcPreX:Number = this.getPrePoint().x + this.width / 2;
-				var srcPreY:Number = this.getPrePoint().y + this.height / 2;
-				
-				var dstX:Number = basePlayer.x + basePlayer.width / 2;
-				var dstY:Number = basePlayer.y + basePlayer.height / 2;
-				
-				var newWidth:Number = dstX - srcPreX;
-				var newHeight:Number = dstY - srcPreY;
-				
-				var rLength:Number = Math.sqrt( newWidth * newWidth + newHeight * newHeight );
-				
-				var sinAng:Number = newHeight / rLength;
-				var cosAng:Number = newWidth  / rLength;
+				_mathTrig.calculateAngBySize( this.getPrePoint().x, this.getPrePoint().y, this.width, this.height,
+				basePlayer.x, basePlayer.y, basePlayer.width, basePlayer.height );
+								
+				var sinAng:Number = _mathTrig.sinAng;
+				var cosAng:Number = _mathTrig.cosAng;
 				
 				var diffX:Number = cosAng * _weaponAttr.damageShift;
 				var diffY:Number = sinAng * _weaponAttr.damageShift;
