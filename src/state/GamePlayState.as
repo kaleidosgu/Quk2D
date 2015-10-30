@@ -30,7 +30,7 @@ package state
 		
 		private var mapEditor:GameMapEditor = null;
 		
-		private var player:BasePlayerObject = null;
+		private var playerIns:BasePlayerObject = null;
 		private var targetSprite:BasePlayerObject = null;
 		private var cursorMouse:FlxSprite = null;
 		private var _playerCollide:Boolean = false;
@@ -54,21 +54,21 @@ package state
 		override public function create():void
 		{
 			super.create();
-			player = new BasePlayerObject();
+			playerIns = new BasePlayerObject();
 			targetSprite = new BasePlayerObject();
 			
 			this.add( _bulletGroup );
-			_bulletCollideMonitor = new BulletCollideMonitor(_bulletGroup, _playerGroup,player, this );
+			_bulletCollideMonitor = new BulletCollideMonitor(_bulletGroup, _playerGroup,playerIns, this );
 			
 			cursorMouse = new FlxSprite( 0, 0 );
 			cursorMouse.loadGraphic( ImgCursor, true, true, 15 );
 			add( cursorMouse );
 			
-			setupPlayer( player, 30, 0 );
+			setupPlayer( playerIns, 30, 0 );
 			setupPlayer( targetSprite,100,0 );
 			mapEditor = new GameMapEditor( this, _playerGroup );
 			
-			mapEditor.addActor( player );
+			mapEditor.addActor( playerIns );
 			mapEditor.addActor( targetSprite );
 			
 			mapEditor.generateMapDataFromByteArray( "test" );
@@ -79,10 +79,10 @@ package state
 			mapEditor.showHeight = _showHeight;
 			inputControlSet();
 			
-			_playerFsm = new PlayerFSM( FlxG.stage, player );
+			_playerFsm = new PlayerFSM( FlxG.stage, playerIns );
 			_playerFsm.addListener();
 			
-			_shootingGamePlay = new GameShootingGamePlay( this, player, FlxG.stage, _bulletGroup );
+			_shootingGamePlay = new GameShootingGamePlay( this, playerIns, FlxG.stage, _bulletGroup );
 			
 			_bulletCollideMonitor.setBuildingGroup( mapEditor.getBuildingGroup() );
 			
@@ -132,6 +132,8 @@ package state
 		public override function draw():void
 		{
 			super.draw();
+			
+			playerIns.drawDebug();
 		}
 	}
 
