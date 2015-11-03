@@ -3,8 +3,8 @@ package gameplay.WeaponSystem.BulletAmmo
 	import Base.BaseGameObject;
 	import gamemap.GameObjectMainTyp;
 	import gameplay.WeaponSystem.WeaponAttribute;
-	import gameutil.MathUtilTrigonometric;
 	import player.BasePlayerObject;
+	import util.Math.MathUtilTrigonometric;
 	
 	/**
 	 * ...

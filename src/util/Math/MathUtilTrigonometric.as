@@ -1,4 +1,4 @@
-package gameutil 
+package util.Math 
 {
 	import org.flixel.FlxPoint;
 	/**
