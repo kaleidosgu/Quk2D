@@ -18,6 +18,10 @@ package Base
 	{
 		protected var _gameObjData:GameBaseDataObject = null;
 		private var _selfGroup:FlxGroup	= null;
+		
+		private var _tickConstCount:Number = 0.03;
+		private var _tickCount:Number = _tickConstCount;
+		private var _enableUpdateTick:Boolean = false;
 		public function BaseGameObject( ) 
 		{
 			super();
@@ -115,14 +119,21 @@ package Base
 			_gameObjData = value;
 		}
 		
+		public function get tickConstCount():Number 
+		{
+			return _tickConstCount;
+		}
+		
+		public function set tickConstCount(value:Number):void 
+		{
+			_tickConstCount = value;
+			_tickCount 		= value;
+		}
+		
 		public function setSelfGroup(value:FlxGroup):void 
 		{
 			_selfGroup = value;
 			value.add( this );
-		}
-		override public function update():void
-		{
-			super.update();
 		}
 		public function collideTrig( flxObj1:FlxObject, flxObj2:FlxObject ):void
 		{
@@ -140,6 +151,21 @@ package Base
 		{
 			return _point;
 		}
+		override public function update():void
+		{
+			super.update();
+			if ( _enableUpdateTick == true )
+			{
+				_tickCount -= FlxG.elapsed;
+				if ( _tickCount <  0)
+				{
+					_tickCount = _tickConstCount;
+					TickUpdateFunction();
+				}
+			}
+		}
+		protected function TickUpdateFunction():void
+		{
+		}
 	}
-
 }

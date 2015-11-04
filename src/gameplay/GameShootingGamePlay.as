@@ -168,8 +168,6 @@ package gameplay
 				
 				//var bulletSprite:FlxSprite = new FlxSprite(startX, startY, ImgBullet );
 				var bulletSprite:BaseBulletObject = new BaseBulletObject( );
-				bulletSprite.x = startX;
-				bulletSprite.y = startY;
 				bulletSprite.loadGraphic( ImgBullet );
 				bulletSprite.setSelfGroup( _bulletGroup );
 				

@@ -11,6 +11,7 @@ package gamemap
 		public static var GameObjectMainTyp_Item:uint = 2;
 		public static var GameObjectMainTyp_Player:uint = 3;
 		public static var GameObjectMainTyp_Bullet:uint = 4;
+		public static var GameObjectMainTyp_Explosion:uint = 5;
 		public function GameObjectMainTyp() 
 		{
 			
