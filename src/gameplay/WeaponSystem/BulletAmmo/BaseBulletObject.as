@@ -35,7 +35,7 @@ package gameplay.WeaponSystem.BulletAmmo
 				var diffX:Number = cosAng * _weaponAttr.damageShift;
 				var diffY:Number = sinAng * _weaponAttr.damageShift;
 				basePlayer.velocity.x +=	 diffX;
-				basePlayer.velocity.y += diffY;
+				basePlayer.velocity.y += 	 diffY;
 			}
 		}
 		public function shiftPosPlayer( basePlayer:BasePlayerObject ):void

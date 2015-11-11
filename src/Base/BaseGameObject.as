@@ -21,7 +21,7 @@ package Base
 		
 		private var _tickConstCount:Number = 0.03;
 		private var _tickCount:Number = _tickConstCount;
-		private var _enableUpdateTick:Boolean = false;
+		protected var _enableUpdateTick:Boolean = false;
 		public function BaseGameObject( ) 
 		{
 			super();

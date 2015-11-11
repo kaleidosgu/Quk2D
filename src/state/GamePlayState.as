@@ -5,6 +5,7 @@ package state
 	import gamemap.GameMapEditor;
 	import gameplay.GameShootingGamePlay;
 	import gameplay.WeaponSystem.BulletCollideMonitor;
+	import gameplay.WeaponSystem.Explosion.BaseExplosionObject;
 	import org.flixel.FlxG;
 	import org.flixel.FlxGroup;
 	import org.flixel.FlxObject;
@@ -22,6 +23,7 @@ package state
 	{
 		[Embed(source = "../../res/images/spaceman.png")] private static var ImgSpaceman:Class;
 		[Embed(source = "../../res/images/cursor.png")] private static var ImgCursor:Class;
+		[Embed(source = "../../res/images/teleport.png")] private static var ImgExp:Class;
 		private var _showWidth:uint = 0;
 		private var _showHeight:uint = 0;
 		private var _showScale:uint = 2;
@@ -117,6 +119,19 @@ package state
 			_shootingGamePlay.update();
 			mapEditor.update();
 			_bulletCollideMonitor.update();
+			if (FlxG.mouse.justReleased() )
+			{
+				var a:Number = 0;
+				generateExplosion( FlxG.mouse.x, FlxG.mouse.y );
+			}
+		}
+		private function generateExplosion( posX:Number, posY:Number ):void
+		{
+			var expObj:BaseExplosionObject = new BaseExplosionObject();
+			expObj.x = posX;
+			expObj.y = posY;
+			expObj.loadGraphic( ImgExp, true, true, 16 );
+			expObj.setSelfGroup( _bulletGroup );
 		}
 		private function inputControlSet():void
 		{

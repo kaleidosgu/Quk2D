@@ -25,9 +25,10 @@ package gameplay.WeaponSystem.Explosion
 		}
 		
 		
-		public function collideByOtherObj( otherObj:BaseGameObject ):void
+		override public function collideByOtherObj( otherObj:BaseGameObject ):void
 		{
 			super.collideByOtherObj( otherObj );
+			_enableUpdateTick = true;
 			if ( otherObj is BasePlayerObject )
 			{
 				var basePlayer:BasePlayerObject = otherObj as BasePlayerObject;
