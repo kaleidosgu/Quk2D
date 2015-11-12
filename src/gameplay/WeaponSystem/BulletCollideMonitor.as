@@ -15,22 +15,25 @@ package gameplay.WeaponSystem
 	public class BulletCollideMonitor 
 	{
 		
-		private var _bulletGroup:FlxGroup 	= null;
-		private var _playerGroup:FlxGroup	= null;
-		private var _arrayBuildingGroup:Array = null;
-		private var _mainPlayer:BasePlayerObject = null;
-		private var _gameState:FlxState = null;
-		public function BulletCollideMonitor( inBulletGroup:FlxGroup, inPlayerGroup:FlxGroup, inMainPlayer:BasePlayerObject, gameState:FlxState ) 
+		private var _bulletGroup:FlxGroup 			= null;
+		private var _playerGroup:FlxGroup			= null;
+		private var _arrayBuildingGroup:Array 		= null;
+		private var _mainPlayer:BasePlayerObject 	= null;
+		private var _gameState:FlxState 			= null;
+		private var _explosionGroup:FlxGroup		= null;
+		public function BulletCollideMonitor( inExpGroup:FlxGroup, inBulletGroup:FlxGroup, inPlayerGroup:FlxGroup, inMainPlayer:BasePlayerObject, gameState:FlxState ) 
 		{
 			_bulletGroup 	= inBulletGroup;
 			_playerGroup	= inPlayerGroup;
 			_mainPlayer		= inMainPlayer;
 			_gameState		= gameState;
+			_explosionGroup	= inExpGroup;
 		}
 		
 		public function update():void
 		{
 			FlxG.overlap( _playerGroup, _bulletGroup, playerCollideBullet );
+			FlxG.overlap( _playerGroup, _explosionGroup, playerCollideExp );
 			if ( _arrayBuildingGroup != null )
 			{
 				for each( var buildingGroup:FlxGroup in _arrayBuildingGroup )
@@ -39,9 +42,18 @@ package gameplay.WeaponSystem
 				}
 			}
 		}
+		protected function playerCollideExp( playerObj:BaseGameObject, expObj:BaseGameObject ):void
+		{
+			if ( playerObj.getMainTyp() == GameObjectMainTyp.GameObjectMainTyp_Player
+				&& expObj.getMainTyp() == GameObjectMainTyp.GameObjectMainTyp_Explosion )
+				{
+					playerObj.collideByOtherObj( expObj );
+					expObj.collideByOtherObj( playerObj );
+				}
+		}
 		protected function playerCollideBullet( playerObj:BaseGameObject, bulletObj:BaseGameObject ):void
 		{
-			if ( _mainPlayer != playerObj )
+			//if ( _mainPlayer != playerObj )
 			{
 				if ( playerObj.getMainTyp() == GameObjectMainTyp.GameObjectMainTyp_Player
 				&& bulletObj.getMainTyp() == GameObjectMainTyp.GameObjectMainTyp_Bullet )

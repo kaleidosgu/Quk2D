@@ -12,7 +12,7 @@ package gameplay.WeaponSystem.Explosion
 	public class BaseExplosionObject extends BaseGameObject 
 	{
 		private var _mathTrig:MathUtilTrigonometric = new MathUtilTrigonometric();
-		private var _shiftMaxValue:Number = 100;
+		private var _shiftMaxValue:Number = 1000;
 		private var _shiftStageValue:uint = 3;
 		private var _currentShiftState:uint = 1;
 		public function BaseExplosionObject() 

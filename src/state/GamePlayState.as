@@ -43,14 +43,16 @@ package state
 		private var _playerFsm:PlayerFSM = null;
 		private var _shootingGamePlay:GameShootingGamePlay = null;
 		
-		private var _playerGroup:FlxGroup 	= null;
-		private var _bulletGroup:FlxGroup	= null;
+		private var _playerGroup:FlxGroup 			= null;
+		private var _bulletGroup:FlxGroup			= null;
+		private var _explosionGroup:FlxGroup		= null;
 		
 		private var _bulletCollideMonitor:BulletCollideMonitor = null;
 		public function GamePlayState() 
 		{
 			_playerGroup 	= new FlxGroup();
 			_bulletGroup	= new FlxGroup();
+			_explosionGroup	= new FlxGroup();
 		}
 		
 		override public function create():void
@@ -59,8 +61,10 @@ package state
 			playerIns = new BasePlayerObject();
 			targetSprite = new BasePlayerObject();
 			
+			this.add( _explosionGroup );
 			this.add( _bulletGroup );
-			_bulletCollideMonitor = new BulletCollideMonitor(_bulletGroup, _playerGroup,playerIns, this );
+			_bulletCollideMonitor = new BulletCollideMonitor(_explosionGroup, _bulletGroup, _playerGroup, playerIns, this );
+			
 			
 			cursorMouse = new FlxSprite( 0, 0 );
 			cursorMouse.loadGraphic( ImgCursor, true, true, 15 );
@@ -131,7 +135,7 @@ package state
 			expObj.x = posX;
 			expObj.y = posY;
 			expObj.loadGraphic( ImgExp, true, true, 16 );
-			expObj.setSelfGroup( _bulletGroup );
+			expObj.setSelfGroup( _explosionGroup );
 		}
 		private function inputControlSet():void
 		{
