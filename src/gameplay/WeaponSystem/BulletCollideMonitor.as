@@ -55,7 +55,7 @@ package gameplay.WeaponSystem
 		}
 		protected function playerCollideBullet( playerObj:BaseGameObject, bulletObj:BaseGameObject ):void
 		{
-			//if ( _mainPlayer != playerObj )
+			if ( _mainPlayer != playerObj )
 			{
 				if ( playerObj.getMainTyp() == GameObjectMainTyp.GameObjectMainTyp_Player
 				&& bulletObj.getMainTyp() == GameObjectMainTyp.GameObjectMainTyp_Bullet )
