@@ -70,7 +70,7 @@ package gameplay
 				if ( _playerSprite )
 				{
 					//fireBullet( _playerSprite.x, _playerSprite.y, FlxG.mouse.x, FlxG.mouse.y );
-					//fireBullet2( _playerSprite.x, _playerSprite.y, FlxG.mouse.x, FlxG.mouse.y );
+					fireBullet2( _playerSprite.x, _playerSprite.y, FlxG.mouse.x, FlxG.mouse.y );
 				}
 			}
 		}

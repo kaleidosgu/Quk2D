@@ -17,6 +17,7 @@ package gameplay.WeaponSystem.Explosion
 		private var _currentShiftState:uint = 1;
 		public function BaseExplosionObject() 
 		{
+			_enableUpdateTick = true;
 		}
 		
 		override public function getMainTyp():uint
@@ -28,12 +29,10 @@ package gameplay.WeaponSystem.Explosion
 		override public function collideByOtherObj( otherObj:BaseGameObject ):void
 		{
 			super.collideByOtherObj( otherObj );
-			_enableUpdateTick = true;
 			if ( otherObj is BasePlayerObject )
 			{
 				var basePlayer:BasePlayerObject = otherObj as BasePlayerObject;
 				harmPlayer( basePlayer );
-				//shiftPosPlayer( basePlayer );
 			}
 			else
 			{
