@@ -11,7 +11,7 @@ package gameplay.WeaponSystem
 	{
 		private var _mathTrig:MathUtilTrigonometric = new MathUtilTrigonometric();
 		private var _generatePoint:FlxPoint = new FlxPoint();
-		private var _posOffset:Number = 7;
+		private var _posOffset:Number = 5;
 		public function BulletGeneratePoint() 
 		{
 			
