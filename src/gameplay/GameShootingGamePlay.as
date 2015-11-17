@@ -5,6 +5,7 @@ package gameplay
 	import gameEvent.PlayerInputActionEvent;
 	import gameEvent.PlayerInputActionType;
 	import gameplay.WeaponSystem.BulletAmmo.BaseBulletObject;
+	import gameplay.WeaponSystem.BulletGeneratePoint;
 	import gameplay.WeaponSystem.PlayerWeaponStatus;
 	import gameplay.WeaponSystem.WeaponAttributeLoadFromXml;
 	import gameplay.WeaponSystem.WeaponTypeDefine;
@@ -15,6 +16,7 @@ package gameplay
 	import org.flixel.FlxParticle;
 	import org.flixel.FlxPath;
 	import org.flixel.FlxPoint;
+	import org.flixel.FlxRect;
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxState;
 	import util.Math.MathRandomUtil;
@@ -41,6 +43,7 @@ package gameplay
 		
 		private var _bulletGroup:FlxGroup = null;
 		
+		private var _bulletGeneratePoint:BulletGeneratePoint = new BulletGeneratePoint();
 		public function GameShootingGamePlay( state:FlxState, player:FlxSprite, stage:Stage, outBulletGroup:FlxGroup ) 
 		{
 			_bulletGroup = outBulletGroup;
@@ -70,9 +73,23 @@ package gameplay
 				if ( _playerSprite )
 				{
 					//fireBullet( _playerSprite.x, _playerSprite.y, FlxG.mouse.x, FlxG.mouse.y );
-					fireBullet2( _playerSprite.x, _playerSprite.y, FlxG.mouse.x, FlxG.mouse.y );
+					var startPoint:FlxPoint = _GetBulletGeneratePoint( );
+					fireBullet2( startPoint.x, startPoint.y, FlxG.mouse.x, FlxG.mouse.y );
 				}
 			}
+			//drawBulletGeneratePoint();
+		}
+		private function _GetBulletGeneratePoint():FlxPoint
+		{
+			var rctPlayer:FlxRect = new FlxRect();
+			rctPlayer.x = _playerSprite.x;
+			rctPlayer.y = _playerSprite.y;
+			rctPlayer.width = _playerSprite.width;
+			rctPlayer.height = _playerSprite.height;
+			var mousePoint:FlxPoint = new FlxPoint( FlxG.mouse.x, FlxG.mouse.y );
+			var _generatePointValue:FlxPoint = _bulletGeneratePoint.GeneratePoint( rctPlayer, mousePoint );	
+			//_drawLineSprite.drawLine( _generatePointValue.x, _generatePointValue.y, _generatePointValue.x + 1, _generatePointValue.y + 1, 0xff0000 );
+			return _generatePointValue;
 		}
 		private function onActionEvt( evt:PlayerInputActionEvent ):void
 		{
