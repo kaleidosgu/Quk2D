@@ -54,6 +54,8 @@ package state
 			_playerGroup 	= new FlxGroup();
 			_bulletGroup	= new FlxGroup();
 			_explosionGroup	= new FlxGroup();
+			
+			_dspSystem = new GameDispatchSystem;
 		}
 		
 		override public function create():void
