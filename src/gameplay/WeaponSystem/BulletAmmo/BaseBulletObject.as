@@ -4,6 +4,7 @@ package gameplay.WeaponSystem.BulletAmmo
 	import gamemap.GameObjectMainTyp;
 	import gameplay.WeaponSystem.WeaponAttribute;
 	import player.BasePlayerObject;
+	import util.EventDispatch.GameDispatchSystem;
 	import util.Math.MathUtilTrigonometric;
 	
 	/**
@@ -14,8 +15,10 @@ package gameplay.WeaponSystem.BulletAmmo
 	{
 		private var _weaponAttr:WeaponAttribute = null;
 		private var _mathTrig:MathUtilTrigonometric = new MathUtilTrigonometric();
-		public function BaseBulletObject() 
+		private var _dspSys:GameDispatchSystem = null;
+		public function BaseBulletObject( inDspSys:GameDispatchSystem ) 
 		{
+			_dspSys = inDspSys;
 		}
 		
 		override public function getMainTyp():uint
@@ -24,23 +27,38 @@ package gameplay.WeaponSystem.BulletAmmo
 		}
 		public function harmPlayer( basePlayer:BasePlayerObject ):void
 		{
-			if ( _weaponAttr != null )
-			{
-				_mathTrig.calculateAngBySize( this.getPrePoint().x, this.getPrePoint().y, this.width, this.height,
-				basePlayer.x, basePlayer.y, basePlayer.width, basePlayer.height );
-								
-				var sinAng:Number = _mathTrig.sinAng;
-				var cosAng:Number = _mathTrig.cosAng;
-				
-				var diffX:Number = cosAng * _weaponAttr.damageShift;
-				var diffY:Number = sinAng * _weaponAttr.damageShift;
-				basePlayer.velocity.x +=	 diffX;
-				basePlayer.velocity.y += 	 diffY;
-			}
 		}
 		public function shiftPosPlayer( basePlayer:BasePlayerObject ):void
 		{
-			
+			if ( _weaponAttr != null )
+			{
+				if ( _weaponAttr.damageFields <= 0 )
+				{
+					_mathTrig.calculateAngBySize( this.getPrePoint().x, this.getPrePoint().y, this.width, this.height,
+					basePlayer.x, basePlayer.y, basePlayer.width, basePlayer.height );
+									
+					var sinAng:Number = _mathTrig.sinAng;
+					var cosAng:Number = _mathTrig.cosAng;
+					
+					var diffX:Number = cosAng * _weaponAttr.damageShift;
+					var diffY:Number = sinAng * _weaponAttr.damageShift;
+					basePlayer.velocity.x +=	 diffX;
+					basePlayer.velocity.y += 	 diffY;	
+				}
+			}
+		}
+		private function generateExplosion():void
+		{
+			if ( _weaponAttr != null )
+			{
+				if ( _weaponAttr.damageFields > 0 )
+				{
+					var generatePosX:Number = this.x + this.width / 2;
+					var generatePosY:Number = this.y + this.height / 2
+					
+					_dspSys.DispatchEvent( );
+				}
+			}
 		}
 		public function destroySelf():void
 		{
