@@ -1,6 +1,7 @@
 package gameplay.WeaponSystem.BulletAmmo 
 {
 	import Base.BaseGameObject;
+	import gameEvent.BattleEvent.BulletGenerateExplosionEvent;
 	import gamemap.GameObjectMainTyp;
 	import gameplay.WeaponSystem.WeaponAttribute;
 	import player.BasePlayerObject;
@@ -56,7 +57,12 @@ package gameplay.WeaponSystem.BulletAmmo
 					var generatePosX:Number = this.x + this.width / 2;
 					var generatePosY:Number = this.y + this.height / 2
 					
-					_dspSys.DispatchEvent( );
+					var genExpEvt:BulletGenerateExplosionEvent = new BulletGenerateExplosionEvent( BulletGenerateExplosionEvent.BULLET_GENERATE_EXPLOSION_EVENT );
+
+					genExpEvt.posX = generatePosX;
+					genExpEvt.posY = generatePosY;
+					genExpEvt.weaponType = _weaponAttr.weaponType;
+					_dspSys.DispatchEvent( genExpEvt );
 				}
 			}
 		}

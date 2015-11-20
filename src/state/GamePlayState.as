@@ -12,6 +12,7 @@ package state
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxState;
 	import player.BasePlayerObject;
+	import util.EventDispatch.GameDispatchSystem;
 	import util.InputController.GamePlayInputController;
 	import util.InputController.InputControllerManager;
 	import util.InputController.UIInputController;
@@ -46,6 +47,7 @@ package state
 		private var _bulletGroup:FlxGroup			= null;
 		private var _explosionGroup:FlxGroup		= null;
 		
+		private var _dspSystem:GameDispatchSystem = null;
 		private var _bulletCollideMonitor:BulletCollideMonitor = null;
 		public function GamePlayState() 
 		{
