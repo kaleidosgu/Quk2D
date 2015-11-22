@@ -19,6 +19,7 @@ package gameplay
 	import org.flixel.FlxRect;
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxState;
+	import util.EventDispatch.GameDispatchSystem;
 	import util.Math.MathRandomUtil;
 	/**
 	 * ...
@@ -43,9 +44,12 @@ package gameplay
 		
 		private var _bulletGroup:FlxGroup = null;
 		
+		private var _dspSystem:GameDispatchSystem = null;
+		
 		private var _bulletGeneratePoint:BulletGeneratePoint = new BulletGeneratePoint();
-		public function GameShootingGamePlay( state:FlxState, player:FlxSprite, stage:Stage, outBulletGroup:FlxGroup ) 
+		public function GameShootingGamePlay( state:FlxState, player:FlxSprite, stage:Stage, outBulletGroup:FlxGroup, inEventDsp:GameDispatchSystem ) 
 		{
+			_dspSystem = inEventDsp;
 			_bulletGroup = outBulletGroup;
 			_gameState = state;
 			_playerSprite = player;
@@ -184,7 +188,7 @@ package gameplay
 				var endPoint:FlxPoint = new FlxPoint( endX , endY );
 				
 				//var bulletSprite:FlxSprite = new FlxSprite(startX, startY, ImgBullet );
-				var bulletSprite:BaseBulletObject = new BaseBulletObject( );
+				var bulletSprite:BaseBulletObject = new BaseBulletObject( _dspSystem );
 				bulletSprite.loadGraphic( ImgBullet );
 				bulletSprite.setSelfGroup( _bulletGroup );
 				

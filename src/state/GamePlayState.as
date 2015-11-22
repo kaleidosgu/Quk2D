@@ -1,8 +1,11 @@
 package state 
 {
+	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import fsm.PlayerFSM;
+	import gameEvent.BattleEvent.BulletGenerateExplosionEvent;
 	import gamemap.GameMapEditor;
+	import gameplay.ExplosionObjectGenerator;
 	import gameplay.GameShootingGamePlay;
 	import gameplay.WeaponSystem.BulletCollideMonitor;
 	import gameplay.WeaponSystem.Explosion.BaseExplosionObject;
@@ -49,15 +52,18 @@ package state
 		
 		private var _dspSystem:GameDispatchSystem = null;
 		private var _bulletCollideMonitor:BulletCollideMonitor = null;
+		private var _explosionObjGenerator:ExplosionObjectGenerator = null;
 		public function GamePlayState() 
 		{
 			_playerGroup 	= new FlxGroup();
 			_bulletGroup	= new FlxGroup();
 			_explosionGroup	= new FlxGroup();
 			
-			_dspSystem = new GameDispatchSystem;
+			_dspSystem = new GameDispatchSystem( FlxG.stage );
+			
+			_explosionObjGenerator = new ExplosionObjectGenerator( _dspSystem, _explosionGroup );
+			
 		}
-		
 		override public function create():void
 		{
 			super.create();
@@ -66,7 +72,7 @@ package state
 			
 			this.add( _explosionGroup );
 			this.add( _bulletGroup );
-			_bulletCollideMonitor = new BulletCollideMonitor(_explosionGroup, _bulletGroup, _playerGroup, playerIns, this );
+			_bulletCollideMonitor = new BulletCollideMonitor( _explosionGroup, _bulletGroup, _playerGroup, playerIns, this );
 			
 			
 			cursorMouse = new FlxSprite( 0, 0 );
@@ -90,8 +96,8 @@ package state
 			
 			_playerFsm = new PlayerFSM( FlxG.stage, playerIns );
 			_playerFsm.addListener();
-			
-			_shootingGamePlay = new GameShootingGamePlay( this, playerIns, FlxG.stage, _bulletGroup );
+			 
+			_shootingGamePlay = new GameShootingGamePlay( this, playerIns, FlxG.stage, _bulletGroup ,_dspSystem );
 			
 			_bulletCollideMonitor.setBuildingGroup( mapEditor.getBuildingGroup() );
 			

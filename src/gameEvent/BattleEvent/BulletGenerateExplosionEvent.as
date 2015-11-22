@@ -13,9 +13,9 @@ package gameEvent.BattleEvent
 		private var _posX:Number = 0;
 		private var _posY:Number = 0;
 		private var _weaponType:uint = 0;
-		public function BulletGenerateExplosionEvent( evtType:String ) 
+		public function BulletGenerateExplosionEvent( type:String, bubbles:Boolean=false, cancelable:Boolean = false ) 
 		{
-			super( type );
+			super( type, bubbles, cancelable );
 		}
 		
 		public function get posX():Number 

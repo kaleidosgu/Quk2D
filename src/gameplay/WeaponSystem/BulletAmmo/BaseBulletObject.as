@@ -93,6 +93,7 @@ package gameplay.WeaponSystem.BulletAmmo
 			{
 				//todo 传递的不是player打log信息
 			}
+			generateExplosion();
 		}
 	}
 

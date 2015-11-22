@@ -15,8 +15,6 @@ package gameplay.WeaponSystem
 	 */
 	public class BulletCollideMonitor 
 	{
-		[Embed(source = "../../../res/images/teleport.png")] private static var ImgExp:Class;
-		
 		private var _bulletGroup:FlxGroup 			= null;
 		private var _playerGroup:FlxGroup			= null;
 		private var _arrayBuildingGroup:Array 		= null;
@@ -67,21 +65,13 @@ package gameplay.WeaponSystem
 			}
 		}
 		
-		private function generateExplosion( posX:Number, posY:Number ):void
-		{
-			var expObj:BaseExplosionObject = new BaseExplosionObject();
-			expObj.x = posX - expObj.width / 2 ;
-			expObj.y = posY - expObj.height / 2 ;
-			expObj.loadGraphic( ImgExp, true, true, 16 );
-			expObj.setSelfGroup( _explosionGroup );
-		}
 		protected function BulletCollideBuilding( bulletObj:BaseGameObject, buildingObj:BaseGameObject ):void
 		{
 			//替换成building
 			//playerObj.collideByOtherObj( bulletObj );
 			bulletObj.collideByOtherObj( buildingObj );
 			GameExplosionGenerator.getIns().generateExplosion( bulletObj.x, bulletObj.y, _gameState );
-			generateExplosion( bulletObj.x + bulletObj.width / 2, bulletObj.y + bulletObj.height / 2);
+			//generateExplosion( bulletObj.x + bulletObj.width / 2, bulletObj.y + bulletObj.height / 2);
 		}
 		public function setBuildingGroup( arrayGroup:Array ):void
 		{
