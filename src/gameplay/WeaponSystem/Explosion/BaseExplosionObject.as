@@ -67,6 +67,26 @@ package gameplay.WeaponSystem.Explosion
 				removeFromGroup();
 			}
 		}
+		
+		public function get shiftMaxValue():Number 
+		{
+			return _shiftMaxValue;
+		}
+		
+		public function set shiftMaxValue(value:Number):void 
+		{
+			_shiftMaxValue = value;
+		}
+		
+		public function get shiftStageValue():uint 
+		{
+			return _shiftStageValue;
+		}
+		
+		public function set shiftStageValue(value:uint):void 
+		{
+			_shiftStageValue = value;
+		}
 	}
 
 }
