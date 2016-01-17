@@ -8,6 +8,7 @@ package gameplay
 	import gameplay.WeaponSystem.BulletGeneratePoint;
 	import gameplay.WeaponSystem.PlayerWeaponStatus;
 	import gameplay.WeaponSystem.WeaponAttributeLoadFromXml;
+	import gameplay.WeaponSystem.WeaponShoot.BaseWeaponShoot;
 	import gameplay.WeaponSystem.WeaponTypeDefine;
 	import org.flixel.FlxEmitter;
 	import org.flixel.FlxG;
@@ -47,6 +48,8 @@ package gameplay
 		private var _dspSystem:GameDispatchSystem = null;
 		
 		private var _bulletGeneratePoint:BulletGeneratePoint = new BulletGeneratePoint();
+		
+		private var _baseWeaponShoot:BaseWeaponShoot = null;
 		public function GameShootingGamePlay( state:FlxState, player:FlxSprite, stage:Stage, outBulletGroup:FlxGroup, inEventDsp:GameDispatchSystem ) 
 		{
 			_dspSystem = inEventDsp;
@@ -184,26 +187,8 @@ package gameplay
 			var canShoot:Boolean = _playerWeaponStatus.canShoot();
 			if ( canShoot )
 			{
-				var startPoint:FlxPoint = new FlxPoint( startX, startY );
-				var endPoint:FlxPoint = new FlxPoint( endX , endY );
-				
-				//var bulletSprite:FlxSprite = new FlxSprite(startX, startY, ImgBullet );
-				var bulletSprite:BaseBulletObject = new BaseBulletObject( _dspSystem );
-				bulletSprite.loadGraphic( ImgBullet );
-				bulletSprite.setSelfGroup( _bulletGroup );
-				
-				bulletSprite.x = startPoint.x;
-				bulletSprite.y = startPoint.y;
-				var widthLength:Number = endPoint.x - startPoint.x ;
-				var heightLength:Number = endPoint.y - startPoint.y ;
-				var rLength:Number = Math.sqrt( widthLength * widthLength + heightLength * heightLength );
-				var sinAngle:Number = heightLength / rLength;
-				var cosAngle:Number = widthLength / rLength;
-				
-				bulletSprite.weaponAttr = _playerWeaponStatus.currentWeaponAttr();
-				
-				bulletSprite.velocity.x = cosAngle * bulletSprite.weaponAttr.fireSpeed ;
-				bulletSprite.velocity.y = sinAngle * bulletSprite.weaponAttr.fireSpeed ;
+				_baseWeaponShoot = new BaseWeaponShoot( startX, startY, endX, endY, _playerWeaponStatus.currentWeaponAttr(), _dspSystem, _bulletGroup );
+
 				_playerWeaponStatus.shoot();
 			}
 			else
