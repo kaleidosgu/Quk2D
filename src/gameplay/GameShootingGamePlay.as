@@ -9,6 +9,7 @@ package gameplay
 	import gameplay.WeaponSystem.PlayerWeaponStatus;
 	import gameplay.WeaponSystem.WeaponAttributeLoadFromXml;
 	import gameplay.WeaponSystem.WeaponShoot.BaseWeaponShoot;
+	import gameplay.WeaponSystem.WeaponShoot.WeaponShootShotGun;
 	import gameplay.WeaponSystem.WeaponTypeDefine;
 	import org.flixel.FlxEmitter;
 	import org.flixel.FlxG;
@@ -187,7 +188,11 @@ package gameplay
 			var canShoot:Boolean = _playerWeaponStatus.canShoot();
 			if ( canShoot )
 			{
-				_baseWeaponShoot = new BaseWeaponShoot( startX, startY, endX, endY, _playerWeaponStatus.currentWeaponAttr(), _dspSystem, _bulletGroup );
+				//_baseWeaponShoot = new BaseWeaponShoot( startX, startY, endX, endY, _playerWeaponStatus.currentWeaponAttr(), _dspSystem, _bulletGroup );
+				//_baseWeaponShoot = new WeaponShootShotGun();
+				_baseWeaponShoot = new BaseWeaponShoot();
+				_baseWeaponShoot.SetPosition( startX, startY, endX, endY );
+				_baseWeaponShoot.WeaponFire( _dspSystem, _bulletGroup, _playerWeaponStatus.currentWeaponAttr() );
 
 				_playerWeaponStatus.shoot();
 			}

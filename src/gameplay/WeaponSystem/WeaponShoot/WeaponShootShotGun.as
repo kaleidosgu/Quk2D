@@ -7,29 +7,25 @@ package gameplay.WeaponSystem.WeaponShoot
 	import util.EventDispatch.GameDispatchSystem;
 	/**
 	 * ...
-	 * @author ddda
-	 */	
-	public class BaseWeaponShoot 
+	 * @author kaleidos
+	 */
+	public class WeaponShootShotGun extends BaseWeaponShoot 
 	{
 		[Embed(source = "../../../../res/images/bullet.png")] protected static var ImgBullet:Class;
 		private var _startPoint:FlxPoint = new FlxPoint();
 		private var _endPoint:FlxPoint = new FlxPoint();
-		public function BaseWeaponShoot( ) 
+		public function WeaponShootShotGun() 
 		{
+			
 		}
-		
-		public function SetPosition( startX:Number, startY:Number, endX:Number, endY:Number ):void
+		override protected function _shootStrategy( _dspSystem:GameDispatchSystem, startPoint:FlxPoint, endPoint:FlxPoint,_bulletGroup:FlxGroup,_weaponAttr:WeaponAttribute ):void
 		{
-			_startPoint.x = startX;
-			_startPoint.y = startY;
-			_endPoint.x = endX;
-			_endPoint.y = endY;
+			for ( var idx:uint = 0; idx < 5; idx++ )
+			{
+				_generateBulletObject( _dspSystem, startPoint, endPoint,_bulletGroup, _weaponAttr );	
+			}
 		}
-		public function WeaponFire( _dspSystem:GameDispatchSystem,_bulletGroup:FlxGroup,_weaponAttr:WeaponAttribute ):void
-		{
-			_shootStrategy( _dspSystem, _startPoint, _endPoint, _bulletGroup, _weaponAttr );
-		}
-		private function _generateBulletObject( _dspSystem:GameDispatchSystem, startPoint:FlxPoint, endPoint:FlxPoint,_bulletGroup:FlxGroup,_weaponAttr:WeaponAttribute ):void
+		private function _generateBulletObject( _dspSystem:GameDispatchSystem, startPoint:FlxPoint, endPoint:FlxPoint, _bulletGroup:FlxGroup, _weaponAttr:WeaponAttribute ):void
 		{
 			var bulletSprite:BaseBulletObject = new BaseBulletObject( _dspSystem );
 			bulletSprite.loadGraphic( ImgBullet );
@@ -43,17 +39,14 @@ package gameplay.WeaponSystem.WeaponShoot
 			var sinAngle:Number = heightLength / rLength;
 			var cosAngle:Number = widthLength / rLength;
 			
+			var randomNumber:Number = 0;
+			randomNumber = ( Math.random() - 0.5 ) * 1000 ;
 			bulletSprite.weaponAttr = _weaponAttr;
 			
-			bulletSprite.velocity.x = cosAngle * bulletSprite.weaponAttr.fireSpeed;
-			bulletSprite.velocity.y = sinAngle * bulletSprite.weaponAttr.fireSpeed;
+			bulletSprite.velocity.x = cosAngle * bulletSprite.weaponAttr.fireSpeed ;
+			bulletSprite.velocity.y = sinAngle * bulletSprite.weaponAttr.fireSpeed + randomNumber;
 		}
 		
-		
-		protected function _shootStrategy( _dspSystem:GameDispatchSystem, startPoint:FlxPoint, endPoint:FlxPoint,_bulletGroup:FlxGroup,_weaponAttr:WeaponAttribute ):void
-		{
-			_generateBulletObject( _dspSystem, startPoint, endPoint, _bulletGroup, _weaponAttr );
-		}
 	}
 
 }
