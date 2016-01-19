@@ -50,7 +50,7 @@ package gameplay
 		
 		private var _bulletGeneratePoint:BulletGeneratePoint = new BulletGeneratePoint();
 		
-		private var _baseWeaponShoot:BaseWeaponShoot = null;
+		private var _weaponShotObject:Object = new Object();
 		public function GameShootingGamePlay( state:FlxState, player:FlxSprite, stage:Stage, outBulletGroup:FlxGroup, inEventDsp:GameDispatchSystem ) 
 		{
 			_dspSystem = inEventDsp;
@@ -67,9 +67,14 @@ package gameplay
 			_weaponLoader = new WeaponAttributeLoadFromXml();
 			
 			_playerWeaponStatus = new PlayerWeaponStatus( _weaponLoader );
+			_initWeaponShot();
 			
 		}
-		
+		private function _initWeaponShot():void
+		{
+			_weaponShotObject[WeaponTypeDefine.WEAPON_TYPE_MACHINE_GUN] = new BaseWeaponShoot();
+			_weaponShotObject[WeaponTypeDefine.WEAPON_TYPE_SHOT_GUN] = new WeaponShootShotGun();
+		}
 		public function changeWeapon( weaponType:uint ):void
 		{
 			
@@ -190,11 +195,15 @@ package gameplay
 			{
 				//_baseWeaponShoot = new BaseWeaponShoot( startX, startY, endX, endY, _playerWeaponStatus.currentWeaponAttr(), _dspSystem, _bulletGroup );
 				//_baseWeaponShoot = new WeaponShootShotGun();
-				_baseWeaponShoot = new BaseWeaponShoot();
-				_baseWeaponShoot.SetPosition( startX, startY, endX, endY );
-				_baseWeaponShoot.WeaponFire( _dspSystem, _bulletGroup, _playerWeaponStatus.currentWeaponAttr() );
+				var weaponTyp:uint = _playerWeaponStatus.currentWeaponAttr().weaponType;
+				var _baseWeaponShoot:BaseWeaponShoot = _weaponShotObject[weaponTyp];
+				if ( _baseWeaponShoot != null )
+				{
+					_baseWeaponShoot.SetPosition( startX, startY, endX, endY );
+					_baseWeaponShoot.WeaponFire( _dspSystem, _bulletGroup, _playerWeaponStatus.currentWeaponAttr() );
 
-				_playerWeaponStatus.shoot();
+					_playerWeaponStatus.shoot();
+				}
 			}
 			else
 			{

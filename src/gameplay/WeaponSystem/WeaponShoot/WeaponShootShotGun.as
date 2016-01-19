@@ -40,7 +40,7 @@ package gameplay.WeaponSystem.WeaponShoot
 			var cosAngle:Number = widthLength / rLength;
 			
 			var randomNumber:Number = 0;
-			randomNumber = ( Math.random() - 0.5 ) * 1000 ;
+			randomNumber = ( Math.random() - 0.5 ) * 500 ;
 			bulletSprite.weaponAttr = _weaponAttr;
 			
 			bulletSprite.velocity.x = cosAngle * bulletSprite.weaponAttr.fireSpeed ;
