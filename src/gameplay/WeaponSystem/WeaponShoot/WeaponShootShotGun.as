@@ -14,6 +14,7 @@ package gameplay.WeaponSystem.WeaponShoot
 		[Embed(source = "../../../../res/images/bullet.png")] protected static var ImgBullet:Class;
 		private var _startPoint:FlxPoint = new FlxPoint();
 		private var _endPoint:FlxPoint = new FlxPoint();
+		private var _diffDeg:Number = 20;
 		public function WeaponShootShotGun() 
 		{
 			
@@ -38,14 +39,19 @@ package gameplay.WeaponSystem.WeaponShoot
 			var rLength:Number = Math.sqrt( widthLength * widthLength + heightLength * heightLength );
 			var sinAngle:Number = heightLength / rLength;
 			var cosAngle:Number = widthLength / rLength;
-			//var tnba:Number = Main.sin(90);
-			var angleValue:Number = (Math.asin( sinAngle ) * 180 / Math.PI);
-			var randomAngle:Number = 0;
-			randomAngle = -(( Math.random() - 0.5 ) * 20) ;
-			var changeAngleDeg:Number = angleValue + randomAngle;
-			var changeAngleRad:Number = changeAngleDeg * Math.PI / 180;
-			var randomSin:Number = Math.sin( changeAngleRad );
-			var randomCos:Number = Math.cos( changeAngleRad );
+			
+			var angleValueSin:Number = (Math.asin( sinAngle ) * 180 / Math.PI);
+			var angleValueCos:Number = (Math.acos( cosAngle ) * 180 / Math.PI);
+			var randomAddDeg:Number = 0;
+			
+			randomAddDeg = -(( Math.random() - 0.5 ) * _diffDeg) ;
+			var changeAngleDegSin:Number = angleValueSin + randomAddDeg;
+			var changeAngleDegCos:Number = angleValueCos + randomAddDeg;
+			
+			var changeAngleRadSin:Number = changeAngleDegSin * Math.PI / 180;
+			var changeAngleRadCos:Number = changeAngleDegCos * Math.PI / 180;
+			var randomSin:Number = Math.sin( changeAngleRadSin );
+			var randomCos:Number = Math.cos( changeAngleRadCos );
 			bulletSprite.weaponAttr = _weaponAttr;
 			
 			bulletSprite.velocity.x = randomCos * bulletSprite.weaponAttr.fireSpeed ;
