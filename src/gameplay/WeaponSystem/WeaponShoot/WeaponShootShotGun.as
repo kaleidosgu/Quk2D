@@ -41,9 +41,11 @@ package gameplay.WeaponSystem.WeaponShoot
 			//var tnba:Number = Main.sin(90);
 			var angleValue:Number = (Math.asin( sinAngle ) * 180 / Math.PI);
 			var randomAngle:Number = 0;
-			randomAngle = ( Math.random() - 0.5 ) * 10 ;
-			var randomSin:Number = Math.sin( 90 );
-			var randomCos:Number = Math.cos( angleValue + randomAngle );
+			randomAngle = -(( Math.random() - 0.5 ) * 20) ;
+			var changeAngleDeg:Number = angleValue + randomAngle;
+			var changeAngleRad:Number = changeAngleDeg * Math.PI / 180;
+			var randomSin:Number = Math.sin( changeAngleRad );
+			var randomCos:Number = Math.cos( changeAngleRad );
 			bulletSprite.weaponAttr = _weaponAttr;
 			
 			bulletSprite.velocity.x = randomCos * bulletSprite.weaponAttr.fireSpeed ;
