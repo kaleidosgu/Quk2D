@@ -9,6 +9,7 @@ package gameplay
 	import gameplay.WeaponSystem.PlayerWeaponStatus;
 	import gameplay.WeaponSystem.WeaponAttributeLoadFromXml;
 	import gameplay.WeaponSystem.WeaponShoot.BaseWeaponShoot;
+	import gameplay.WeaponSystem.WeaponShoot.WeaponShootRailGun;
 	import gameplay.WeaponSystem.WeaponShoot.WeaponShootShotGun;
 	import gameplay.WeaponSystem.WeaponTypeDefine;
 	import org.flixel.FlxEmitter;
@@ -73,7 +74,8 @@ package gameplay
 		private function _initWeaponShot():void
 		{
 			_weaponShotObject[WeaponTypeDefine.WEAPON_TYPE_MACHINE_GUN] = new BaseWeaponShoot();
-			_weaponShotObject[WeaponTypeDefine.WEAPON_TYPE_SHOT_GUN] = new WeaponShootShotGun();
+			//_weaponShotObject[WeaponTypeDefine.WEAPON_TYPE_SHOT_GUN] = new WeaponShootShotGun();
+			_weaponShotObject[WeaponTypeDefine.WEAPON_TYPE_SHOT_GUN] = new WeaponShootRailGun();
 		}
 		public function changeWeapon( weaponType:uint ):void
 		{
