@@ -25,22 +25,12 @@ package gameplay.WeaponSystem.WeaponShoot
 		}
 		private function _generateBulletObject( _dspSystem:GameDispatchSystem, startPoint:FlxPoint, endPoint:FlxPoint, _bulletGroup:FlxGroup, _weaponAttr:WeaponAttribute ):void
 		{
-			//var bulletSprite:BaseBulletObject = new BaseBulletObject( _dspSystem );
-			var bulletSprite:FlxSprite = new FlxSprite( 0,0 );
+			var bulletSprite:BaseBulletObject = new BaseBulletObject( _dspSystem );
 			bulletSprite.makeGraphic(FlxG.width, FlxG.height, 0x22000000 );
-			//bulletSprite.fill( 0x000000 );			
-			//bulletSprite.drawLine( startPoint.x , startPoint.y, endPoint.x,  endPoint.y, 0xFFFF0000 );
-			bulletSprite.drawLine( 0 , 0, 100,  200, 0xFFFF0000 );
-			//bulletSprite.setSelfGroup( _bulletGroup );
+			bulletSprite.drawLine( startPoint.x , startPoint.y, endPoint.x, endPoint.y, 0xFFFF0000 );
+			bulletSprite.setSelfGroup( _bulletGroup );
 			bulletSprite.allowCollisions = 0;
-			_bulletGroup.add( bulletSprite );
-			
-			bulletSprite.x = startPoint.x;
-			bulletSprite.y = startPoint.y;
-			//bulletSprite.weaponAttr = _weaponAttr;
-			
-			bulletSprite.velocity.x = 0;
-			bulletSprite.velocity.y = 0;
+			bulletSprite.weaponAttr = _weaponAttr;
 		}
 	}
 

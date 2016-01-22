@@ -74,8 +74,8 @@ package gameplay
 		private function _initWeaponShot():void
 		{
 			_weaponShotObject[WeaponTypeDefine.WEAPON_TYPE_MACHINE_GUN] = new BaseWeaponShoot();
-			//_weaponShotObject[WeaponTypeDefine.WEAPON_TYPE_SHOT_GUN] = new WeaponShootShotGun();
-			_weaponShotObject[WeaponTypeDefine.WEAPON_TYPE_SHOT_GUN] = new WeaponShootRailGun();
+			_weaponShotObject[WeaponTypeDefine.WEAPON_TYPE_SHOT_GUN] = new WeaponShootShotGun();
+			_weaponShotObject[WeaponTypeDefine.WEAPON_TYPE_RAIL_GUN] = new WeaponShootRailGun();
 		}
 		public function changeWeapon( weaponType:uint ):void
 		{

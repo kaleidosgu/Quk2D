@@ -19,6 +19,7 @@ package gameplay.WeaponSystem
 			_ammoPackage = new WeaponAmmoPackage();
 			_ammoPackage.increaseWeaponAmmo( WeaponTypeDefine.WEAPON_TYPE_MACHINE_GUN, 300 );
 			_ammoPackage.increaseWeaponAmmo( WeaponTypeDefine.WEAPON_TYPE_SHOT_GUN, 300 );
+			_ammoPackage.increaseWeaponAmmo( WeaponTypeDefine.WEAPON_TYPE_RAIL_GUN, 300 );
 			_xmlLoader = inXmlLoader;
 			
 			_currentWeaponAttr = _xmlLoader.getWeaponAttr( WeaponTypeDefine.WEAPON_TYPE_MACHINE_GUN );
