@@ -10,16 +10,36 @@ package gameplay.WeaponSystem
 	{
 		[Embed(source = "../../../res/weapondata/weapon.xml",mimeType = "application/octet-stream")]
 		protected var embWeaponXml:Class;
+		[Embed(source = "../../../res/weapondata/weaponInit.xml",mimeType = "application/octet-stream")]
+		protected var weaponInitXml:Class;
 		private var xmlT:FlxXML = new FlxXML();
+		private var xmlInitWeapon:FlxXML = new FlxXML();
 		
 		private var _dictWeaponAttr:Object = new Object();
+		private var _dictWeaponInit:Object = new Object();
 		public function WeaponAttributeLoadFromXml() 
 		{
 			loadDataFromXml( _dictWeaponAttr );
+			_InitWeaponFromXml( _dictWeaponInit );
 		}
 		public function getWeaponAttr( weaponTyp:uint ):WeaponAttribute
 		{
 			return _dictWeaponAttr[weaponTyp];
+		}
+		private function _InitWeaponFromXml( objInitWeapon:Object ):void
+		{
+			var xmlData:XML = xmlInitWeapon.loadEmbedded(weaponInitXml);
+			var initWeaponXmlLst:XMLList = xmlData.child("weaponDetail");
+			for each ( var weaponDetail:XML in initWeaponXmlLst )
+			{
+				var weaponType:uint = UtilXmlConvertVariables.convertToUint( weaponDetail, "weaponType" );
+				var bulletCounts:uint = UtilXmlConvertVariables.convertToUint( weaponDetail, "weaponInitValue" );
+				objInitWeapon[weaponType] = bulletCounts;
+			}
+		}
+		public function GetWeaponInitCounts( weaponType:uint ):uint
+		{
+			return _dictWeaponInit[weaponType];
 		}
 		private function loadDataFromXml( objWeaponAttri:Object ):void
 		{

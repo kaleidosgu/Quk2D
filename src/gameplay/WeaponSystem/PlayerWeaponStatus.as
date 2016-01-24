@@ -14,12 +14,18 @@ package gameplay.WeaponSystem
 		
 		private var _ammoPackage:WeaponAmmoPackage = null;
 		private var _xmlLoader:WeaponAttributeLoadFromXml = null;
+		private var _arrayWeaponType:Array = new Array();
 		public function PlayerWeaponStatus( inXmlLoader:WeaponAttributeLoadFromXml ) 
 		{
 			_ammoPackage = new WeaponAmmoPackage();
-			_ammoPackage.increaseWeaponAmmo( WeaponTypeDefine.WEAPON_TYPE_MACHINE_GUN, 300 );
-			_ammoPackage.increaseWeaponAmmo( WeaponTypeDefine.WEAPON_TYPE_SHOT_GUN, 300 );
-			_ammoPackage.increaseWeaponAmmo( WeaponTypeDefine.WEAPON_TYPE_RAIL_GUN, 300 );
+			_arrayWeaponType.push( WeaponTypeDefine.WEAPON_TYPE_MACHINE_GUN );
+			_arrayWeaponType.push( WeaponTypeDefine.WEAPON_TYPE_SHOT_GUN );
+			_arrayWeaponType.push( WeaponTypeDefine.WEAPON_TYPE_RAIL_GUN );
+			
+			for each( var weaponType:uint in _arrayWeaponType )
+			{
+				_ammoPackage.increaseWeaponAmmo( weaponType, inXmlLoader.GetWeaponInitCounts( weaponType ) );
+			}
 			_xmlLoader = inXmlLoader;
 			
 			_currentWeaponAttr = _xmlLoader.getWeaponAttr( WeaponTypeDefine.WEAPON_TYPE_MACHINE_GUN );
