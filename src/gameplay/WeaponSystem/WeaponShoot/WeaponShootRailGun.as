@@ -27,10 +27,12 @@ package gameplay.WeaponSystem.WeaponShoot
 		{
 			var bulletSprite:BaseBulletObject = new BaseBulletObject( _dspSystem );
 			bulletSprite.makeGraphic(FlxG.width, FlxG.height, 0x22000000 );
+			bulletSprite.fill(0x000000);
 			bulletSprite.drawLine( startPoint.x , startPoint.y, endPoint.x, endPoint.y, 0xFFFF0000 );
 			bulletSprite.setSelfGroup( _bulletGroup );
 			bulletSprite.allowCollisions = 0;
 			bulletSprite.weaponAttr = _weaponAttr;
+			bulletSprite.setDataByWeaponAttr( true );
 		}
 	}
 

@@ -17,6 +17,7 @@ package gameplay.WeaponSystem.BulletAmmo
 		private var _weaponAttr:WeaponAttribute = null;
 		private var _mathTrig:MathUtilTrigonometric = new MathUtilTrigonometric();
 		private var _dspSys:GameDispatchSystem = null;
+		private var _currentShiftState:uint = 1;
 		public function BaseBulletObject( inDspSys:GameDispatchSystem ) 
 		{
 			_dspSys = inDspSys;
@@ -94,6 +95,26 @@ package gameplay.WeaponSystem.BulletAmmo
 				//todo 传递的不是player打log信息
 			}
 			generateExplosion();
+		}
+		
+		public function setDataByWeaponAttr( testvar:Boolean ):void
+		{
+			if ( testvar == true )
+			{
+				_enableUpdateTick = true;
+			}
+		}
+		override protected function TickUpdateFunction():void
+		{
+			super.TickUpdateFunction();
+			if ( _currentShiftState < 7 )
+			{
+				_currentShiftState++;
+			}
+			else
+			{
+				removeFromGroup();
+			}
 		}
 	}
 
