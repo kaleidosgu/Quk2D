@@ -17,10 +17,12 @@ package gameplay.WeaponSystem.BulletAmmo
 		private var _weaponAttr:WeaponAttribute = null;
 		private var _mathTrig:MathUtilTrigonometric = new MathUtilTrigonometric();
 		private var _dspSys:GameDispatchSystem = null;
-		private var _currentShiftState:uint = 1;
+		private var _currentDestroyCounts:uint = 1;
+		private var _constDestroyCounts:uint = 0;
 		public function BaseBulletObject( inDspSys:GameDispatchSystem ) 
 		{
 			_dspSys = inDspSys;
+			_enableUpdateTick = true;
 		}
 		
 		override public function getMainTyp():uint
@@ -80,6 +82,7 @@ package gameplay.WeaponSystem.BulletAmmo
 		public function set weaponAttr(value:WeaponAttribute):void 
 		{
 			_weaponAttr = value;
+			_constDestroyCounts = _weaponAttr.destroySelfCounts;
 		}
 		override public function collideByOtherObj( otherObj:BaseGameObject ):void
 		{
@@ -96,24 +99,19 @@ package gameplay.WeaponSystem.BulletAmmo
 			}
 			generateExplosion();
 		}
-		
-		public function setDataByWeaponAttr( testvar:Boolean ):void
-		{
-			if ( testvar == true )
-			{
-				_enableUpdateTick = true;
-			}
-		}
 		override protected function TickUpdateFunction():void
 		{
 			super.TickUpdateFunction();
-			if ( _currentShiftState < 7 )
+			if ( _constDestroyCounts > 0 )
 			{
-				_currentShiftState++;
-			}
-			else
-			{
-				removeFromGroup();
+				if ( _currentDestroyCounts < _constDestroyCounts )
+				{
+					_currentDestroyCounts++;
+				}
+				else
+				{
+					removeFromGroup();
+				}
 			}
 		}
 	}

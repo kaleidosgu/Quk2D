@@ -32,7 +32,6 @@ package gameplay.WeaponSystem.WeaponShoot
 			bulletSprite.setSelfGroup( _bulletGroup );
 			bulletSprite.allowCollisions = 0;
 			bulletSprite.weaponAttr = _weaponAttr;
-			bulletSprite.setDataByWeaponAttr( true );
 		}
 	}
 

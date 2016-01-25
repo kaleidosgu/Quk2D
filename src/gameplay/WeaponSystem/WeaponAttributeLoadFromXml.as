@@ -60,6 +60,7 @@ package gameplay.WeaponSystem
 				weaponAttr.linearShape 		= UtilXmlConvertVariables.convertToBool( weaponDetail, "linearShape" );
 				weaponAttr.changeCD 		= UtilXmlConvertVariables.convertToNumber( weaponDetail, "changeCD" );
 				weaponAttr.fireCD 			= UtilXmlConvertVariables.convertToNumber( weaponDetail, "fireCD" );
+				weaponAttr.destroySelfCounts= UtilXmlConvertVariables.convertToUint( weaponDetail, "destroySelfTime" );
 				var newWeapon:WeaponAttribute = objWeaponAttri[weaponAttr.weaponType];
 				if ( newWeapon == null )
 				{
