@@ -59,22 +59,18 @@ package gameplay.WeaponSystem.WeaponShoot
 			var widthLength:Number = endPoint.x - startPoint.x ;
 			var heightLength:Number = endPoint.y - startPoint.y ;
 			
-			var rLength:Number = Math.sqrt( widthLength * widthLength + heightLength * heightLength );
-			
-			var sinAngle:Number = heightLength / rLength;
-			var cosAngle:Number = widthLength / rLength;
+			var tagAngle:Number = heightLength / widthLength;
+			var ctagAngle:Number = widthLength / heightLength ;
 			
 			if ( xWidth > yHeight )
 			{
 				endPosY = posY;
-				endPosX = -( cosAngle / sinAngle * (startPoint.y - endPosY ) - startPoint.x );
-				//endPosX = cosAngle / sinAngle * (startPoint.x - endPosX ) - startPoint.y;
+				endPosX = -( ctagAngle * (startPoint.y - endPosY ) - startPoint.x );
 			}
 			else
 			{
 				endPosX = posX;
-				endPosY = -( sinAngle/ cosAngle * (startPoint.x - endPosX ) - startPoint.y );
-				//endPosY = sinAngle / cosAngle * (startPoint.y - endPosY ) - startPoint.x;
+				endPosY = -( tagAngle * (startPoint.x - endPosX ) - startPoint.y );
 			}
 			
 			
