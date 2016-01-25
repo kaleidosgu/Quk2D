@@ -28,7 +28,57 @@ package gameplay.WeaponSystem.WeaponShoot
 			var bulletSprite:BaseBulletObject = new BaseBulletObject( _dspSystem );
 			bulletSprite.makeGraphic(FlxG.width, FlxG.height, 0x22000000 );
 			bulletSprite.fill(0x000000);
-			bulletSprite.drawLine( startPoint.x , startPoint.y, endPoint.x, endPoint.y, 0xFFFF0000 );
+			var xWidth:Number = 0;
+			var yHeight:Number = 0;
+			var posX:Number = 0;
+			var posY:Number = 0;
+			if ( startPoint.x - endPoint.x < 0 )
+			{
+				xWidth = FlxG.width - startPoint.x;
+				posX = FlxG.width;
+			}
+			else
+			{
+				xWidth = startPoint.x;
+				posX = 0;
+			}
+			if ( startPoint.y - endPoint.y < 0 )
+			{
+				yHeight = FlxG.height - startPoint.y;
+				posY = FlxG.height;
+			}
+			else
+			{
+				yHeight = startPoint.y;
+				posY = 0;
+			}
+			
+			var endPosX:Number = 0;
+			var endPosY:Number = 0;
+			
+			var widthLength:Number = endPoint.x - startPoint.x ;
+			var heightLength:Number = endPoint.y - startPoint.y ;
+			
+			var rLength:Number = Math.sqrt( widthLength * widthLength + heightLength * heightLength );
+			
+			var sinAngle:Number = heightLength / rLength;
+			var cosAngle:Number = widthLength / rLength;
+			
+			if ( xWidth > yHeight )
+			{
+				endPosX = posX;
+				//endPosY = cosAngle / sinAngle * (startPoint.x - endPosX ) - startPoint.y;
+				endPosY = sinAngle / cosAngle * (startPoint.y - endPosY ) - startPoint.x;
+			}
+			else
+			{
+				endPosY = posY;
+				//endPosX = sinAngle / cosAngle * (startPoint.y - endPosY ) - startPoint.x;
+				endPosX = cosAngle / sinAngle * (startPoint.x - endPosX ) - startPoint.y;
+			}
+			
+			
+			bulletSprite.drawLine( startPoint.x , startPoint.y, endPosX, endPosY, 0xFFFF0000 );
 			bulletSprite.setSelfGroup( _bulletGroup );
 			bulletSprite.allowCollisions = 0;
 			bulletSprite.weaponAttr = _weaponAttr;
