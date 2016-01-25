@@ -66,15 +66,15 @@ package gameplay.WeaponSystem.WeaponShoot
 			
 			if ( xWidth > yHeight )
 			{
-				endPosX = posX;
-				//endPosY = cosAngle / sinAngle * (startPoint.x - endPosX ) - startPoint.y;
-				endPosY = sinAngle / cosAngle * (startPoint.y - endPosY ) - startPoint.x;
+				endPosY = posY;
+				endPosX = -( cosAngle / sinAngle * (startPoint.y - endPosY ) - startPoint.x );
+				//endPosX = cosAngle / sinAngle * (startPoint.x - endPosX ) - startPoint.y;
 			}
 			else
 			{
-				endPosY = posY;
-				//endPosX = sinAngle / cosAngle * (startPoint.y - endPosY ) - startPoint.x;
-				endPosX = cosAngle / sinAngle * (startPoint.x - endPosX ) - startPoint.y;
+				endPosX = posX;
+				endPosY = -( sinAngle/ cosAngle * (startPoint.x - endPosX ) - startPoint.y );
+				//endPosY = sinAngle / cosAngle * (startPoint.y - endPosY ) - startPoint.x;
 			}
 			
 			
