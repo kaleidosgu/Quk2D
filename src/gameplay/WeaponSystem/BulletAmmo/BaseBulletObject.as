@@ -74,6 +74,7 @@ package gameplay.WeaponSystem.BulletAmmo
 		public function destroySelf():void
 		{
 			removeFromGroup();
+			_bulletFactory.RecycleBullet( this );
 		}
 		
 		public function get weaponAttr():WeaponAttribute 
@@ -94,6 +95,7 @@ package gameplay.WeaponSystem.BulletAmmo
 				var basePlayer:BasePlayerObject = otherObj as BasePlayerObject;
 				harmPlayer( basePlayer );
 				shiftPosPlayer( basePlayer );
+				destroySelf();
 			}
 			else
 			{
@@ -112,7 +114,8 @@ package gameplay.WeaponSystem.BulletAmmo
 				}
 				else
 				{
-					removeFromGroup();
+					//removeFromGroup();
+					destroySelf();
 				}
 			}
 		}

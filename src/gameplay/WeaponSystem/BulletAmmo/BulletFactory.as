@@ -23,7 +23,7 @@ package gameplay.WeaponSystem.BulletAmmo
 			}
 			else
 			{
-				bulletObject = new BaseBulletObject( _dspSystem );
+				bulletObject = new BaseBulletObject( _dspSystem, this );
 			}
 			return bulletObject;
 		}
