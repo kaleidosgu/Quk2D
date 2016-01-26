@@ -5,6 +5,7 @@ package gameplay
 	import gameEvent.PlayerInputActionEvent;
 	import gameEvent.PlayerInputActionType;
 	import gameplay.WeaponSystem.BulletAmmo.BaseBulletObject;
+	import gameplay.WeaponSystem.BulletAmmo.BulletFactory;
 	import gameplay.WeaponSystem.BulletGeneratePoint;
 	import gameplay.WeaponSystem.PlayerWeaponStatus;
 	import gameplay.WeaponSystem.WeaponAttributeLoadFromXml;
@@ -52,6 +53,7 @@ package gameplay
 		private var _bulletGeneratePoint:BulletGeneratePoint = new BulletGeneratePoint();
 		
 		private var _weaponShotObject:Object = new Object();
+		private var _bulletFactory:BulletFactory = null;
 		public function GameShootingGamePlay( state:FlxState, player:FlxSprite, stage:Stage, outBulletGroup:FlxGroup, inEventDsp:GameDispatchSystem ) 
 		{
 			_dspSystem = inEventDsp;
@@ -68,14 +70,16 @@ package gameplay
 			_weaponLoader = new WeaponAttributeLoadFromXml();
 			
 			_playerWeaponStatus = new PlayerWeaponStatus( _weaponLoader );
+			
+			_bulletFactory = new BulletFactory( inEventDsp );
 			_initWeaponShot();
 			
 		}
 		private function _initWeaponShot():void
 		{
-			_weaponShotObject[WeaponTypeDefine.WEAPON_TYPE_MACHINE_GUN] = new BaseWeaponShoot();
-			_weaponShotObject[WeaponTypeDefine.WEAPON_TYPE_SHOT_GUN] = new WeaponShootShotGun();
-			_weaponShotObject[WeaponTypeDefine.WEAPON_TYPE_RAIL_GUN] = new WeaponShootRailGun();
+			_weaponShotObject[WeaponTypeDefine.WEAPON_TYPE_MACHINE_GUN] = new BaseWeaponShoot( _bulletFactory );
+			_weaponShotObject[WeaponTypeDefine.WEAPON_TYPE_SHOT_GUN] = new WeaponShootShotGun( _bulletFactory );
+			_weaponShotObject[WeaponTypeDefine.WEAPON_TYPE_RAIL_GUN] = new WeaponShootRailGun( _bulletFactory );
 		}
 		public function changeWeapon( weaponType:uint ):void
 		{
@@ -152,7 +156,6 @@ package gameplay
 			}
 			var ptArray:Array = new Array();
 			var lastPointY:Number = 0;
-			//ptArray.push( new Point( startX, 0 ) ) ;
 			for each( var ptX:Number in ptXArray )
 			{
 				var localPointY:Number = MathRandomUtil.randRange( -25, 25 );
@@ -195,8 +198,6 @@ package gameplay
 			var canShoot:Boolean = _playerWeaponStatus.canShoot();
 			if ( canShoot )
 			{
-				//_baseWeaponShoot = new BaseWeaponShoot( startX, startY, endX, endY, _playerWeaponStatus.currentWeaponAttr(), _dspSystem, _bulletGroup );
-				//_baseWeaponShoot = new WeaponShootShotGun();
 				var weaponTyp:uint = _playerWeaponStatus.currentWeaponAttr().weaponType;
 				var _baseWeaponShoot:BaseWeaponShoot = _weaponShotObject[weaponTyp];
 				if ( _baseWeaponShoot != null )

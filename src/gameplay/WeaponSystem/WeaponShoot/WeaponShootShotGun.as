@@ -1,6 +1,7 @@
 package gameplay.WeaponSystem.WeaponShoot 
 {
 	import gameplay.WeaponSystem.BulletAmmo.BaseBulletObject;
+	import gameplay.WeaponSystem.BulletAmmo.BulletFactory;
 	import gameplay.WeaponSystem.WeaponAttribute;
 	import org.flixel.FlxGroup;
 	import org.flixel.FlxPoint;
@@ -15,9 +16,9 @@ package gameplay.WeaponSystem.WeaponShoot
 		private var _startPoint:FlxPoint = new FlxPoint();
 		private var _endPoint:FlxPoint = new FlxPoint();
 		private var _diffDeg:Number = 20;
-		public function WeaponShootShotGun() 
+		public function WeaponShootShotGun( inBulletFactory:BulletFactory ) 
 		{
-			
+			super( inBulletFactory );
 		}
 		override protected function _shootStrategy( _dspSystem:GameDispatchSystem, startPoint:FlxPoint, endPoint:FlxPoint,_bulletGroup:FlxGroup,_weaponAttr:WeaponAttribute ):void
 		{
@@ -28,7 +29,7 @@ package gameplay.WeaponSystem.WeaponShoot
 		}
 		private function _generateBulletObject( _dspSystem:GameDispatchSystem, startPoint:FlxPoint, endPoint:FlxPoint, _bulletGroup:FlxGroup, _weaponAttr:WeaponAttribute ):void
 		{
-			var bulletSprite:BaseBulletObject = new BaseBulletObject( _dspSystem );
+			var bulletSprite:BaseBulletObject = _supplyBullet();
 			bulletSprite.loadGraphic( ImgBullet );
 			bulletSprite.setSelfGroup( _bulletGroup );
 			
@@ -57,7 +58,5 @@ package gameplay.WeaponSystem.WeaponShoot
 			bulletSprite.velocity.x = randomCos * bulletSprite.weaponAttr.fireSpeed ;
 			bulletSprite.velocity.y = randomSin * bulletSprite.weaponAttr.fireSpeed ;
 		}
-		
 	}
-
 }

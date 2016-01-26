@@ -1,6 +1,7 @@
 package gameplay.WeaponSystem.WeaponShoot 
 {
 	import gameplay.WeaponSystem.BulletAmmo.BaseBulletObject;
+	import gameplay.WeaponSystem.BulletAmmo.BulletFactory;
 	import gameplay.WeaponSystem.WeaponAttribute;
 	import org.flixel.FlxGroup;
 	import org.flixel.FlxPoint;
@@ -14,8 +15,16 @@ package gameplay.WeaponSystem.WeaponShoot
 		[Embed(source = "../../../../res/images/bullet.png")] protected static var ImgBullet:Class;
 		private var _startPoint:FlxPoint = new FlxPoint();
 		private var _endPoint:FlxPoint = new FlxPoint();
-		public function BaseWeaponShoot( ) 
+		private var _bulletFactory:BulletFactory = null;
+		public function BaseWeaponShoot( inBulletFactory:BulletFactory ) 
 		{
+			_bulletFactory = inBulletFactory;
+		}
+		
+		protected function _supplyBullet():BaseBulletObject
+		{
+			var bulletSprite:BaseBulletObject = _bulletFactory.SupplyBullet();
+			return bulletSprite;
 		}
 		
 		public function SetPosition( startX:Number, startY:Number, endX:Number, endY:Number ):void
@@ -31,7 +40,7 @@ package gameplay.WeaponSystem.WeaponShoot
 		}
 		private function _generateBulletObject( _dspSystem:GameDispatchSystem, startPoint:FlxPoint, endPoint:FlxPoint,_bulletGroup:FlxGroup,_weaponAttr:WeaponAttribute ):void
 		{
-			var bulletSprite:BaseBulletObject = new BaseBulletObject( _dspSystem );
+			var bulletSprite:BaseBulletObject = _supplyBullet();
 			bulletSprite.loadGraphic( ImgBullet );
 			bulletSprite.setSelfGroup( _bulletGroup );
 			

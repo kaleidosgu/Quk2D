@@ -19,10 +19,12 @@ package gameplay.WeaponSystem.BulletAmmo
 		private var _dspSys:GameDispatchSystem = null;
 		private var _currentDestroyCounts:uint = 1;
 		private var _constDestroyCounts:uint = 0;
-		public function BaseBulletObject( inDspSys:GameDispatchSystem ) 
+		private var _bulletFactory:BulletFactory = null;
+		public function BaseBulletObject( inDspSys:GameDispatchSystem, inBulletFactory:BulletFactory ) 
 		{
 			_dspSys = inDspSys;
 			_enableUpdateTick = true;
+			_bulletFactory = inBulletFactory;
 		}
 		
 		override public function getMainTyp():uint
