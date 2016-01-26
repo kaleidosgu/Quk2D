@@ -29,6 +29,8 @@ package gamemap.Staticdata
 			var spriteCol:uint = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameMapBuildingXmlTag.BuildingXmlTag_SpriteColumn );
 			var spriteRows:uint = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameMapBuildingXmlTag.BuildingXmlTag_SpriteRows );
 			var spriteLineCnts:uint = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameMapBuildingXmlTag.BuildingXmlTag_SpriteLineCnts );
+			var collide:Boolean = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameMapBuildingXmlTag.BuildingXmlTag_Collide ) >= 1;
+			
 			
 			var mainType:uint = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameObjectXmlTag.GameObjectXmlTag_mainType );
 			var subType:uint = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameObjectXmlTag.GameObjectXmlTag_subType );
@@ -42,6 +44,7 @@ package gamemap.Staticdata
 			newStaticData.spriteCnts = spriteLineCnts;
 			newStaticData.elementMainType = mainType;
 			newStaticData.elementSubType = subType;
+			newStaticData.canCollide = collide;
 			return newStaticData;
 		}
 		

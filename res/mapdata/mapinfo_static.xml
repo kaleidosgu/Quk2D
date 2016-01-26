@@ -1,12 +1,12 @@
 <MapInfo>
-  <ElementStatic mainType = "1" subType = "7" mapCol = "3" mapRow = "1" scaleX = "2" scaleY = "2" spriteWidth = "8" spriteHeight = "8" spriteRows = "3" spriteColumn = "0" spriteLineCounts = "16" >
+  <ElementStatic mainType = "1" subType = "7" mapCol = "3" mapRow = "1" scaleX = "2" scaleY = "2" spriteWidth = "8" spriteHeight = "8" spriteRows = "3" spriteColumn = "0" spriteLineCounts = "16" collide = "1" >
   </ElementStatic>
-  <ElementStatic mainType = "1" subType = "1" mapCol = "0" mapRow = "0" scaleX = "1" scaleY = "1" spriteWidth = "16" spriteHeight = "16" spriteRows = "0" spriteColumn = "0" spriteLineCounts = "0" >
+  <ElementStatic mainType = "1" subType = "1" mapCol = "0" mapRow = "0" scaleX = "1" scaleY = "1" spriteWidth = "16" spriteHeight = "16" spriteRows = "0" spriteColumn = "0" spriteLineCounts = "0" collide = "1" >
   </ElementStatic>
-  <ElementStatic mainType = "1" subType = "2" mapCol = "0" mapRow = "0" scaleX = "1" scaleY = "1" spriteWidth = "16" spriteHeight = "16" spriteRows = "0" spriteColumn = "0" spriteLineCounts = "0" >
+  <ElementStatic mainType = "1" subType = "2" mapCol = "0" mapRow = "0" scaleX = "1" scaleY = "1" spriteWidth = "16" spriteHeight = "16" spriteRows = "0" spriteColumn = "0" spriteLineCounts = "0" collide = "0" >
   </ElementStatic>
-  <ElementStatic mainType = "1" subType = "4" mapCol = "0" mapRow = "0" scaleX = "1" scaleY = "1" spriteWidth = "16" spriteHeight = "16" spriteRows = "0" spriteColumn = "0" spriteLineCounts = "0" >
+  <ElementStatic mainType = "1" subType = "4" mapCol = "0" mapRow = "0" scaleX = "1" scaleY = "1" spriteWidth = "16" spriteHeight = "16" spriteRows = "0" spriteColumn = "0" spriteLineCounts = "0" collide = "1" >
   </ElementStatic>
-  <ElementStatic mainType = "2" subType = "1" mapCol = "0" mapRow = "0" scaleX = "1" scaleY = "1" spriteWidth = "16" spriteHeight = "16" spriteRows = "0" spriteColumn = "0" spriteLineCounts = "0" >
+  <ElementStatic mainType = "2" subType = "1" mapCol = "0" mapRow = "0" scaleX = "1" scaleY = "1" spriteWidth = "16" spriteHeight = "16" spriteRows = "0" spriteColumn = "0" spriteLineCounts = "0" collide = "1" >
   </ElementStatic>
 </MapInfo>

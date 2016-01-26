@@ -69,6 +69,9 @@ package Base
 			baseData.spriteCol, baseData.spriteRows,
 			baseData.spriteCnts );
 			setWorldData( baseData.mapCol, baseData.mapRow );
+			_gameObjData.elementMainType 	= baseData.elementMainType;
+			_gameObjData.elementSubType		= baseData.elementSubType;
+			_gameObjData.canCollide			= baseData.canCollide;
 		}
 		public function createObjectByParam( 	scaleX:Number, scaleY:Number,
 										spriteWidth:Number, spriteHeight:Number,

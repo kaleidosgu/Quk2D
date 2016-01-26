@@ -16,6 +16,7 @@ package Base
 		protected var _mapRow:uint = 0;
 		protected var _scaleX:Number = 0;
 		protected var _scaleY:Number = 0;
+		protected var _canCollide:Boolean = false;
 		
 		protected var _spriteWidth:Number = 0;
 		protected var _spriteHeight:Number = 0;
@@ -45,6 +46,7 @@ package Base
 			outInfoData.spriteCol = this.spriteCol;
 			outInfoData.spriteRows = this.spriteRows;
 			outInfoData.spriteCnts = this.spriteCnts;
+			outInfoData.canCollide	= this.canCollide;
 		}
 		public function getByteArray():ByteArray
 		{
@@ -194,6 +196,16 @@ package Base
 		public function set scaleY(value:Number):void 
 		{
 			_scaleY = value;
+		}
+		
+		public function get canCollide():Boolean 
+		{
+			return _canCollide;
+		}
+		
+		public function set canCollide(value:Boolean):void 
+		{
+			_canCollide = value;
 		}
 	}
 

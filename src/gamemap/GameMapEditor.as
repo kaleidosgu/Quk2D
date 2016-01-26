@@ -68,7 +68,12 @@ package gamemap
 					_objStaticData[gameInfo.elementSubType] = gameInfo;
 				}
 			}
-
+		}
+		private function _GetItemStaticData( mainType:uint, subType:uint ):GameMapElementInfo
+		{
+			var returnInfo:GameMapElementInfo = null;
+			returnInfo = _objStaticData[subType];
+			return returnInfo;
 		}
 		public function generateMapDataFromXml():void
 		{
@@ -119,6 +124,14 @@ package gamemap
 				if ( gameObj != null )
 				{
 					gameObj.setSelfGroup( _elementGroup );
+					var staticInfo:GameMapElementInfo = _GetItemStaticData( mapele.elementMainType, mapele.elementSubType );
+					if ( staticInfo != null )
+					{
+						if ( staticInfo.elementSubType == 2 )
+						{
+							mapele.canCollide = staticInfo.canCollide;	
+						}
+					}
 					gameObj.createObjectByBaseData( mapele );
 					_arrayMapElement.push ( gameObj );
 				}

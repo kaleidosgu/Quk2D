@@ -67,11 +67,11 @@ package gameplay.WeaponSystem
 		
 		protected function BulletCollideBuilding( bulletObj:BaseGameObject, buildingObj:BaseGameObject ):void
 		{
-			//替换成building
-			//playerObj.collideByOtherObj( bulletObj );
-			bulletObj.collideByOtherObj( buildingObj );
-			GameExplosionGenerator.getIns().generateExplosion( bulletObj.x, bulletObj.y, _gameState );
-			//generateExplosion( bulletObj.x + bulletObj.width / 2, bulletObj.y + bulletObj.height / 2);
+			if ( buildingObj.gameObjData.canCollide == true )
+			{
+				bulletObj.collideByOtherObj( buildingObj );
+				GameExplosionGenerator.getIns().generateExplosion( bulletObj.x, bulletObj.y, _gameState );	
+			}
 		}
 		public function setBuildingGroup( arrayGroup:Array ):void
 		{

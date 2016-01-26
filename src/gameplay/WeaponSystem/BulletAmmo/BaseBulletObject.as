@@ -2,6 +2,7 @@ package gameplay.WeaponSystem.BulletAmmo
 {
 	import Base.BaseGameObject;
 	import gameEvent.BattleEvent.BulletGenerateExplosionEvent;
+	import gamemap.Building.BaseBuildingObject;
 	import gamemap.GameObjectMainTyp;
 	import gameplay.WeaponSystem.WeaponAttribute;
 	import player.BasePlayerObject;
@@ -90,6 +91,7 @@ package gameplay.WeaponSystem.BulletAmmo
 		}
 		override public function collideByOtherObj( otherObj:BaseGameObject ):void
 		{
+			var bGenerateExplosion:Boolean = false;
 			super.collideByOtherObj( otherObj );
 			if ( otherObj is BasePlayerObject )
 			{
@@ -97,12 +99,24 @@ package gameplay.WeaponSystem.BulletAmmo
 				harmPlayer( basePlayer );
 				shiftPosPlayer( basePlayer );
 				destroySelf();
+				bGenerateExplosion = true;
 			}
 			else
 			{
+				if ( otherObj.getMainTyp() == GameObjectMainTyp.GameObjectMainTyp_Building )
+				{
+					var buildingObj:BaseBuildingObject = otherObj as BaseBuildingObject;
+					if ( buildingObj.gameObjData.canCollide == true )
+					{
+						bGenerateExplosion = true;
+					}
+				}
 				//todo 传递的不是player打log信息
 			}
-			generateExplosion();
+			if ( bGenerateExplosion == true )
+			{
+				generateExplosion();	
+			}
 		}
 		override protected function TickUpdateFunction():void
 		{
