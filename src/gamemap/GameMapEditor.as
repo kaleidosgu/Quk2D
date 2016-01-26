@@ -127,10 +127,7 @@ package gamemap
 					var staticInfo:GameMapElementInfo = _GetItemStaticData( mapele.elementMainType, mapele.elementSubType );
 					if ( staticInfo != null )
 					{
-						if ( staticInfo.elementSubType == 2 )
-						{
-							mapele.canCollide = staticInfo.canCollide;	
-						}
+						mapele.canCollide = staticInfo.canCollide;	
 					}
 					gameObj.createObjectByBaseData( mapele );
 					_arrayMapElement.push ( gameObj );
