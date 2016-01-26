@@ -86,6 +86,7 @@ package gameplay.WeaponSystem.BulletAmmo
 		{
 			_weaponAttr = value;
 			_constDestroyCounts = _weaponAttr.destroySelfCounts;
+			_currentDestroyCounts = 1;
 		}
 		override public function collideByOtherObj( otherObj:BaseGameObject ):void
 		{
