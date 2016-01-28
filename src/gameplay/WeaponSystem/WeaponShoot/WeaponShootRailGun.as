@@ -27,8 +27,6 @@ package gameplay.WeaponSystem.WeaponShoot
 		private function _generateBulletObject( _dspSystem:GameDispatchSystem, startPoint:FlxPoint, endPoint:FlxPoint, _bulletGroup:FlxGroup, _weaponAttr:WeaponAttribute ):void
 		{
 			var bulletSprite:BaseBulletObject = _supplyBullet();
-			bulletSprite.x = startPoint.x;
-			bulletSprite.y = startPoint.y;
 			bulletSprite.makeGraphic(FlxG.width, FlxG.height, 0x22000000 );
 			bulletSprite.fill(0x000000);
 			var xWidth:Number = 0;

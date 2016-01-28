@@ -24,6 +24,10 @@ package gameplay.WeaponSystem.WeaponShoot
 		protected function _supplyBullet():BaseBulletObject
 		{
 			var bulletSprite:BaseBulletObject = _bulletFactory.SupplyBullet();
+			bulletSprite.x = 0;
+			bulletSprite.y = 0;
+			bulletSprite.velocity.x = 0;
+			bulletSprite.velocity.y = 0;
 			return bulletSprite;
 		}
 		
