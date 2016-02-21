@@ -42,7 +42,8 @@ package gameplay.WeaponSystem.Explosion
 		
 		public function harmPlayer( basePlayer:BasePlayerObject ):void
 		{
-			_mathTrig.calculateAngBySize( this.getPrePoint().x, this.getPrePoint().y, this.width, this.height,
+			//_mathTrig.calculateAngBySize( this.getPrePoint().x, this.getPrePoint().y, this.width, this.height,
+			_mathTrig.calculateAngBySize( this.x, this.y, this.width, this.height,
 			basePlayer.x, basePlayer.y, basePlayer.width, basePlayer.height );
 							
 			var sinAng:Number = _mathTrig.sinAng;
