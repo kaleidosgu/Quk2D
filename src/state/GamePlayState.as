@@ -3,7 +3,6 @@ package state
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import fsm.PlayerFSM;
-	import gameEvent.BattleEvent.BulletGenerateExplosionEvent;
 	import gamemap.GameMapEditor;
 	import gameplay.ExplosionObjectGenerator;
 	import gameplay.GameShootingGamePlay;

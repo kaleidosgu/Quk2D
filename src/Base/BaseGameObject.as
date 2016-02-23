@@ -22,10 +22,13 @@ package Base
 		private var _tickConstCount:Number = 0.03;
 		private var _tickCount:Number = _tickConstCount;
 		protected var _enableUpdateTick:Boolean = false;
+		public var prePos:FlxPoint = null;
+		
 		public function BaseGameObject( ) 
 		{
 			super();
 			_gameObjData = new GameBaseDataObject();
+			prePos = new FlxPoint();
 		}	
 		public function collideByOtherObj( otherObj:BaseGameObject ):void
 		{
@@ -153,6 +156,11 @@ package Base
 		public function getPrePoint():FlxPoint
 		{
 			return _point;
+		}
+		public function setPrePoint( preX:Number, preY:Number ):void
+		{
+			_point.x = preX;
+			_point.y = preY;
 		}
 		override public function update():void
 		{

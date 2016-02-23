@@ -28,14 +28,15 @@ package gameplay
 		
 		private function onGenerateExplosion( evt:BulletGenerateExplosionEvent ):void
 		{
-			generateExplosion( evt.posX, evt.posY );
+			generateExplosion( evt );
 		}
 		
-		private function generateExplosion( posX:Number, posY:Number ):void
+		private function generateExplosion( evt:BulletGenerateExplosionEvent ):void
 		{
 			var expObj:BaseExplosionObject = new BaseExplosionObject();
-			expObj.x = posX - expObj.width / 2 ;
-			expObj.y = posY - expObj.height / 2 ;
+			expObj.x = evt.posX - expObj.width / 2 ;
+			expObj.y = evt.posY - expObj.height / 2 ;
+			expObj.setPrePoint( evt.preX, evt.preY );
 			expObj.loadGraphic( ImgExp, true, true, 16 );
 			expObj.setSelfGroup( _expGroup );
 		}

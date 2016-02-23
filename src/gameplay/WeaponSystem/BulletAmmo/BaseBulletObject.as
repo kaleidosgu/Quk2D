@@ -67,6 +67,8 @@ package gameplay.WeaponSystem.BulletAmmo
 
 					genExpEvt.posX = generatePosX;
 					genExpEvt.posY = generatePosY;
+					genExpEvt.preX = this.getPrePoint().x;
+					genExpEvt.preY = this.getPrePoint().y;
 					genExpEvt.weaponType = _weaponAttr.weaponType;
 					_dspSys.DispatchEvent( genExpEvt );
 				}
