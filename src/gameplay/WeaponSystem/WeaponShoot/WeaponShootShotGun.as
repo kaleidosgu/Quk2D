@@ -26,6 +26,7 @@ package gameplay.WeaponSystem.WeaponShoot
 			var degStart:Number = -30;
 			for ( var idx:uint = 0; idx < 5; idx++ )
 			{
+				//degStart = 0;
 				_generateBulletObject( _dspSystem, startPoint, endPoint, _bulletGroup, _weaponAttr,degStart );
 				degStart += 15;
 			}
@@ -45,8 +46,25 @@ package gameplay.WeaponSystem.WeaponShoot
 			var widthLengthSqu:Number = widthLength * widthLength;
 			var heightLengthSqu:Number = heightLength * heightLength;
 			
+			/*
+			if ( endPoint.x > startPoint.x )
+			{
+				widthLength = endPoint.x - startPoint.x;
+			}
+			else 
+			{
+				widthLength = startPoint.x - endPoint.x;
+			}
+			*/
+			
 			var rLengthSqu:Number = widthLength * widthLength + heightLength * heightLength;
+			
+			//widthLength = -1;
+			//heightLength = 1;
+			//rLengthSqu = 2;
+			
 			var rLength:Number = Math.sqrt( rLengthSqu );
+			
 			var sinAngle:Number = heightLength / rLength;
 			var cosAngle:Number = widthLength / rLength;
 			var angleValueSin:Number = (Math.asin( sinAngle ) * 180 / Math.PI);
@@ -60,18 +78,20 @@ package gameplay.WeaponSystem.WeaponShoot
 			var changeAngleDegSin:Number = angleValueSin + _degDiff;
 			var changeAngleDegCos:Number = angleValueCos + _degDiff;
 			trace("changeAngleDegSin" + changeAngleDegSin);
-			trace("changeAngleDegCos" + changeAngleDegCos);
+			//trace("changeAngleDegCos" + changeAngleDegCos);
 			
 			var changeAngleRadSin:Number = changeAngleDegSin * Math.PI / 180;
 			var changeAngleRadCos:Number = changeAngleDegCos * Math.PI / 180;
 			//var changeAngleRadSin:Number = _degDiff * Math.PI / 180;
 			//var changeAngleRadCos:Number = _degDiff * Math.PI / 180;
+			//changeAngleRadSin = (-80 + _degDiff ) * Math.PI / 180;
+			
 			
 			var randomSin:Number = Math.sin( changeAngleRadSin );
 			var randomCos:Number = Math.cos( changeAngleRadCos );
 			//notice radians
-			randomSin = Math.sin( 180 * Math.PI / 180 );
-			randomCos = Math.cos( 180 * Math.PI / 180 );
+			//randomSin = Math.sin( 180 * Math.PI / 180 );
+			//randomCos = Math.cos( 180 * Math.PI / 180 );
 			bulletSprite.weaponAttr = _weaponAttr;
 			
 			bulletSprite.velocity.x = randomCos * bulletSprite.weaponAttr.fireSpeed ;
