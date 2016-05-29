@@ -32,6 +32,7 @@ package gameplay.WeaponSystem.WeaponShoot
 			}
 			trace("####end####");
 		}
+		//right cos 0 ~ 180, sin -90 ~ 90
 		private function _generateBulletObject( _dspSystem:GameDispatchSystem, startPoint:FlxPoint, endPoint:FlxPoint, 
 		_bulletGroup:FlxGroup, _weaponAttr:WeaponAttribute, _degDiff:Number ):void
 		{
@@ -45,18 +46,7 @@ package gameplay.WeaponSystem.WeaponShoot
 			var heightLength:Number = endPoint.y - startPoint.y ;
 			var widthLengthSqu:Number = widthLength * widthLength;
 			var heightLengthSqu:Number = heightLength * heightLength;
-			
-			/*
-			if ( endPoint.x > startPoint.x )
-			{
-				widthLength = endPoint.x - startPoint.x;
-			}
-			else 
-			{
-				widthLength = startPoint.x - endPoint.x;
-			}
-			*/
-			
+
 			var rLengthSqu:Number = widthLength * widthLength + heightLength * heightLength;
 			
 			//widthLength = -1;
@@ -69,16 +59,26 @@ package gameplay.WeaponSystem.WeaponShoot
 			var cosAngle:Number = widthLength / rLength;
 			var angleValueSin:Number = (Math.asin( sinAngle ) * 180 / Math.PI);
 			var angleValueCos:Number = (Math.acos( cosAngle ) * 180 / Math.PI);
+			//计算角度可以放在外部进行。以提高效率
+			
+			
 			var randomAddDeg:Number = 0;
 			
 			var numRandom:Number = Math.random();
 			randomAddDeg = -(( numRandom - 0.5 ) * _diffDeg) ;
 			//var changeAngleDegSin:Number = angleValueSin + randomAddDeg;
 			//var changeAngleDegCos:Number = angleValueCos + randomAddDeg;
-			var changeAngleDegSin:Number = angleValueSin + _degDiff;
-			var changeAngleDegCos:Number = angleValueCos + _degDiff;
-			trace("changeAngleDegSin" + changeAngleDegSin);
-			//trace("changeAngleDegCos" + changeAngleDegCos);
+			var changeAngleDegSin:Number = 0;
+			var changeAngleDegCos:Number = 0;
+			changeAngleDegSin = angleValueSin + _degDiff;
+			
+			if ( heightLength * widthLength < 0 )
+			{
+				_degDiff = 0 - _degDiff;
+			}
+			
+			changeAngleDegCos = angleValueCos + _degDiff;
+			trace("degSin [" + changeAngleDegSin + "]" + "  degCos [" + changeAngleDegCos + "]");
 			
 			var changeAngleRadSin:Number = changeAngleDegSin * Math.PI / 180;
 			var changeAngleRadCos:Number = changeAngleDegCos * Math.PI / 180;
@@ -96,6 +96,16 @@ package gameplay.WeaponSystem.WeaponShoot
 			
 			bulletSprite.velocity.x = randomCos * bulletSprite.weaponAttr.fireSpeed ;
 			bulletSprite.velocity.y = randomSin * bulletSprite.weaponAttr.fireSpeed ;
+			
+			var lastLength:Number = bulletSprite.velocity.x * bulletSprite.velocity.x + bulletSprite.velocity.y * bulletSprite.velocity.y;
+			
+			lastLength = Math.sqrt(lastLength);
+			
+			trace("lastLngth" + lastLength);
+			
+			trace("													");
+			
+			//trace("randomCos " + randomCos + " randomSin " + randomSin );
 		}
 	}
 }

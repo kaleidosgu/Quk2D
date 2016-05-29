@@ -63,6 +63,32 @@ package state
 			
 			_explosionObjGenerator = new ExplosionObjectGenerator( _dspSystem, _explosionGroup );
 			
+			var test:Number = Math.sin( (360 - 180) * Math.PI / 180 );
+			
+			test = Math.sin( Math.PI / 2);
+			
+			setData( 0, 0, 1, 0);
+		}
+		private function setData( startX:Number, startY:Number, endX:Number, endY:Number ):void
+		{
+			var width:Number = endX - startX;
+			var height:Number = endY - startY;
+			var squ:Number = width * width + height * height;
+			
+			var rLength:Number = Math.sqrt(squ);
+			
+			var radisSin:Number = height / rLength;
+			var radisCos:Number = width / rLength;
+			
+			var radisTag:Number = radisCos / radisSin;
+			var angTag:Number = Math.atan(radisTag) * 180 / Math.PI;
+			var angSin:Number = Math.asin(radisSin) * 180 / Math.PI;
+			var angCos:Number = Math.acos(radisCos) * 180 / Math.PI;
+			
+			var ddend:Number = 0;
+			
+			ddend = Math.sin( -75 * Math.PI / 180);
+			ddend;
 		}
 		override public function create():void
 		{
