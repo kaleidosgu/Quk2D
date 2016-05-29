@@ -16,12 +16,18 @@ package gameplay.WeaponSystem.WeaponShoot
 		private var _startPoint:FlxPoint = new FlxPoint();
 		private var _endPoint:FlxPoint = new FlxPoint();
 		private var _diffDeg:Number = 50;
+		
+		private var _angleValueSin:Number = 0;
+		private var _angleValueCos:Number = 0;
+		private var _changeDelProcess:Boolean = false;
 		public function WeaponShootShotGun( inBulletFactory:BulletFactory ) 
 		{
 			super( inBulletFactory );
 		}
 		override protected function _shootStrategy( _dspSystem:GameDispatchSystem, startPoint:FlxPoint, endPoint:FlxPoint,_bulletGroup:FlxGroup,_weaponAttr:WeaponAttribute ):void
 		{
+			_changeDelProcess = false;
+			_generateDegFromPos(startPoint, endPoint);
 			trace("####begin####");
 			var degStart:Number = -30;
 			for ( var idx:uint = 0; idx < 5; idx++ )
@@ -32,16 +38,8 @@ package gameplay.WeaponSystem.WeaponShoot
 			}
 			trace("####end####");
 		}
-		//right cos 0 ~ 180, sin -90 ~ 90
-		private function _generateBulletObject( _dspSystem:GameDispatchSystem, startPoint:FlxPoint, endPoint:FlxPoint, 
-		_bulletGroup:FlxGroup, _weaponAttr:WeaponAttribute, _degDiff:Number ):void
+		private function _generateDegFromPos( startPoint:FlxPoint, endPoint:FlxPoint ):void
 		{
-			var bulletSprite:BaseBulletObject = _supplyBullet();
-			bulletSprite.loadGraphic( ImgBullet );
-			bulletSprite.setSelfGroup( _bulletGroup );
-			
-			bulletSprite.x = startPoint.x;
-			bulletSprite.y = startPoint.y;
 			var widthLength:Number = endPoint.x - startPoint.x ;
 			var heightLength:Number = endPoint.y - startPoint.y ;
 			var widthLengthSqu:Number = widthLength * widthLength;
@@ -49,49 +47,53 @@ package gameplay.WeaponSystem.WeaponShoot
 
 			var rLengthSqu:Number = widthLength * widthLength + heightLength * heightLength;
 			
-			//widthLength = -1;
-			//heightLength = 1;
-			//rLengthSqu = 2;
-			
 			var rLength:Number = Math.sqrt( rLengthSqu );
 			
 			var sinAngle:Number = heightLength / rLength;
 			var cosAngle:Number = widthLength / rLength;
-			var angleValueSin:Number = (Math.asin( sinAngle ) * 180 / Math.PI);
-			var angleValueCos:Number = (Math.acos( cosAngle ) * 180 / Math.PI);
-			//计算角度可以放在外部进行。以提高效率
+			_angleValueSin = (Math.asin( sinAngle ) * 180 / Math.PI);
+			_angleValueCos = (Math.acos( cosAngle ) * 180 / Math.PI);
 			
+			if ( heightLength * widthLength < 0 )
+			{
+				_changeDelProcess = true;
+			}
+			
+		}
+		//right cos 0 ~ 180, sin -90 ~ 90
+		private function _generateBulletObject( _dspSystem:GameDispatchSystem, startPoint:FlxPoint, endPoint:FlxPoint, 
+		_bulletGroup:FlxGroup, _weaponAttr:WeaponAttribute, _degDiffStart:Number ):void
+		{
+			var bulletSprite:BaseBulletObject = _supplyBullet();
+			bulletSprite.loadGraphic( ImgBullet );
+			bulletSprite.setSelfGroup( _bulletGroup );
+			
+			bulletSprite.x = startPoint.x;
+			bulletSprite.y = startPoint.y;
 			
 			var randomAddDeg:Number = 0;
 			
 			var numRandom:Number = Math.random();
 			randomAddDeg = -(( numRandom - 0.5 ) * _diffDeg) ;
-			//var changeAngleDegSin:Number = angleValueSin + randomAddDeg;
-			//var changeAngleDegCos:Number = angleValueCos + randomAddDeg;
 			var changeAngleDegSin:Number = 0;
 			var changeAngleDegCos:Number = 0;
-			changeAngleDegSin = angleValueSin + _degDiff;
+			_degDiffStart = randomAddDeg;
+			changeAngleDegSin = _angleValueSin + _degDiffStart;
 			
-			if ( heightLength * widthLength < 0 )
+			if ( _changeDelProcess == true )
 			{
-				_degDiff = 0 - _degDiff;
+				_degDiffStart = 0 - _degDiffStart;
 			}
-			
-			changeAngleDegCos = angleValueCos + _degDiff;
+			changeAngleDegCos = _angleValueCos + _degDiffStart;	
 			trace("degSin [" + changeAngleDegSin + "]" + "  degCos [" + changeAngleDegCos + "]");
 			
 			var changeAngleRadSin:Number = changeAngleDegSin * Math.PI / 180;
 			var changeAngleRadCos:Number = changeAngleDegCos * Math.PI / 180;
-			//var changeAngleRadSin:Number = _degDiff * Math.PI / 180;
-			//var changeAngleRadCos:Number = _degDiff * Math.PI / 180;
-			//changeAngleRadSin = (-80 + _degDiff ) * Math.PI / 180;
 			
 			
 			var randomSin:Number = Math.sin( changeAngleRadSin );
 			var randomCos:Number = Math.cos( changeAngleRadCos );
-			//notice radians
-			//randomSin = Math.sin( 180 * Math.PI / 180 );
-			//randomCos = Math.cos( 180 * Math.PI / 180 );
+			
 			bulletSprite.weaponAttr = _weaponAttr;
 			
 			bulletSprite.velocity.x = randomCos * bulletSprite.weaponAttr.fireSpeed ;
