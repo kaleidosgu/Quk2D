@@ -37,6 +37,7 @@ package gameplay.WeaponSystem.WeaponShoot
 				degStart += 15;
 			}
 			trace("####end####");
+			trace("													");
 		}
 		private function _generateDegFromPos( startPoint:FlxPoint, endPoint:FlxPoint ):void
 		{
@@ -77,7 +78,9 @@ package gameplay.WeaponSystem.WeaponShoot
 			randomAddDeg = -(( numRandom - 0.5 ) * _diffDeg) ;
 			var changeAngleDegSin:Number = 0;
 			var changeAngleDegCos:Number = 0;
-			_degDiffStart = randomAddDeg;
+			/////////////////////////////
+			//_degDiffStart = randomAddDeg;
+			/////////////////////////////
 			changeAngleDegSin = _angleValueSin + _degDiffStart;
 			
 			if ( _changeDelProcess == true )
@@ -103,10 +106,7 @@ package gameplay.WeaponSystem.WeaponShoot
 			
 			lastLength = Math.sqrt(lastLength);
 			
-			trace("lastLngth" + lastLength);
-			
-			trace("													");
-			
+			//trace("lastLngth" + lastLength);		
 			//trace("randomCos " + randomCos + " randomSin " + randomSin );
 		}
 	}

@@ -65,12 +65,18 @@ package state
 			
 			var test:Number = Math.sin( (360 - 180) * Math.PI / 180 );
 			
-			test = Math.sin( Math.PI / 2);
+			test = Math.cos( 120 / 180 * Math.PI );
 			
-			setData( 0, 0, 1, 0);
+			test = Math.acos( 0 - 1 / 4 );
+			
+			var num:Number = new Number();
+			setData( num, 0, 1, 0);
+			
+			var dd:Number = 0;
 		}
 		private function setData( startX:Number, startY:Number, endX:Number, endY:Number ):void
 		{
+			startX = 300;
 			var width:Number = endX - startX;
 			var height:Number = endY - startY;
 			var squ:Number = width * width + height * height;
