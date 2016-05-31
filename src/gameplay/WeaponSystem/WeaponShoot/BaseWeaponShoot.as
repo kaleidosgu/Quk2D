@@ -50,6 +50,8 @@ package gameplay.WeaponSystem.WeaponShoot
 			
 			bulletSprite.x = startPoint.x;
 			bulletSprite.y = startPoint.y;
+			bulletSprite.last.x = startPoint.x;
+			bulletSprite.last.y = startPoint.y;
 			var widthLength:Number = endPoint.x - startPoint.x ;
 			var heightLength:Number = endPoint.y - startPoint.y ;
 			var rLength:Number = Math.sqrt( widthLength * widthLength + heightLength * heightLength );
