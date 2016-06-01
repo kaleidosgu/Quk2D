@@ -60,7 +60,8 @@ package gameplay.WeaponSystem
 				weaponAttr.linearShape 		= UtilXmlConvertVariables.convertToBool( weaponDetail, "linearShape" );
 				weaponAttr.changeCD 		= UtilXmlConvertVariables.convertToNumber( weaponDetail, "changeCD" );
 				weaponAttr.fireCD 			= UtilXmlConvertVariables.convertToNumber( weaponDetail, "fireCD" );
-				weaponAttr.destroySelfCounts= UtilXmlConvertVariables.convertToUint( weaponDetail, "destroySelfTime" );
+				weaponAttr.destroySelfCounts = UtilXmlConvertVariables.convertToUint( weaponDetail, "destroySelfTime" );
+				weaponAttr.strSound			= UtilXmlConvertVariables.convertToString( weaponDetail, "sound" );
 				var newWeapon:WeaponAttribute = objWeaponAttri[weaponAttr.weaponType];
 				if ( newWeapon == null )
 				{

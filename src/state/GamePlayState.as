@@ -6,6 +6,7 @@ package state
 	import gamemap.GameMapEditor;
 	import gameplay.ExplosionObjectGenerator;
 	import gameplay.GameShootingGamePlay;
+	import gameplay.soundsys.QukSoundSystem;
 	import gameplay.WeaponSystem.BulletCollideMonitor;
 	import gameplay.WeaponSystem.Explosion.BaseExplosionObject;
 	import org.flixel.FlxCamera;
@@ -53,6 +54,7 @@ package state
 		private var _dspSystem:GameDispatchSystem = null;
 		private var _bulletCollideMonitor:BulletCollideMonitor = null;
 		private var _explosionObjGenerator:ExplosionObjectGenerator = null;
+		private var _soundSys:QukSoundSystem = null;
 		public function GamePlayState() 
 		{
 			_playerGroup 	= new FlxGroup();
@@ -62,6 +64,8 @@ package state
 			_dspSystem = new GameDispatchSystem( FlxG.stage );
 			
 			_explosionObjGenerator = new ExplosionObjectGenerator( _dspSystem, _explosionGroup );
+			
+			_soundSys = new QukSoundSystem( _dspSystem );
 			
 			var test:Number = Math.sin( (360 - 180) * Math.PI / 180 );
 			

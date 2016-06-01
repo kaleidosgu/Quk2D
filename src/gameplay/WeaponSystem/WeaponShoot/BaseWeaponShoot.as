@@ -6,6 +6,7 @@ package gameplay.WeaponSystem.WeaponShoot
 	import org.flixel.FlxGroup;
 	import org.flixel.FlxPoint;
 	import util.EventDispatch.GameDispatchSystem;
+	import gameEvent.sound.PlaySoundEvent;
 	/**
 	 * ...
 	 * @author ddda
@@ -41,6 +42,7 @@ package gameplay.WeaponSystem.WeaponShoot
 		public function WeaponFire( _dspSystem:GameDispatchSystem,_bulletGroup:FlxGroup,_weaponAttr:WeaponAttribute ):void
 		{
 			_shootStrategy( _dspSystem, _startPoint, _endPoint, _bulletGroup, _weaponAttr );
+			playSound(_dspSystem,_weaponAttr);
 		}
 		private function _generateBulletObject( _dspSystem:GameDispatchSystem, startPoint:FlxPoint, endPoint:FlxPoint,_bulletGroup:FlxGroup,_weaponAttr:WeaponAttribute ):void
 		{
@@ -68,6 +70,12 @@ package gameplay.WeaponSystem.WeaponShoot
 		protected function _shootStrategy( _dspSystem:GameDispatchSystem, startPoint:FlxPoint, endPoint:FlxPoint,_bulletGroup:FlxGroup,_weaponAttr:WeaponAttribute ):void
 		{
 			_generateBulletObject( _dspSystem, startPoint, endPoint, _bulletGroup, _weaponAttr );
+		}
+		public function playSound( _dspSystem:GameDispatchSystem,_weaponAttr:WeaponAttribute ):void
+		{
+			var evt:PlaySoundEvent = new PlaySoundEvent( PlaySoundEvent.PLAY_SOUND_EVENT );
+			evt.strSound = _weaponAttr.strSound;
+			_dspSystem.DispatchEvent(evt);
 		}
 	}
 

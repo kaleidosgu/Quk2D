@@ -4,6 +4,7 @@ package gameplay
 	import flash.geom.Point;
 	import gameEvent.PlayerInputActionEvent;
 	import gameEvent.PlayerInputActionType;
+	import gameEvent.sound.PlaySoundEvent;
 	import gameplay.WeaponSystem.BulletAmmo.BaseBulletObject;
 	import gameplay.WeaponSystem.BulletAmmo.BulletFactory;
 	import gameplay.WeaponSystem.BulletGeneratePoint;
@@ -69,7 +70,7 @@ package gameplay
 			
 			_weaponLoader = new WeaponAttributeLoadFromXml();
 			
-			_playerWeaponStatus = new PlayerWeaponStatus( _weaponLoader );
+			_playerWeaponStatus = new PlayerWeaponStatus( _weaponLoader,_dspSystem );
 			
 			_bulletFactory = new BulletFactory( inEventDsp );
 			_initWeaponShot();
@@ -125,6 +126,9 @@ package gameplay
 				if ( _playerWeaponStatus.canChangeWeapon( evt.changeWeaponTyp ) )
 				{
 					_playerWeaponStatus.changeWeapon( evt.changeWeaponTyp );
+					var evtSound:PlaySoundEvent = new PlaySoundEvent(PlaySoundEvent.PLAY_SOUND_EVENT);
+					evtSound.strSound = "change";
+					_dspSystem.DispatchEvent(evtSound);
 				}
 			}
 		}

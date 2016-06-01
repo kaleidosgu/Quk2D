@@ -1,7 +1,7 @@
 <weaponInfo>
-  <weaponDetail weaponType="1" fireSpeed="1000" damageValue="3" countsPerFire="1" damageShift="80" reboundCounts="3" damageField="5.1" fireRange="1.3" linearShape="0" changeCD="100" fireCD="3.3" destroySelfTime="0" >
+  <weaponDetail weaponType="1" fireSpeed="1000" damageValue="3" countsPerFire="1" damageShift="80" reboundCounts="3" damageField="5.1" fireRange="1.3" linearShape="0" changeCD="100" fireCD="3.3" destroySelfTime="0" sound="machinegun" >
   </weaponDetail>
-  <weaponDetail weaponType="2" fireSpeed="1000" damageValue="15" countsPerFire="33" damageShift="300" reboundCounts="3" damageField="0" fireRange="1.3" linearShape="0" changeCD="300" fireCD="3.3" destroySelfTime="5" >
+  <weaponDetail weaponType="2" fireSpeed="1000" damageValue="15" countsPerFire="33" damageShift="300" reboundCounts="3" damageField="0" fireRange="1.3" linearShape="0" changeCD="300" fireCD="3.3" destroySelfTime="5" sound="shotgun" >
   </weaponDetail>
   <weaponDetail weaponType="7" fireSpeed="1000" damageValue="15" countsPerFire="33" damageShift="300" reboundCounts="3" damageField="5.1" fireRange="1.3" linearShape="0" changeCD="300" fireCD="3.3" destroySelfTime="7" >
   </weaponDetail>

@@ -22,6 +22,7 @@ package gameplay.WeaponSystem
 		private var _explosionType:uint		= 0;	//爆炸效果类型
 		private var _exploreFields:Number	= 0;	//爆炸后范围
 		private var _destroySelfCounts:uint	= 0;	//先按照次数来定。之后需要更改为/添加时间。
+		private var _strSound:String = "";			//声效
 		public function WeaponAttribute() 
 		{
 			
@@ -145,6 +146,16 @@ package gameplay.WeaponSystem
 		public function set destroySelfCounts(value:uint):void 
 		{
 			_destroySelfCounts = value;
+		}
+		
+		public function get strSound():String 
+		{
+			return _strSound;
+		}
+		
+		public function set strSound(value:String):void 
+		{
+			_strSound = value;
 		}
 		
 	}

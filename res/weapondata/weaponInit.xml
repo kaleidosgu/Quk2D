@@ -1,5 +1,5 @@
 <weaponInfo>
-  <weaponDetail weaponType="1" weaponInitValue="300" >
+  <weaponDetail weaponType="1" weaponInitValue="5" >
   </weaponDetail>
   <weaponDetail weaponType="2" weaponInitValue="300" >
   </weaponDetail>

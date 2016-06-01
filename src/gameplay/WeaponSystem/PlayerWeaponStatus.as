@@ -1,5 +1,7 @@
 package gameplay.WeaponSystem 
 {
+	import gameEvent.sound.PlaySoundEvent;
+	import util.EventDispatch.GameDispatchSystem;
 	/**
 	 * ...
 	 * @author kaleidos
@@ -15,7 +17,8 @@ package gameplay.WeaponSystem
 		private var _ammoPackage:WeaponAmmoPackage = null;
 		private var _xmlLoader:WeaponAttributeLoadFromXml = null;
 		private var _arrayWeaponType:Array = new Array();
-		public function PlayerWeaponStatus( inXmlLoader:WeaponAttributeLoadFromXml ) 
+		private var _inDspSyste:GameDispatchSystem = null;
+		public function PlayerWeaponStatus( inXmlLoader:WeaponAttributeLoadFromXml,_dspSystem:GameDispatchSystem  ) 
 		{
 			_ammoPackage = new WeaponAmmoPackage();
 			_arrayWeaponType.push( WeaponTypeDefine.WEAPON_TYPE_MACHINE_GUN );
@@ -29,6 +32,7 @@ package gameplay.WeaponSystem
 			_xmlLoader = inXmlLoader;
 			
 			_currentWeaponAttr = _xmlLoader.getWeaponAttr( WeaponTypeDefine.WEAPON_TYPE_MACHINE_GUN );
+			_inDspSyste = _dspSystem;
 			
 		}
 		public function isValidChangetime():Boolean
@@ -60,6 +64,12 @@ package gameplay.WeaponSystem
 					{
 						res = true;
 					}
+				}
+				else
+				{
+					var evt:PlaySoundEvent = new PlaySoundEvent(PlaySoundEvent.PLAY_SOUND_EVENT);
+					evt.strSound = "noammo";
+					_inDspSyste.DispatchEvent(evt);
 				}
 			}
 			return res;
