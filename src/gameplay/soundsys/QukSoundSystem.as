@@ -14,6 +14,7 @@ package gameplay.soundsys
 		
 		[Embed(source = "../../../res/sfx/changeweapon.mp3")] private var sfxChange:Class;
 		[Embed(source = "../../../res/sfx/noEnoughAmmo.mp3")] private var sfxNotEnoughAmmo:Class;
+		[Embed(source = "../../../res/sfx/railgun.mp3")] private var sfxRail:Class;
 		
 		private var _objectSound:Object = new Object();
 		private var _dspSystem:GameDispatchSystem =  null;
@@ -26,6 +27,8 @@ package gameplay.soundsys
 			_objectSound["shotgun"] = sfxSg;
 			_objectSound["change"] = sfxChange;
 			_objectSound["noammo"] = sfxNotEnoughAmmo;
+			_objectSound["railgun"] = sfxRail;
+			
 			
 			for each( var key:Class in _objectSound )
 			{
