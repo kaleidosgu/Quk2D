@@ -11,6 +11,7 @@ package gameplay
 	import gameplay.WeaponSystem.PlayerWeaponStatus;
 	import gameplay.WeaponSystem.WeaponAttributeLoadFromXml;
 	import gameplay.WeaponSystem.WeaponShoot.BaseWeaponShoot;
+	import gameplay.WeaponSystem.WeaponShoot.WeaponMachineGun;
 	import gameplay.WeaponSystem.WeaponShoot.WeaponShootRailGun;
 	import gameplay.WeaponSystem.WeaponShoot.WeaponShootShotGun;
 	import gameplay.WeaponSystem.WeaponTypeDefine;
@@ -78,7 +79,7 @@ package gameplay
 		}
 		private function _initWeaponShot():void
 		{
-			_weaponShotObject[WeaponTypeDefine.WEAPON_TYPE_MACHINE_GUN] = new BaseWeaponShoot( _bulletFactory );
+			_weaponShotObject[WeaponTypeDefine.WEAPON_TYPE_MACHINE_GUN] = new WeaponMachineGun( _bulletFactory );
 			_weaponShotObject[WeaponTypeDefine.WEAPON_TYPE_SHOT_GUN] = new WeaponShootShotGun( _bulletFactory );
 			_weaponShotObject[WeaponTypeDefine.WEAPON_TYPE_RAIL_GUN] = new WeaponShootRailGun( _bulletFactory );
 		}

@@ -58,18 +58,18 @@ package gameplay.WeaponSystem
 			var res:Boolean = false;
 			if ( _currentWeaponAttr != null )
 			{
-				if ( _ammoPackage.hasEnoughAmmo( _currentWeaponAttr.weaponType ) )
+				if ( isValidCDTime() )
 				{
-					if ( isValidCDTime() )
+					if ( _ammoPackage.hasEnoughAmmo( _currentWeaponAttr.weaponType ) )
 					{
 						res = true;
 					}
-				}
-				else
-				{
-					var evt:PlaySoundEvent = new PlaySoundEvent(PlaySoundEvent.PLAY_SOUND_EVENT);
-					evt.strSound = "noammo";
-					_inDspSyste.DispatchEvent(evt);
+					else
+					{
+						var evt:PlaySoundEvent = new PlaySoundEvent(PlaySoundEvent.PLAY_SOUND_EVENT);
+						evt.strSound = "noammo";
+						_inDspSyste.DispatchEvent(evt);
+					}
 				}
 			}
 			return res;

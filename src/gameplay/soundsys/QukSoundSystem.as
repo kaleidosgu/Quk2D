@@ -26,6 +26,11 @@ package gameplay.soundsys
 			_objectSound["shotgun"] = sfxSg;
 			_objectSound["change"] = sfxChange;
 			_objectSound["noammo"] = sfxNotEnoughAmmo;
+			
+			for each( var key:Class in _objectSound )
+			{
+				FlxG.loadSound(key);
+			}
 		}
 		private function registerEvent():void
 		{

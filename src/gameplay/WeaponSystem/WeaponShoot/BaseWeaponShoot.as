@@ -14,21 +14,23 @@ package gameplay.WeaponSystem.WeaponShoot
 	public class BaseWeaponShoot 
 	{
 		[Embed(source = "../../../../res/images/bullet.png")] protected static var ImgBullet:Class;
-		private var _startPoint:FlxPoint = new FlxPoint();
-		private var _endPoint:FlxPoint = new FlxPoint();
-		private var _bulletFactory:BulletFactory = null;
+		protected var _startPoint:FlxPoint = new FlxPoint();
+		protected var _endPoint:FlxPoint = new FlxPoint();
+		protected var _bulletFactory:BulletFactory = null;
 		public function BaseWeaponShoot( inBulletFactory:BulletFactory ) 
 		{
 			_bulletFactory = inBulletFactory;
 		}
 		
-		protected function _supplyBullet():BaseBulletObject
+		protected function _supplyBullet( posX:Number, posY:Number ):BaseBulletObject
 		{
 			var bulletSprite:BaseBulletObject = _bulletFactory.SupplyBullet();
 			bulletSprite.x = 0;
 			bulletSprite.y = 0;
 			bulletSprite.velocity.x = 0;
 			bulletSprite.velocity.y = 0;
+			bulletSprite.last.x = posX;
+			bulletSprite.last.y = posY;
 			return bulletSprite;
 		}
 		
@@ -44,38 +46,30 @@ package gameplay.WeaponSystem.WeaponShoot
 			_shootStrategy( _dspSystem, _startPoint, _endPoint, _bulletGroup, _weaponAttr );
 			playSound(_dspSystem,_weaponAttr);
 		}
-		private function _generateBulletObject( _dspSystem:GameDispatchSystem, startPoint:FlxPoint, endPoint:FlxPoint,_bulletGroup:FlxGroup,_weaponAttr:WeaponAttribute ):void
+		protected function _generateBulletObject( _dspSystem:GameDispatchSystem, startPoint:FlxPoint, endPoint:FlxPoint,_bulletGroup:FlxGroup,_weaponAttr:WeaponAttribute ):BaseBulletObject
 		{
-			var bulletSprite:BaseBulletObject = _supplyBullet();
-			bulletSprite.loadGraphic( ImgBullet );
-			bulletSprite.setSelfGroup( _bulletGroup );
-			
-			bulletSprite.x = startPoint.x;
-			bulletSprite.y = startPoint.y;
-			bulletSprite.last.x = startPoint.x;
-			bulletSprite.last.y = startPoint.y;
-			var widthLength:Number = endPoint.x - startPoint.x ;
-			var heightLength:Number = endPoint.y - startPoint.y ;
-			var rLength:Number = Math.sqrt( widthLength * widthLength + heightLength * heightLength );
-			var sinAngle:Number = heightLength / rLength;
-			var cosAngle:Number = widthLength / rLength;
-			
-			bulletSprite.weaponAttr = _weaponAttr;
-			
-			bulletSprite.velocity.x = cosAngle * bulletSprite.weaponAttr.fireSpeed;
-			bulletSprite.velocity.y = sinAngle * bulletSprite.weaponAttr.fireSpeed;
+			var bulletSprite:BaseBulletObject = _supplyBullet( startPoint.x, startPoint.y );
+			return _bulletSpec( bulletSprite,startPoint, endPoint, _bulletGroup, _weaponAttr );
 		}
-		
-		
+
 		protected function _shootStrategy( _dspSystem:GameDispatchSystem, startPoint:FlxPoint, endPoint:FlxPoint,_bulletGroup:FlxGroup,_weaponAttr:WeaponAttribute ):void
+		{
+			_generateBulletGroup( _dspSystem, startPoint, endPoint, _bulletGroup, _weaponAttr );
+		}
+		protected function _generateBulletGroup( _dspSystem:GameDispatchSystem, startPoint:FlxPoint, endPoint:FlxPoint, _bulletGroup:FlxGroup, _weaponAttr:WeaponAttribute ):void
 		{
 			_generateBulletObject( _dspSystem, startPoint, endPoint, _bulletGroup, _weaponAttr );
 		}
+		
 		public function playSound( _dspSystem:GameDispatchSystem,_weaponAttr:WeaponAttribute ):void
 		{
 			var evt:PlaySoundEvent = new PlaySoundEvent( PlaySoundEvent.PLAY_SOUND_EVENT );
 			evt.strSound = _weaponAttr.strSound;
 			_dspSystem.DispatchEvent(evt);
+		}
+		protected function _bulletSpec( bulletSprite:BaseBulletObject,startPoint:FlxPoint, endPoint:FlxPoint,_bulletGroup:FlxGroup,_weaponAttr:WeaponAttribute ):BaseBulletObject
+		{
+			return bulletSprite;
 		}
 	}
 

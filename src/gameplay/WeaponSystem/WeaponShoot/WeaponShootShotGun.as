@@ -13,8 +13,6 @@ package gameplay.WeaponSystem.WeaponShoot
 	public class WeaponShootShotGun extends BaseWeaponShoot 
 	{
 		[Embed(source = "../../../../res/images/bullet.png")] protected static var ImgBullet:Class;
-		private var _startPoint:FlxPoint = new FlxPoint();
-		private var _endPoint:FlxPoint = new FlxPoint();
 		private var _diffDeg:Number = 50;
 		
 		private var _angleValueSin:Number = 0;
@@ -24,7 +22,7 @@ package gameplay.WeaponSystem.WeaponShoot
 		{
 			super( inBulletFactory );
 		}
-		override protected function _shootStrategy( _dspSystem:GameDispatchSystem, startPoint:FlxPoint, endPoint:FlxPoint,_bulletGroup:FlxGroup,_weaponAttr:WeaponAttribute ):void
+		override protected function _generateBulletGroup( _dspSystem:GameDispatchSystem, startPoint:FlxPoint, endPoint:FlxPoint, _bulletGroup:FlxGroup, _weaponAttr:WeaponAttribute ):void
 		{
 			_changeDelProcess = false;
 			_generateDegFromPos(startPoint, endPoint);
@@ -33,44 +31,30 @@ package gameplay.WeaponSystem.WeaponShoot
 			for ( var idx:uint = 0; idx < 5; idx++ )
 			{
 				//degStart = 0;
-				_generateBulletObject( _dspSystem, startPoint, endPoint, _bulletGroup, _weaponAttr,degStart );
+				_generateBulletObjectShot( _dspSystem, startPoint, endPoint, _bulletGroup, _weaponAttr,degStart );
 				degStart += 15;
 			}
 			trace("####end####");
 			trace("													");
 		}
-		private function _generateDegFromPos( startPoint:FlxPoint, endPoint:FlxPoint ):void
+		override protected function _bulletSpec( bulletSprite:BaseBulletObject, startPoint:FlxPoint, endPoint:FlxPoint, _bulletGroup:FlxGroup, _weaponAttr:WeaponAttribute ):BaseBulletObject
 		{
-			var widthLength:Number = endPoint.x - startPoint.x ;
-			var heightLength:Number = endPoint.y - startPoint.y ;
-			var widthLengthSqu:Number = widthLength * widthLength;
-			var heightLengthSqu:Number = heightLength * heightLength;
-
-			var rLengthSqu:Number = widthLength * widthLength + heightLength * heightLength;
-			
-			var rLength:Number = Math.sqrt( rLengthSqu );
-			
-			var sinAngle:Number = heightLength / rLength;
-			var cosAngle:Number = widthLength / rLength;
-			_angleValueSin = (Math.asin( sinAngle ) * 180 / Math.PI);
-			_angleValueCos = (Math.acos( cosAngle ) * 180 / Math.PI);
-			
-			if ( heightLength * widthLength < 0 )
-			{
-				_changeDelProcess = true;
-			}
-			
-		}
-		//right cos 0 ~ 180, sin -90 ~ 90
-		private function _generateBulletObject( _dspSystem:GameDispatchSystem, startPoint:FlxPoint, endPoint:FlxPoint, 
-		_bulletGroup:FlxGroup, _weaponAttr:WeaponAttribute, _degDiffStart:Number ):void
-		{
-			var bulletSprite:BaseBulletObject = _supplyBullet();
 			bulletSprite.loadGraphic( ImgBullet );
 			bulletSprite.setSelfGroup( _bulletGroup );
 			
 			bulletSprite.x = startPoint.x;
 			bulletSprite.y = startPoint.y;
+			return bulletSprite;
+		}
+		override protected function _generateBulletObject( _dspSystem:GameDispatchSystem, startPoint:FlxPoint, endPoint:FlxPoint, _bulletGroup:FlxGroup, _weaponAttr:WeaponAttribute ):BaseBulletObject
+		{
+			return super._generateBulletObject( _dspSystem, startPoint, endPoint, _bulletGroup, _weaponAttr );
+		}
+		//right cos 0 ~ 180, sin -90 ~ 90
+		protected function _generateBulletObjectShot( _dspSystem:GameDispatchSystem, startPoint:FlxPoint, endPoint:FlxPoint, 
+		_bulletGroup:FlxGroup, _weaponAttr:WeaponAttribute, _degDiffStart:Number ):void
+		{
+			var bulletSprite:BaseBulletObject = _generateBulletObject(_dspSystem, startPoint, endPoint, _bulletGroup, _weaponAttr );
 			
 			var randomAddDeg:Number = 0;
 			
@@ -108,6 +92,27 @@ package gameplay.WeaponSystem.WeaponShoot
 			
 			//trace("lastLngth" + lastLength);		
 			//trace("randomCos " + randomCos + " randomSin " + randomSin );
+		}
+		private function _generateDegFromPos( startPoint:FlxPoint, endPoint:FlxPoint ):void
+		{
+			var widthLength:Number = endPoint.x - startPoint.x ;
+			var heightLength:Number = endPoint.y - startPoint.y ;
+			var widthLengthSqu:Number = widthLength * widthLength;
+			var heightLengthSqu:Number = heightLength * heightLength;
+
+			var rLengthSqu:Number = widthLength * widthLength + heightLength * heightLength;
+			
+			var rLength:Number = Math.sqrt( rLengthSqu );
+			
+			var sinAngle:Number = heightLength / rLength;
+			var cosAngle:Number = widthLength / rLength;
+			_angleValueSin = (Math.asin( sinAngle ) * 180 / Math.PI);
+			_angleValueCos = (Math.acos( cosAngle ) * 180 / Math.PI);
+			
+			if ( heightLength * widthLength < 0 )
+			{
+				_changeDelProcess = true;
+			}
 		}
 	}
 }
