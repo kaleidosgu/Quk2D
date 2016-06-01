@@ -1,5 +1,6 @@
 package gamemap.Building 
 {
+	import gameEvent.sound.PlaySoundEvent;
 	import gamemap.GameMapBuildingTyp;
 	import org.flixel.FlxObject;
 	/**
@@ -11,9 +12,11 @@ package gamemap.Building
 		
 		[Embed(source = '../../../res/images/teleport.png')]
 		private static var teleportClass:Class;
+		private var _objTrig:FlxObject = null;
 		public function BuildingTeleport() 
 		{
 			super();
+			_soundBuildingTrig = "telein";
 		}
 		override public function createObjectByXml( mapDetailXml:XML ):void
 		{
@@ -28,11 +31,27 @@ package gamemap.Building
 			return GameMapBuildingTyp.GameMapBuildingTyp_Teleport;
 		}
 
-		override public function collideTrig( flxObj1:FlxObject, flxObj2:FlxObject ):void
+		override protected function _buildingCollide(flxObj1:FlxObject, flxObj2:FlxObject):void
 		{
-			super.collideTrig( flxObj1, flxObj2 );
-			flxObj1.x = 500;
-			flxObj1.y = 300;
+			super._buildingCollide(flxObj1, flxObj2);
+			_enableUpdateTick = true;
+			tickConstCount = 0.5;
+			_objTrig = flxObj1;
+			_objTrig.visible = false;
+			_objTrig.moves = false;
+			_objTrig.x = 500;
+			_objTrig.y = 300;
+		}
+		
+		override protected function TickUpdateFunction():void
+		{
+			if ( _objTrig != null )
+			{
+				_objTrig.visible = true;
+				_enableUpdateTick = false;
+				_objTrig.moves = true;
+				soundPlay("teleout");
+			}
 		}
 	}
 

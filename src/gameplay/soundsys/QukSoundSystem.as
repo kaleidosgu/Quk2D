@@ -16,6 +16,11 @@ package gameplay.soundsys
 		[Embed(source = "../../../res/sfx/noEnoughAmmo.mp3")] private var sfxNotEnoughAmmo:Class;
 		[Embed(source = "../../../res/sfx/railgun.mp3")] private var sfxRail:Class;
 		
+		[Embed(source = "../../../res/sfx/telein.mp3")] private var sfxTelin:Class;
+		[Embed(source = "../../../res/sfx/teleout.mp3")] private var sfxTelout:Class;
+		[Embed(source = "../../../res/sfx/jumppad.mp3")] private var sfxJump:Class;
+		
+		
 		private var _objectSound:Object = new Object();
 		private var _dspSystem:GameDispatchSystem =  null;
 		public function QukSoundSystem( _inDspSystem:GameDispatchSystem ) 
@@ -28,6 +33,11 @@ package gameplay.soundsys
 			_objectSound["change"] = sfxChange;
 			_objectSound["noammo"] = sfxNotEnoughAmmo;
 			_objectSound["railgun"] = sfxRail;
+			
+			_objectSound["telein"] = sfxTelin;
+			_objectSound["teleout"] = sfxTelout;
+			_objectSound["jumppad"] = sfxJump;
+			
 			
 			
 			for each( var key:Class in _objectSound )

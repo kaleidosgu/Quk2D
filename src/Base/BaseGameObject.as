@@ -8,6 +8,7 @@ package Base
 	import org.flixel.FlxObject;
 	import org.flixel.FlxPoint;
 	import org.flixel.FlxSprite;
+	import util.EventDispatch.GameDispatchSystem;
 	import util.UtilXmlConvertVariables;
 	
 	/**
@@ -23,6 +24,7 @@ package Base
 		private var _tickCount:Number = _tickConstCount;
 		protected var _enableUpdateTick:Boolean = false;
 		public var prePos:FlxPoint = null;
+		private var _dsp:GameDispatchSystem = null;
 		
 		public function BaseGameObject( ) 
 		{
@@ -134,6 +136,16 @@ package Base
 		{
 			_tickConstCount = value;
 			_tickCount 		= value;
+		}
+		
+		public function get dsp():GameDispatchSystem 
+		{
+			return _dsp;
+		}
+		
+		public function set dsp(value:GameDispatchSystem):void 
+		{
+			_dsp = value;
 		}
 		
 		public function setSelfGroup(value:FlxGroup):void 

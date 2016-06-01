@@ -24,6 +24,7 @@ package gamemap
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxState;
 	import org.flixel.FlxXML;
+	import util.EventDispatch.GameDispatchSystem;
 	import util.KalResourceDataRead;
 	import util.KalResourceDataWrite;
 	public class GameMapEditor 
@@ -50,8 +51,10 @@ package gamemap
 		private var gameMapGroupObject:Object = new Object();
 		private var _objBuildingGroupData:Object = new Object();
 		private var _objItemGroupData:Object = new Object();
-		public function GameMapEditor( _flxState:FlxState,outPlayerGroup:FlxGroup ) 
+		private var _dspInSystem:GameDispatchSystem = null;
+		public function GameMapEditor( _flxState:FlxState,outPlayerGroup:FlxGroup,_dspSystem:GameDispatchSystem  ) 
 		{
+			_dspInSystem = _dspSystem;
 			_playerGroup = outPlayerGroup;
 			gameMapGroupObject[GameObjectMainTyp.GameObjectMainTyp_Building] 	= _objBuildingGroupData ;
 			gameMapGroupObject[GameObjectMainTyp.GameObjectMainTyp_Item] 		= _objItemGroupData ;
@@ -130,6 +133,7 @@ package gamemap
 						mapele.canCollide = staticInfo.canCollide;	
 					}
 					gameObj.createObjectByBaseData( mapele );
+					gameObj.dsp = _dspInSystem;
 					_arrayMapElement.push ( gameObj );
 				}
 			}

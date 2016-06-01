@@ -117,7 +117,7 @@ package state
 			
 			setupPlayer( playerIns, 30, 0 );
 			setupPlayer( targetSprite,100,0 );
-			mapEditor = new GameMapEditor( this, _playerGroup );
+			mapEditor = new GameMapEditor( this, _playerGroup,_dspSystem );
 			
 			FlxG.camera.setBounds(0,0,1024,768,true);
 			FlxG.camera.follow(playerIns,FlxCamera.STYLE_PLATFORMER);
