@@ -1,5 +1,6 @@
 package Base 
 {
+	import gameEvent.sound.PlaySoundEvent;
 	import gamemap.GameMapBuildingXmlTag;
 	import gamemap.GameMapElementInfo;
 	import org.flixel.FlxBasic;
@@ -189,6 +190,16 @@ package Base
 		}
 		protected function TickUpdateFunction():void
 		{
+		}
+		
+		protected function soundPlay( strSound:String ):void
+		{
+			if ( dsp != null )
+			{
+				var evt:PlaySoundEvent = new PlaySoundEvent( PlaySoundEvent.PLAY_SOUND_EVENT );
+				evt.strSound = strSound;
+				dsp.DispatchEvent(evt);	
+			}
 		}
 	}
 }

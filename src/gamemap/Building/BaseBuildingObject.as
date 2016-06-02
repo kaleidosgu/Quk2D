@@ -40,13 +40,6 @@ package gamemap.Building
 		{
 			
 		}
-		
-		protected function soundPlay( strSound:String ):void
-		{
-			var evt:PlaySoundEvent = new PlaySoundEvent( PlaySoundEvent.PLAY_SOUND_EVENT );
-			evt.strSound = strSound;
-			dsp.DispatchEvent(evt);
-		}
 	}
 
 }
