@@ -3,6 +3,7 @@ package gamemap.Building
 	import gameEvent.sound.PlaySoundEvent;
 	import gamemap.GameMapBuildingTyp;
 	import org.flixel.FlxObject;
+	import player.BasePlayerObject;
 	/**
 	 * ...
 	 * @author kaleidos
@@ -34,13 +35,17 @@ package gamemap.Building
 		override protected function _buildingCollide(flxObj1:FlxObject, flxObj2:FlxObject):void
 		{
 			super._buildingCollide(flxObj1, flxObj2);
-			_enableUpdateTick = true;
-			tickConstCount = 0.5;
-			_objTrig = flxObj1;
-			_objTrig.visible = false;
-			_objTrig.moves = false;
-			_objTrig.x = 500;
-			_objTrig.y = 300;
+			if ( flxObj1 is BasePlayerObject )
+			{
+				//这里最好判断一下flxObj1是否是玩家
+				_enableUpdateTick = true;
+				tickConstCount = 0.5;
+				_objTrig = flxObj1;
+				_objTrig.visible = false;
+				_objTrig.moves = false;
+				_objTrig.x = 500;
+				_objTrig.y = 300;	
+			}			
 		}
 		
 		override protected function TickUpdateFunction():void

@@ -12,6 +12,7 @@ package state
 	import org.flixel.FlxG;
 	import org.flixel.FlxText;
 	import org.flixel.FlxXML;
+	import third.flixel.FlxInputText;
 	
 	import util.KalTxtResourcePath;
 	import util.KalResourceDataWrite;
@@ -49,6 +50,7 @@ package state
 		private var _buttonObjectArray:Array = new Array();
 		private var _buttonNameTag:String = "btnNameTag";
 		private var _buttonFunctionTag:String = "btnFunctionTag";
+		private var initialsInput:FlxInputText = null;
 		public function GameMapEditorState() 
 		{
 			
@@ -57,7 +59,7 @@ package state
 		override public function create():void
 		{
 			super.create();
-			mapEditor = new GameMapEditor( this );
+			mapEditor = new GameMapEditor( this,null,null );
 			this.add( _wallGroup );
 			mapEditor.generateMapDataFromByteArray( "test" );
 			_showWidth 	= TILE_WIDTH * _showScale ;
@@ -72,7 +74,11 @@ package state
 			createBtn();
 			
 			_txtFlx = new FlxText(500, 5, 200 );
+			_txtFlx.text = "fsfsf";
 			add( _txtFlx );
+			
+			initialsInput = new FlxInputText(0, FlxG.height - 50, 100, 50, "", 0xffffff, null) 
+			add(initialsInput);
 		}
 		private function addButtonObj( nameString:String, callBackFunction:Function ):void
 		{
