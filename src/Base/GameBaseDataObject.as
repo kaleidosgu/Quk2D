@@ -2,6 +2,7 @@ package Base
 {
 	import flash.utils.ByteArray;
 	import flash.utils.CompressionAlgorithm;
+	import flash.net.registerClassAlias;
 	/**
 	 * 可以让数据Bytearray序列化
 	 * @author kaleidos
@@ -26,7 +27,7 @@ package Base
 		
 		public function GameBaseDataObject() 
 		{
-			
+			registeClassName();
 		}
 		
 		
@@ -50,7 +51,7 @@ package Base
 		}
 		public function getByteArray():ByteArray
 		{
-			registeClassName();
+			//registeClassName();
 			
 			var bytArray:ByteArray = new ByteArray();
 			bytArray.writeObject( this );
@@ -61,7 +62,7 @@ package Base
 		}
 		protected function registeClassName():void
 		{
-			
+			registerClassAlias("base.GameBaseDataObject", GameBaseDataObject);			
 		}
 		public function setDataFromByteArray( bytArray:ByteArray ):void
 		{

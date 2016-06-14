@@ -177,6 +177,33 @@ package gamemap
 				}
 			}
 		}
+		public function findMapElement( xPos:int, yPos:int ):BaseGameObject
+		{
+			var foundElement:BaseGameObject = null;
+			
+			var colNumber:int = xPos / _showWidth;
+			var rowNumber:int = yPos / _showHeight;
+			var elementInfo:GameMapElementInfo = _gameMapInfo.removeObj( rowNumber, colNumber );
+			if ( elementInfo != null )
+			{
+				var _buildingGroupRemove:FlxGroup = getGameElementGroup( elementInfo.elementMainType,elementInfo.elementSubType );
+				if ( _buildingGroupRemove != null )
+				{
+					var objIndex:uint = 0;
+					for each( var removeObj:BaseGameObject in _arrayMapElement )
+					{
+						if ( removeObj.gameObjData.mapCol == colNumber &&
+						removeObj.gameObjData.mapRow == rowNumber )
+						{
+							foundElement = removeObj;
+							objIndex++;
+							break;
+						}
+					}
+				}
+			}
+			return foundElement;
+		}
 		public function updateMap( xPos:int, yPos:int, mainTyp:uint, subType:uint ):void
 		{
 			var colNumber:int = xPos / _showWidth;

@@ -15,7 +15,7 @@ package gamemap
 		private var _arrayMapElement:Array = new Array();
 		public function GameMapInfo() 
 		{
-			
+			super();
 		}
 		override public function getByteArray():ByteArray
 		{
@@ -37,7 +37,6 @@ package gamemap
 		{
 			super.registeClassName();
 			registerClassAlias("gamemap.GameMapInfo", GameMapInfo);
-			registerClassAlias("gamemap.GameMapElementInfo", GameMapElementInfo);
 		}
 		
 		public function getArray():Array
@@ -84,7 +83,7 @@ package gamemap
 
 		override public function setDataFromByteArray( bytArray:ByteArray ):void
 		{
-			registeClassName();
+			//registeClassName();
 			
 			super.setDataFromByteArray( bytArray );
 			if ( bytArray.length != 0 )
