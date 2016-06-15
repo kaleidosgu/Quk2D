@@ -16,12 +16,6 @@ package gamemap.GameItem
 		{
 			
 		}
-		override public function createObjectByXml( mapDetailXml:XML ):void
-		{
-			super.createObjectByXml( mapDetailXml );
-			
-			_gameObjData.elementSubType = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameMapBuildingXmlTag.BuildingXmlTag_MapType );
-		}
 		override public function getMainTyp():uint
 		{
 			return GameObjectMainTyp.GameObjectMainTyp_Item;

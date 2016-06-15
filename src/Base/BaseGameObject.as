@@ -37,14 +37,6 @@ package Base
 		{
 			removeFromGroup();
 		}
-		public function setWorldDataByXml( mapDetailXml:XML ):void
-		{
-			setWorldData( 
-				UtilXmlConvertVariables.convertToUint( mapDetailXml, GameObjectXmlTag.GameObjectXmlTag_mapCol ),
-				UtilXmlConvertVariables.convertToUint( mapDetailXml, GameObjectXmlTag.GameObjectXmlTag_mapRow ) 
-				);
-		}
-		
 		public function setWorldData( mapColOut:uint, mapRowOut:uint ):void
 		{
 			_gameObjData.mapCol = mapColOut;
@@ -55,20 +47,6 @@ package Base
 			_gameObjData.posY = y;
 		}   
 		
-		public function createObjectByXml( mapDetailXml:XML ):void
-		{
-			var scaleX:Number = UtilXmlConvertVariables.convertToNumber( mapDetailXml, GameObjectXmlTag.GameObjectXmlTag_ScaleX );
-			var scaleY:Number = UtilXmlConvertVariables.convertToNumber( mapDetailXml, GameObjectXmlTag.GameObjectXmlTag_ScaleY );
-			
-			var spriteWidth:Number = UtilXmlConvertVariables.convertToNumber( mapDetailXml, GameMapBuildingXmlTag.BuildingXmlTag_SpriteWidth );
-			var spriteHeight:Number = UtilXmlConvertVariables.convertToNumber( mapDetailXml, GameMapBuildingXmlTag.BuildingXmlTag_SpriteHeight );
-			
-			var spriteCol:uint = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameMapBuildingXmlTag.BuildingXmlTag_SpriteColumn );
-			var spriteRows:uint = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameMapBuildingXmlTag.BuildingXmlTag_SpriteRows );
-			var spriteLineCnts:uint = UtilXmlConvertVariables.convertToUint( mapDetailXml, GameMapBuildingXmlTag.BuildingXmlTag_SpriteLineCnts );
-			
-			createObjectByParam( scaleX, scaleY, spriteWidth, spriteHeight, spriteCol, spriteRows, spriteLineCnts );
-		}
 		public function createObjectByBaseData( baseData:GameBaseDataObject ):void
 		{
 			createObjectByParam( baseData.scaleX, baseData.scaleY, baseData.spriteWidth, baseData.spriteHeight,

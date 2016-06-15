@@ -13,7 +13,6 @@ package gamemap
 		public function GameMapElementInfo() 
 		{
 			super();
-			registeClassName();
 		}
 		
 		override protected function registeClassName():void

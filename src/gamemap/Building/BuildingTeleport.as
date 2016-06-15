@@ -19,10 +19,6 @@ package gamemap.Building
 			super();
 			_soundBuildingTrig = "telein";
 		}
-		override public function createObjectByXml( mapDetailXml:XML ):void
-		{
-			super.createObjectByXml( mapDetailXml );
-		}
 		override public function resClass():Class
 		{
 			return teleportClass;

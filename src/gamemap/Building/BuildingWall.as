@@ -16,10 +16,6 @@ package gamemap.Building
 		{
 			super();
 		}
-		override public function createObjectByXml( mapDetailXml:XML ):void
-		{
-			super.createObjectByXml( mapDetailXml );
-		}
 		override public function resClass():Class
 		{
 			return wallBlock;

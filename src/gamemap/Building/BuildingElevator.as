@@ -22,10 +22,6 @@ package gamemap.Building
 			//this.acceleration.y = _accelerationNumber;
 			this.velocity.y = _accelerationNumber;
 		}
-		override public function createObjectByXml( mapDetailXml:XML ):void
-		{
-			super.createObjectByXml( mapDetailXml );
-		}
 		override public function resClass():Class
 		{
 			return elevatorClass;
