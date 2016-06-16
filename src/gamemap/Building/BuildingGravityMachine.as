@@ -1,5 +1,6 @@
 package gamemap.Building 
 {
+	import gamemap.Building.GameMapBuildingInf.BuildingInfoGravityMachine;
 	import gamemap.GameMapBuildingTyp;
 	import org.flixel.FlxObject;
 	/**
@@ -34,6 +35,18 @@ package gamemap.Building
 			{
 				var gravityObj:BuildingGravityMachine = flxObj2 as BuildingGravityMachine ;
 				flxObj1.velocity.y -= gravityObj.getGravityValue();
+			}
+		}
+		override public function update():void
+		{
+			super.update();
+			if ( _gameObjData != null )
+			{
+				if ( _gameObjData is BuildingInfoGravityMachine )
+				{
+					var dda:BuildingInfoGravityMachine = _gameObjData as BuildingInfoGravityMachine;
+					var dafa:uint = 0;
+				}
 			}
 		}
 	}

@@ -5,6 +5,7 @@ package gamemap
 	import flash.net.registerClassAlias;
 	import flash.utils.ByteArray;
 	import flash.utils.CompressionAlgorithm;
+	import gamemap.GameMapElementInfo.GameMapElementInfoFactory;
 	import gameutil.UtilConvert;
 	/**
 	 * ...
@@ -13,6 +14,7 @@ package gamemap
 	public class GameMapInfo extends GameBaseDataObject
 	{
 		private var _arrayMapElement:Array = new Array();
+		private var _buildingFactory:GameMapElementInfoFactory = new GameMapElementInfoFactory();
 		public function GameMapInfo() 
 		{
 			super();
@@ -32,18 +34,6 @@ package gamemap
 			bytArray.compress(CompressionAlgorithm.DEFLATE);
 			return bytArray;
 		}
-		
-		override protected function registeClassName():void
-		{
-			super.registeClassName();
-			registerClassAlias("gamemap.GameMapInfo", GameMapInfo);
-		}
-		
-		public function getArray():Array
-		{
-			return _arrayMapElement;
-		}
-		
 		public function updateMapData( gameObj:BaseGameObject ):void
 		{
 			var elementIndex:uint = 0;
@@ -57,9 +47,10 @@ package gamemap
 				}
 				elementIndex++;
 			}
-			var newElementInfo:GameMapElementInfo = new GameMapElementInfo();
+			var newElementInfo:GameMapElementInfo = _buildingFactory.CreateObject( gameObj.getMainTyp(), gameObj.getSubTyp());
 			UtilConvert.convertGameObjToElementInfo( gameObj, newElementInfo );
 			_arrayMapElement.push( newElementInfo );
+			
 		}
 		
 		public function removeObj( mapRow:uint, mapCol:uint ):GameMapElementInfo
@@ -83,8 +74,6 @@ package gamemap
 
 		override public function setDataFromByteArray( bytArray:ByteArray ):void
 		{
-			//registeClassName();
-			
 			super.setDataFromByteArray( bytArray );
 			if ( bytArray.length != 0 )
 			{
@@ -104,6 +93,18 @@ package gamemap
 				}
 			}
 		}		
+		
+		override protected function registeClassName():void
+		{
+			super.registeClassName();
+			registerClassAlias("gamemap.GameMapInfo", GameMapInfo);
+		}
+		
+		public function getArray():Array
+		{
+			return _arrayMapElement;
+		}
+		
 	}
 
 }
