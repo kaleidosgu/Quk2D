@@ -62,7 +62,7 @@ package Base
 		}
 		protected function registeClassName():void
 		{
-			registerClassAlias("base.GameBaseDataObject", GameBaseDataObject);			
+			registerClassAlias("Base.GameBaseDataObject", GameBaseDataObject);			
 		}
 		public function setDataFromByteArray( bytArray:ByteArray ):void
 		{

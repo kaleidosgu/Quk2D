@@ -5,6 +5,7 @@ package gamemap
 	import flash.net.registerClassAlias;
 	import flash.utils.ByteArray;
 	import flash.utils.CompressionAlgorithm;
+	import gamemap.Building.GameMapBuildingInf.BuildingInfoGravityMachine;
 	import gamemap.GameMapElementInfo.GameMapElementInfoFactory;
 	import gameutil.UtilConvert;
 	/**
@@ -18,10 +19,10 @@ package gamemap
 		public function GameMapInfo() 
 		{
 			super();
+			registeClassName();
 		}
 		override public function getByteArray():ByteArray
 		{
-			registeClassName();
 			var bytArray:ByteArray = new ByteArray();
 			
 			var arrayLength:uint = _arrayMapElement.length;
@@ -87,7 +88,7 @@ package gamemap
 					var readObj:Object = bytArray.readObject();
 					if ( readObj is GameMapElementInfo )
 					{
-						eleInfo = readObj as GameMapElementInfo;
+						eleInfo = readObj as BuildingInfoGravityMachine;
 						_arrayMapElement.push( eleInfo );	
 					}
 				}

@@ -2,6 +2,7 @@ package gamemap.Building.GameMapBuildingInf
 {
 	import flash.net.registerClassAlias;
 	import gamemap.GameMapElementInfo;
+	import flash.utils.getQualifiedClassName;
 	
 	/**
 	 * ...
@@ -18,7 +19,8 @@ package gamemap.Building.GameMapBuildingInf
 		override protected function registeClassName():void
 		{
 			super.registeClassName();
-			registerClassAlias("Building.GameMapBuildingInfo.GameMapElementBuildingInfo", GameMapElementBuildingInfo);
+			//var te:String = getQualifiedClassName(GameMapElementBuildingInfo);
+			registerClassAlias("gamemap.Building.GameMapBuildingInf.GameMapElementBuildingInfo", GameMapElementBuildingInfo);
 		}
 	}
 

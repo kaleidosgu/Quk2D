@@ -1,4 +1,4 @@
-package gamemap.Building.GameMapBuildingInf 
+package gamemap.Building.GameMapBuildingInf
 {
 	import flash.net.registerClassAlias;
 	/**
@@ -17,7 +17,7 @@ package gamemap.Building.GameMapBuildingInf
 		override protected function registeClassName():void
 		{
 			super.registeClassName();
-			registerClassAlias("Building.GameMapBuildingInfo.BuildingInfoGravityMachine", BuildingInfoGravityMachine);
+			registerClassAlias("gamemap.Building.GameMapBuildingInf.BuildingInfoGravityMachine", BuildingInfoGravityMachine);
 		}
 		
 		public function get gravityVelocityX():Number 
