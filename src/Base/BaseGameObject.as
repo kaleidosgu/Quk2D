@@ -30,50 +30,28 @@ package Base
 		public function BaseGameObject( ) 
 		{
 			super();
-			_gameObjData = new GameBaseDataObject();
+			//_gameObjData = new GameBaseDataObject();
 			prePos = new FlxPoint();
 		}	
-		public function collideByOtherObj( otherObj:BaseGameObject ):void
+		private function setWorldData():void
 		{
-			removeFromGroup();
-		}
-		public function setWorldData( mapColOut:uint, mapRowOut:uint ):void
-		{
-			_gameObjData.mapCol = mapColOut;
-			_gameObjData.mapRow = mapRowOut;
 			this.x = (_gameObjData.mapCol * _gameObjData.spriteWidth * this.scale.x);
 			this.y = (_gameObjData.mapRow * _gameObjData.spriteHeight * this.scale.y);
-			_gameObjData.posX = x;
-			_gameObjData.posY = y;
 		}   
 		
 		public function createObjectByBaseData( baseData:GameBaseDataObject ):void
 		{
-			createObjectByParam( baseData.scaleX, baseData.scaleY, baseData.spriteWidth, baseData.spriteHeight,
-			baseData.spriteCol, baseData.spriteRows,
-			baseData.spriteCnts );
-			setWorldData( baseData.mapCol, baseData.mapRow );
-			_gameObjData.elementMainType 	= baseData.elementMainType;
-			_gameObjData.elementSubType		= baseData.elementSubType;
-			_gameObjData.canCollide			= baseData.canCollide;
+			_gameObjData = baseData;
+			createObjectByParam();
+			setWorldData();
 		}
-		public function createObjectByParam( 	scaleX:Number, scaleY:Number,
-										spriteWidth:Number, spriteHeight:Number,
-										spriteCol:uint, spriteRows:uint,
-										spriteCnts:uint ):void
+		private function createObjectByParam():void
 		{
-			this.scale.x = scaleX;
-			this.scale.y = scaleY;
-			_gameObjData.scaleX = scaleX;
-			_gameObjData.scaleY = scaleY;
-			loadGraphic( resClass(), true, true, spriteWidth, spriteHeight );
-			_gameObjData.spriteRows = spriteRows;
-			_gameObjData.spriteCol 	= spriteCol;
-			_gameObjData.spriteCnts	= spriteCnts;
-			_gameObjData.spriteWidth = spriteWidth;
-			_gameObjData.spriteHeight = spriteHeight;
+			this.scale.x = _gameObjData.scaleX;
+			this.scale.y = _gameObjData.scaleY;
+			loadGraphic( resClass(), true, true, _gameObjData.spriteWidth, _gameObjData.spriteHeight );
 			_scaleTile( this.scale );
-			frame = spriteRows * spriteCnts + spriteCol ;
+			frame = _gameObjData.spriteRows * _gameObjData.spriteCnts + _gameObjData.spriteCol ;
 		}
 		protected function _scaleTile( _scaleFact:FlxPoint ):void
 		{
@@ -178,6 +156,10 @@ package Base
 				evt.strSound = strSound;
 				dsp.DispatchEvent(evt);	
 			}
+		}
+		public function collideByOtherObj( otherObj:BaseGameObject ):void
+		{
+			removeFromGroup();
 		}
 	}
 }
