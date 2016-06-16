@@ -88,7 +88,7 @@ package gamemap
 					var readObj:Object = bytArray.readObject();
 					if ( readObj is GameMapElementInfo )
 					{
-						eleInfo = readObj as BuildingInfoGravityMachine;
+						eleInfo = readObj as GameMapElementInfo;
 						_arrayMapElement.push( eleInfo );	
 					}
 				}

@@ -17,7 +17,7 @@ package gamemap.Building.GameMapBuildingInf
 		override protected function registeClassName():void
 		{
 			super.registeClassName();
-			registerClassAlias("gamemap.Building.GameMapBuildingInf.BuildingInfoGravityMachine", BuildingInfoGravityMachine);
+			registerClassAlias("gamemap.Building.GameMapBuildindgInf.BuildingInfoGravityMachine", BuildingInfoGravityMachine);
 		}
 		
 		public function get gravityVelocityX():Number 
