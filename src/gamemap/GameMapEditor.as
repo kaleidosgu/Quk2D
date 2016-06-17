@@ -10,7 +10,6 @@ package gamemap
 	import flash.utils.ByteArray;
 	import gamemap.Building.BuildingGravityMachine;
 	import gamemap.Building.BuildingWall;
-	import gamemap.Building.GameMapBuildingInf.BuildingInfoGravityMachine;
 	import gamemap.GameMapBuildingXmlTag;
 	import gamemap.GameMapElementInfo;
 	import gamemap.GameMapInfo;
@@ -72,18 +71,6 @@ package gamemap
 					_objStaticData[gameInfo.elementSubType] = gameInfo;
 				}
 			}
-			
-			/////////////////////
-			var dd:BuildingInfoGravityMachine = new BuildingInfoGravityMachine();
-			/*var dd:BuildingInfoGravityMachine = new BuildingInfoGravityMachine();
-			var ba:ByteArray = new ByteArray();
-            ba.writeObject(dd);
-            ba.position = 0;
-            var eg2:* = ba.readObject();
-			var dfaf:uint = 0;*/
-            //trace(eg2 is ExampleClass); // true
-			/////////////////////
-			
 		}
 		private function _GetItemStaticData( mainType:uint, subType:uint ):GameMapElementInfo
 		{
@@ -244,6 +231,13 @@ package gamemap
 					}
 				}
 			}
+		}
+		public function choseItem( xPos:int, yPos:int ):Object
+		{
+			var colNumber:int = xPos / _showWidth;
+			var rowNumber:int = yPos / _showHeight;
+			var elementInfo:GameMapElementInfo = _gameMapInfo.getObj( rowNumber, colNumber );
+			return elementInfo;
 		}
 		
 		public function get showWidth():uint 

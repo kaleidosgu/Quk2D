@@ -6,6 +6,7 @@ package gamemap
 	import flash.utils.ByteArray;
 	import flash.utils.CompressionAlgorithm;
 	import gamemap.Building.GameMapBuildingInf.BuildingInfoGravityMachine;
+	import gamemap.Building.GameMapBuildingInf.GameMapElementBuildingInfo;
 	import gamemap.GameMapElementInfo.GameMapElementInfoFactory;
 	import gameutil.UtilConvert;
 	/**
@@ -72,6 +73,18 @@ package gamemap
 			}
 			return removeElementInfo;
 		}
+		public function getObj( mapRow:uint, mapCol:uint ):GameMapElementInfo
+		{
+			var getElementInfo:GameMapElementInfo = null;
+			for each( var elementInfo:GameMapElementInfo in _arrayMapElement )
+			{
+				if ( elementInfo.mapRow == mapRow && elementInfo.mapCol == mapCol )
+				{
+					getElementInfo = elementInfo;
+				}
+			}
+			return getElementInfo;
+		}
 
 		override public function setDataFromByteArray( bytArray:ByteArray ):void
 		{
@@ -91,6 +104,10 @@ package gamemap
 						eleInfo = readObj as GameMapElementInfo;
 						_arrayMapElement.push( eleInfo );	
 					}
+					else
+					{
+						//need add class to let program know which class could be created.
+					}
 				}
 			}
 		}		
@@ -99,13 +116,18 @@ package gamemap
 		{
 			super.registeClassName();
 			registerClassAlias("gamemap.GameMapInfo", GameMapInfo);
+			registeBuildingClass();
 		}
 		
 		public function getArray():Array
 		{
 			return _arrayMapElement;
 		}
-		
+		private function registeBuildingClass():void
+		{
+			new BuildingInfoGravityMachine();
+			new GameMapElementBuildingInfo();
+		}
 	}
 
 }

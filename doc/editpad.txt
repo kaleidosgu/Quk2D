@@ -1,0 +1,7 @@
+template:
+classname: text
+
+
+gravity:
+gravityvalueX: input
+gravityvalueY: input

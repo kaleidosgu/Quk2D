@@ -19,7 +19,6 @@ package gamemap.Building.GameMapBuildingInf
 		override protected function registeClassName():void
 		{
 			super.registeClassName();
-			//var te:String = getQualifiedClassName(GameMapElementBuildingInfo);
 			registerClassAlias("gamemap.Building.GameMapBuildingInf.GameMapElementBuildingInfo", GameMapElementBuildingInfo);
 		}
 	}

@@ -1,5 +1,6 @@
 package state 
 {
+	import edit.EditorSprite;
 	import gamemap.GameMapBuildingTyp;
 	import gamemap.GameMapItemTyp;
 	import gamemap.GameObjectMainTyp;
@@ -13,6 +14,7 @@ package state
 	import org.flixel.FlxText;
 	import org.flixel.FlxXML;
 	import third.flixel.FlxInputText;
+	import UI.EditorPadWindow;
 	
 	import util.KalTxtResourcePath;
 	import util.KalResourceDataWrite;
@@ -42,15 +44,16 @@ package state
 		
 		private var _wallGroup:FlxGroup = new FlxGroup();
 		
-		public var _wallBtn:FlxButton = null;
-		public var _gravityMachineBtn:FlxButton = null;
-		public var _removeBtn:FlxButton = null;
 		private var _btnArray:Array = new Array();
 		private var _txtFlx:FlxText	= null;
 		private var _buttonObjectArray:Array = new Array();
 		private var _buttonNameTag:String = "btnNameTag";
 		private var _buttonFunctionTag:String = "btnFunctionTag";
 		private var initialsInput:FlxInputText = null;
+		
+		private var _choose:Boolean = false;
+		
+		private var editor:EditorPadWindow = null;
 		public function GameMapEditorState() 
 		{
 			
@@ -79,6 +82,14 @@ package state
 			
 			initialsInput = new FlxInputText(0, FlxG.height - 50, 100, 50, "", 0xffffff, null) 
 			add(initialsInput);
+			
+			editor = new EditorPadWindow(0,300,this);
+			editor.CreateWindow();
+			//add(editor);
+		}
+		private function onClick():void
+		{
+			
 		}
 		private function addButtonObj( nameString:String, callBackFunction:Function ):void
 		{
@@ -95,6 +106,7 @@ package state
 			addButtonObj( "Elevator", onElevatorClick );
 			addButtonObj( "Remove", onRemoveBtnClick );
 			addButtonObj( "Health", onHealthBtnClick );
+			addButtonObj( "Choose", onChooseBtnClick );
 			
 			var posXStart:Number = 100;
 			var posYStart:Number = 0;
@@ -122,28 +134,38 @@ package state
 		{
 			_curMainType = 0;
 			_curSubTyp = 0;
+			_choose = false;
 		}
 		private function onHealthBtnClick():void
 		{
 			_curMainType = GameObjectMainTyp.GameObjectMainTyp_Item;
 			_curSubTyp = GameMapItemTyp.GameMapItemTyp_Health;
+			_choose = false;
+		}
+		private function onChooseBtnClick():void
+		{
+			_choose = true;
 		}
 		private function onBtnWallClick():void
 		{
 			_curMainType = GameObjectMainTyp.GameObjectMainTyp_Building;
 			_curSubTyp = GameMapBuildingTyp.GameMapBuildingTyp_Wall;
+			_choose = false;
 		}
 		private function onGravityClick():void {
 			_curMainType = GameObjectMainTyp.GameObjectMainTyp_Building;
 			_curSubTyp = GameMapBuildingTyp.GameMapBuildingTyp_GravityMachine;
+			_choose = false;
 		}
 		private function onTeleportClick():void {
 			_curMainType = GameObjectMainTyp.GameObjectMainTyp_Building;
 			_curSubTyp = GameMapBuildingTyp.GameMapBuildingTyp_Teleport;
+			_choose = false;
 		}
 		private function onElevatorClick():void {
 			_curMainType = GameObjectMainTyp.GameObjectMainTyp_Building;
 			_curSubTyp = GameMapBuildingTyp.GameMapBuildingTyp_Elevator;
+			_choose = false;
 		}
 		override public function destroy():void
 		{
@@ -175,13 +197,20 @@ package state
 				}
 				else
 				{
-					if ( _curMainType == 0 || _curSubTyp == 0 )
+					if ( _choose == false )
 					{
-						mapEditor.removeMapElement( hightLightPoint.x, hightLightPoint.y );
+						if ( _curMainType == 0 || _curSubTyp == 0 )
+						{
+							mapEditor.removeMapElement( hightLightPoint.x, hightLightPoint.y );
+						}
+						else
+						{
+							mapEditor.updateMap( hightLightPoint.x, hightLightPoint.y,_curMainType, _curSubTyp );	
+						}	
 					}
 					else
 					{
-						mapEditor.updateMap( hightLightPoint.x, hightLightPoint.y,_curMainType, _curSubTyp );	
+						mapEditor.choseItem( hightLightPoint.x, hightLightPoint.y );
 					}
 				}
 			}
