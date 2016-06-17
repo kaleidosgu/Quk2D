@@ -80,12 +80,11 @@ package state
 			_txtFlx.text = "fsfsf";
 			add( _txtFlx );
 			
-			initialsInput = new FlxInputText(0, FlxG.height - 50, 100, 50, "", 0xffffff, null) 
+			initialsInput = new FlxInputText(110, 111, 100, 50, "", 0xffffff, null) 
 			add(initialsInput);
 			
 			editor = new EditorPadWindow(0,300,this);
 			editor.CreateWindow();
-			//add(editor);
 		}
 		private function onClick():void
 		{

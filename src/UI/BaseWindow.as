@@ -22,12 +22,11 @@ package UI
 			_bakFlxGroup = flxGroup;
 		}
 		
-		public function addItem(ObjectIn:FlxObject):FlxBasic
+		public function addItem(ObjectIn:FlxObject):void
 		{
-			var retObj:FlxBasic = super.add( ObjectIn );
+			super.add( ObjectIn );
 			ObjectIn.x += _posX;
 			ObjectIn.y += _posY;
-			return retObj;
 		}
 		
 		public function CreateWindow():void
