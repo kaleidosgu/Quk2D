@@ -1169,5 +1169,14 @@ package org.flixel
 			else
 				return false;
 		}
+		
+		public function setPosX( posX:Number ):void
+		{
+			this.x = posX;
+		}
+		public function setPosY( posY:Number ):void
+		{
+			this.y = posY;
+		}
 	}
 }

@@ -74,6 +74,8 @@ package third.flixel
 			_textField.addEventListener(Event.CHANGE,		onTextChange);
 			//FlxG.state.addChild(_textField);
 			FlxG.stage.addChild(_textField);
+			_textField.x = X;
+			_textField.y = Y;
 		}
 		
 		//@desc		Boolean flag in case render() is called BEFORE onEnterFrame() (_textField would be always hidden)
@@ -154,5 +156,21 @@ package third.flixel
 			return _textField.text;
 		}
 		
+		
+		override public function setPosX( posX:Number ):void
+		{
+			if ( _textField != null )
+			{
+				_textField.x = posX;
+			}
+		}
+		
+		override public function setPosY( posY:Number ):void
+		{
+			if ( _textField != null )
+			{
+				_textField.y = posY;
+			}
+		}
 	}
 }

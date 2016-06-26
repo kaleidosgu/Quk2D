@@ -11,6 +11,7 @@ package UI
 	public class EditorPadWindow extends BaseWindow 
 	{
 		private var _inputVX:FlxInputText = null;
+		private var _inputVY:FlxInputText = null;
 		public function EditorPadWindow(posX:Number, posY:Number,flxGroup:FlxGroup) 
 		{
 			super(posX, posY,flxGroup);
@@ -26,8 +27,11 @@ package UI
 			var txtVelocityY:FlxText = new FlxText(0, 40, 70, "VelocityY: ");
 			addItem(txtVelocityY);
 		
-			_inputVX = new FlxInputText(0, 160, 50, 30, "", 0xffffff, null) 
+			_inputVX = new FlxInputText(75, 20, 50, 14, "", 0xffffff, null) 
 			addItem(_inputVX);
+			
+			_inputVY = new FlxInputText(75, 40, 50, 14, "", 0xffffff, null) 
+			addItem(_inputVY);
 			
 			super.CreateWindow();
 		}

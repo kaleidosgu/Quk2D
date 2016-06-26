@@ -13,7 +13,6 @@ package state
 	import org.flixel.FlxG;
 	import org.flixel.FlxText;
 	import org.flixel.FlxXML;
-	import third.flixel.FlxInputText;
 	import UI.EditorPadWindow;
 	
 	import util.KalTxtResourcePath;
@@ -49,7 +48,6 @@ package state
 		private var _buttonObjectArray:Array = new Array();
 		private var _buttonNameTag:String = "btnNameTag";
 		private var _buttonFunctionTag:String = "btnFunctionTag";
-		private var initialsInput:FlxInputText = null;
 		
 		private var _choose:Boolean = false;
 		
@@ -79,9 +77,6 @@ package state
 			_txtFlx = new FlxText(500, 5, 200 );
 			_txtFlx.text = "fsfsf";
 			add( _txtFlx );
-			
-			initialsInput = new FlxInputText(110, 111, 100, 50, "", 0xffffff, null) 
-			add(initialsInput);
 			
 			editor = new EditorPadWindow(0,300,this);
 			editor.CreateWindow();

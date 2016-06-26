@@ -25,8 +25,8 @@ package UI
 		public function addItem(ObjectIn:FlxObject):void
 		{
 			super.add( ObjectIn );
-			ObjectIn.x += _posX;
-			ObjectIn.y += _posY;
+			ObjectIn.setPosX(ObjectIn.x + _posX);
+			ObjectIn.setPosY(ObjectIn.y + _posY);
 		}
 		
 		public function CreateWindow():void
