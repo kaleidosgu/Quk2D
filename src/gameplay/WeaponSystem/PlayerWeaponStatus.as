@@ -62,7 +62,10 @@ package gameplay.WeaponSystem
 				{
 					if ( _ammoPackage.hasEnoughAmmo( _currentWeaponAttr.weaponType ) )
 					{
-						res = true;
+						if ( _isFireCDValid() )
+						{
+							res = true;
+						}
 					}
 					else
 					{
@@ -73,6 +76,21 @@ package gameplay.WeaponSystem
 				}
 			}
 			return res;
+		}
+		private function _isFireCDValid():Boolean
+		{
+			var bValidTime:Boolean = false;
+			var currTime:Number = new Date().time;
+			if ( _currentWeaponAttr != null )
+			{
+				var numResult:Number = currTime - _currentFireCDTime;
+				if ( numResult > _currentWeaponAttr.fireCD )
+				{
+					_currentFireCDTime = currTime;
+					bValidTime = true;
+				}
+			}
+			return bValidTime;
 		}
 		public function shoot():void
 		{
