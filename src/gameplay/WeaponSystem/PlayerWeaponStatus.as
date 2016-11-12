@@ -6,6 +6,7 @@ package gameplay.WeaponSystem
 	 * ...
 	 * @author kaleidos
 	 */
+	//test git hub
 	public class PlayerWeaponStatus 
 	{
 		private var _currentWeaponList:Object 		= new Object();
