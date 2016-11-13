@@ -25,6 +25,8 @@ package Base
 		protected var _spriteRows:uint = 0;
 		protected var _spriteCnts:uint = 0;
 		
+		protected var _mapLayer:uint = 0
+		
 		public function GameBaseDataObject() 
 		{
 			registeClassName();
@@ -48,6 +50,8 @@ package Base
 			outInfoData.spriteRows = this.spriteRows;
 			outInfoData.spriteCnts = this.spriteCnts;
 			outInfoData.canCollide	= this.canCollide;
+			
+			outInfoData.mapLayer = this.mapLayer;
 		}
 		public function getByteArray():ByteArray
 		{
@@ -207,6 +211,16 @@ package Base
 		public function set canCollide(value:Boolean):void 
 		{
 			_canCollide = value;
+		}
+		
+		public function get mapLayer():uint 
+		{
+			return _mapLayer;
+		}
+		
+		public function set mapLayer(value:uint):void 
+		{
+			_mapLayer = value;
 		}
 	}
 

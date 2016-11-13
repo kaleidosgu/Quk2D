@@ -40,6 +40,7 @@ package state
 		
 		private var _curMainType:uint = 0;
 		private var _curSubTyp:uint = 0;
+		private var _mapLayer:uint = 0;
 		
 		private var _wallGroup:FlxGroup = new FlxGroup();
 		
@@ -101,6 +102,7 @@ package state
 			addButtonObj( "Remove", onRemoveBtnClick );
 			addButtonObj( "Health", onHealthBtnClick );
 			addButtonObj( "Choose", onChooseBtnClick );
+			addButtonObj( "ChangeLayer", onChangeLayer );
 			
 			var posXStart:Number = 100;
 			var posYStart:Number = 0;
@@ -139,6 +141,12 @@ package state
 		private function onChooseBtnClick():void
 		{
 			_choose = true;
+		}
+		
+		private function onChangeLayer():void
+		{
+			_mapLayer = int(editor.GetMapLayerText());
+			var test:int = 0;
 		}
 		private function onBtnWallClick():void
 		{

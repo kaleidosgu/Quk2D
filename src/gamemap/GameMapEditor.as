@@ -222,6 +222,8 @@ package gamemap
 						obj.mapCol = colNumber;
 						obj.mapRow = rowNumber;
 						_createObj.createObjectByBaseData( obj );
+						
+						
 						UtilConvert.convertGameObjToElementInfo( _createObj, obj );
 						var _buildingGroup:FlxGroup = getGameElementGroup( mainTyp, subType );
 						_buildingGroup.add( _createObj );	

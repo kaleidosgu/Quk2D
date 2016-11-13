@@ -12,6 +12,7 @@ package UI
 	{
 		private var _inputVX:FlxInputText = null;
 		private var _inputVY:FlxInputText = null;
+		private var _inputLayer:FlxInputText = null;
 		public function EditorPadWindow(posX:Number, posY:Number,flxGroup:FlxGroup) 
 		{
 			super(posX, posY,flxGroup);
@@ -26,6 +27,9 @@ package UI
 			
 			var txtVelocityY:FlxText = new FlxText(0, 40, 70, "VelocityY: ");
 			addItem(txtVelocityY);
+			
+			var txtMapLayer:FlxText = new FlxText(0, 60, 70, "MapLayer: ");
+			addItem(txtMapLayer);
 		
 			_inputVX = new FlxInputText(75, 20, 50, 14, "", 0xffffff, null) 
 			addItem(_inputVX);
@@ -33,7 +37,15 @@ package UI
 			_inputVY = new FlxInputText(75, 40, 50, 14, "", 0xffffff, null) 
 			addItem(_inputVY);
 			
+			_inputLayer = new FlxInputText(75, 60, 50, 14, "", 0xffffff, null) 
+			addItem(_inputLayer);
+			
 			super.CreateWindow();
+		}
+		
+		public function GetMapLayerText():String
+		{
+			return _inputLayer.getText();
 		}
 		
 	}
