@@ -1,5 +1,7 @@
 package Base 
 {
+	import flash.events.Event;
+	import gameEvent.BattleEvent.BattleGroundMapLayerChangedEvent;
 	import gameEvent.sound.PlaySoundEvent;
 	import gamemap.GameMapBuildingXmlTag;
 	import gamemap.GameMapElementInfo;
@@ -103,12 +105,23 @@ package Base
 		public function set dsp(value:GameDispatchSystem):void 
 		{
 			_dsp = value;
+			_dsp.RegisterEvent(BattleGroundMapLayerChangedEvent.BattleGroundMapLayerChanged, _OnBattleGroundMapLayerChanged);
 		}
 		
 		public function setSelfGroup(value:FlxGroup):void 
 		{
 			_selfGroup = value;
 			value.add( this );
+		}
+		private function _OnBattleGroundMapLayerChanged(evt:BattleGroundMapLayerChangedEvent):void
+		{
+			var bRes:Boolean = ( evt.mapLayer == _gameObjData.mapLayer);
+			if ( _gameObjData.mapLayer == 1 )
+			{
+				var dd:uint = 0;
+			}
+			//this.active = bRes;
+			//this.visible = bRes;
 		}
 		public function collideTrig( flxObj1:FlxObject, flxObj2:FlxObject ):void
 		{

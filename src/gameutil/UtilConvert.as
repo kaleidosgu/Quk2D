@@ -22,6 +22,7 @@ package gameutil
 			elementInfo.posY 				= gameObj.y;
 			elementInfo.mapRow 				= gameObj.gameObjData.mapRow;
 			elementInfo.mapCol				= gameObj.gameObjData.mapCol;
+			elementInfo.mapLayer			= gameObj.gameObjData.mapLayer;
 			elementInfo.scaleX				= gameObj.gameObjData.scaleX;
 			elementInfo.scaleY				= gameObj.gameObjData.scaleY;
 			

@@ -3,6 +3,8 @@
   </weaponDetail>
   <weaponDetail weaponType="2" weaponInitValue="300" >
   </weaponDetail>
+  <weaponDetail weaponType="5" weaponInitValue="300" >
+  </weaponDetail>
   <weaponDetail weaponType="7" weaponInitValue="300" >
   </weaponDetail>
 </weaponInfo>

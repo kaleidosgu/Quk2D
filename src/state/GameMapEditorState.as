@@ -1,6 +1,7 @@
 package state 
 {
 	import edit.EditorSprite;
+	import gameEvent.BattleEvent.BattleGroundMapLayerChangedEvent;
 	import gamemap.GameMapBuildingTyp;
 	import gamemap.GameMapItemTyp;
 	import gamemap.GameObjectMainTyp;
@@ -14,6 +15,7 @@ package state
 	import org.flixel.FlxText;
 	import org.flixel.FlxXML;
 	import UI.EditorPadWindow;
+	import util.EventDispatch.GameDispatchSystem;
 	
 	import util.KalTxtResourcePath;
 	import util.KalResourceDataWrite;
@@ -53,15 +55,17 @@ package state
 		private var _choose:Boolean = false;
 		
 		private var editor:EditorPadWindow = null;
+		private var _dspSystem:GameDispatchSystem = null;
 		public function GameMapEditorState() 
 		{
+			_dspSystem = new GameDispatchSystem( FlxG.stage );
 			
 		}
 		
 		override public function create():void
 		{
 			super.create();
-			mapEditor = new GameMapEditor( this,null,null );
+			mapEditor = new GameMapEditor( this,null,_dspSystem );
 			this.add( _wallGroup );
 			mapEditor.generateMapDataFromByteArray( "test" );
 			_showWidth 	= TILE_WIDTH * _showScale ;
@@ -146,7 +150,10 @@ package state
 		private function onChangeLayer():void
 		{
 			_mapLayer = int(editor.GetMapLayerText());
-			var test:int = 0;
+			var evt:BattleGroundMapLayerChangedEvent = new BattleGroundMapLayerChangedEvent(BattleGroundMapLayerChangedEvent.BattleGroundMapLayerChanged );
+			evt.mapLayer = _mapLayer;
+			_dspSystem.DispatchEvent(evt);
+			
 		}
 		private function onBtnWallClick():void
 		{
@@ -207,7 +214,7 @@ package state
 						}
 						else
 						{
-							mapEditor.updateMap( hightLightPoint.x, hightLightPoint.y,_curMainType, _curSubTyp );	
+							mapEditor.updateMap( hightLightPoint.x, hightLightPoint.y,_curMainType, _curSubTyp,_mapLayer );	
 						}	
 					}
 					else

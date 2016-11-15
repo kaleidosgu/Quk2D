@@ -15,6 +15,9 @@ package gamemap.Building
 		public function BuildingWall() 
 		{
 			super();
+			//this.active = false;
+			//this.visible = false;
+			//this.exists = false;
 		}
 		override public function resClass():Class
 		{
