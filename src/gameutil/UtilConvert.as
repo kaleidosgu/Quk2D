@@ -8,7 +8,7 @@ package gameutil
 	 */
 	public class UtilConvert 
 	{
-		
+		//已经作废了GameObjectSettingDataObject把它给代替
 		public function UtilConvert() 
 		{
 			

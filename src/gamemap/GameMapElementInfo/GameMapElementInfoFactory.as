@@ -1,6 +1,7 @@
 package gamemap.GameMapElementInfo 
 {
 	import gamemap.Building.GameMapBuildingInf.BuildingInfoGravityMachine;
+	import gamemap.Building.GameMapBuildingInf.BuildingInfoDoor;
 	import gamemap.Building.GameMapBuildingInf.GameMapElementBuildingInfo;
 	import gamemap.GameMapBuildingTyp;
 	import gamemap.GameObjectMainTyp;
@@ -15,6 +16,7 @@ package gamemap.GameMapElementInfo
 		public function GameMapElementInfoFactory() 
 		{
 			AddClass(GameObjectMainTyp.GameObjectMainTyp_Building, GameMapBuildingTyp.GameMapBuildingTyp_GravityMachine, BuildingInfoGravityMachine);
+			AddClass(GameObjectMainTyp.GameObjectMainTyp_Building, GameMapBuildingTyp.GameMapBuildingTyp_Door, BuildingInfoDoor);
 			SetBaseClass(GameMapElementBuildingInfo);
 		}
 		public function CreateObject( mainTyp:uint, subTyp:uint ):GameMapElementBuildingInfo

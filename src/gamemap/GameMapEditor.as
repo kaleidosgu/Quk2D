@@ -227,8 +227,7 @@ package gamemap
 						//_createObj.gameObjData.mapLayer = mapLayer;
 						_createObj.dsp = _dspInSystem;
 						
-						
-						UtilConvert.convertGameObjToElementInfo( _createObj, obj );
+						//_createObj.GameObjectSettingDataObject(obj);
 						var _buildingGroup:FlxGroup = getGameElementGroup( mainTyp, subType );
 						_buildingGroup.add( _createObj );	
 						

@@ -176,5 +176,24 @@ package Base
 		{
 			removeFromGroup();
 		}
+		
+		public function GameObjectSettingDataObject( dataObj:GameBaseDataObject):void
+		{
+			dataObj.elementMainType 	= getMainTyp();
+			dataObj.elementSubType 		= getSubTyp();
+			dataObj.posX 				= x;
+			dataObj.posY 				= y;
+			dataObj.mapRow 				= gameObjData.mapRow;
+			dataObj.mapCol				= gameObjData.mapCol;
+			dataObj.mapLayer			= gameObjData.mapLayer;
+			dataObj.scaleX				= gameObjData.scaleX;
+			dataObj.scaleY				= gameObjData.scaleY;
+			
+			dataObj.spriteWidth 		= gameObjData.spriteWidth;
+			dataObj.spriteHeight 		= gameObjData.spriteHeight ;
+			dataObj.spriteCol 			= gameObjData.spriteCol ;
+			dataObj.spriteRows 			= gameObjData.spriteRows ;
+			dataObj.spriteCnts 			= gameObjData.spriteCnts ;
+		}
 	}
 }

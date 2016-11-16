@@ -105,6 +105,7 @@ package state
 			addButtonObj( "Elevator", onElevatorClick );
 			addButtonObj( "Remove", onRemoveBtnClick );
 			addButtonObj( "Health", onHealthBtnClick );
+			addButtonObj( "Door", onDoorBtnClick );
 			addButtonObj( "Choose", onChooseBtnClick );
 			addButtonObj( "ChangeLayer", onChangeLayer );
 			
@@ -141,6 +142,11 @@ package state
 			_curMainType = GameObjectMainTyp.GameObjectMainTyp_Item;
 			_curSubTyp = GameMapItemTyp.GameMapItemTyp_Health;
 			_choose = false;
+		}
+		private function onDoorBtnClick():void
+		{
+			_curMainType = GameObjectMainTyp.GameObjectMainTyp_Building;
+			_curSubTyp = GameMapBuildingTyp.GameMapBuildingTyp_Door;
 		}
 		private function onChooseBtnClick():void
 		{

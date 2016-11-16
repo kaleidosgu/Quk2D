@@ -50,7 +50,7 @@ package gamemap
 				elementIndex++;
 			}
 			var newElementInfo:GameMapElementInfo = _buildingFactory.CreateObject( gameObj.getMainTyp(), gameObj.getSubTyp());
-			UtilConvert.convertGameObjToElementInfo( gameObj, newElementInfo );
+			gameObj.GameObjectSettingDataObject(newElementInfo);
 			_arrayMapElement.push( newElementInfo );
 			
 		}
