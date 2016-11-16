@@ -34,6 +34,8 @@ package Base
 			super();
 			//_gameObjData = new GameBaseDataObject();
 			prePos = new FlxPoint();
+			//this.active = false;
+			//this.visible = false;
 		}	
 		private function setWorldData():void
 		{
@@ -115,13 +117,13 @@ package Base
 		}
 		private function _OnBattleGroundMapLayerChanged(evt:BattleGroundMapLayerChangedEvent):void
 		{
-			var bRes:Boolean = ( evt.mapLayer == _gameObjData.mapLayer);
-			if ( _gameObjData.mapLayer == 1 )
-			{
-				var dd:uint = 0;
-			}
-			//this.active = bRes;
-			//this.visible = bRes;
+			changeLayer( evt.mapLayer);
+		}
+		public function changeLayer( dstLayer:uint ):void
+		{
+			var bRes:Boolean = ( dstLayer == _gameObjData.mapLayer);
+			this.active = bRes;
+			this.visible = bRes;
 		}
 		public function collideTrig( flxObj1:FlxObject, flxObj2:FlxObject ):void
 		{

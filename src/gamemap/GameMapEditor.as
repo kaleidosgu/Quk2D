@@ -133,6 +133,7 @@ package gamemap
 						mapele.canCollide = staticInfo.canCollide;	
 					}
 					gameObj.createObjectByBaseData( mapele );
+					gameObj.changeLayer(0);
 					gameObj.dsp = _dspInSystem;
 					_arrayMapElement.push ( gameObj );
 				}
@@ -204,7 +205,7 @@ package gamemap
 			}
 			return foundElement;
 		}
-		public function updateMap( xPos:int, yPos:int, mainTyp:uint, subType:uint, mapLayer:uint ):void
+		public function updateMap( xPos:int, yPos:int, mainTyp:uint, subType:uint, mapLayer:uint):void
 		{
 			var colNumber:int = xPos / _showWidth;
 			var rowNumber:int = yPos / _showHeight;
@@ -223,7 +224,7 @@ package gamemap
 						obj.mapRow = rowNumber;
 						obj.mapLayer = mapLayer;
 						_createObj.createObjectByBaseData( obj );
-						_createObj.gameObjData.mapLayer = mapLayer;
+						//_createObj.gameObjData.mapLayer = mapLayer;
 						_createObj.dsp = _dspInSystem;
 						
 						
