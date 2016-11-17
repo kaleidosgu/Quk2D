@@ -6,6 +6,7 @@ package fsm
 	import org.flixel.FlxG;
 	import org.flixel.FlxObject;
 	import org.flixel.FlxSprite;
+	import player.BasePlayerObject;
 	/**
 	 * ...
 	 * @author kaleidos

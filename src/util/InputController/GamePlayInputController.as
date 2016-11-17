@@ -72,6 +72,11 @@ package util.InputController
 				evt = new PlayerInputActionEvent( PlayerInputActionEvent.PLAYER_INPUT_ACTION_EVENT );
 				evt.playerActionType = PlayerInputActionType.Player_Jump;
 			}
+			else if ( keyEvt.keyCode == FlxG.keys.getKeyCode("H"))
+			{
+				evt = new PlayerInputActionEvent( PlayerInputActionEvent.PLAYER_INPUT_ACTION_EVENT );
+				evt.playerActionType = PlayerInputActionType.Player_ChangeDoor;
+			}
 			else
 			{
 				if ( _weaponStringAndTypMap[keyEvt.keyCode] != null )

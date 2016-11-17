@@ -3,6 +3,8 @@ package gamemap.Building
 	import Base.GameBaseDataObject;
 	import gamemap.Building.GameMapBuildingInf.BuildingInfoDoor;
 	import gamemap.GameMapBuildingTyp;
+	import org.flixel.FlxObject;
+	import player.BasePlayerObject;
 	/**
 	 * ...
 	 * @author kaleidos
@@ -37,6 +39,19 @@ package gamemap.Building
 			{
 				var buildingDoorInfo:BuildingInfoDoor = baseData as BuildingInfoDoor;
 				var da:uint = 0;
+			}
+		}
+		override protected function _buildingCollide(flxObj1:FlxObject, flxObj2:FlxObject):void
+		{
+			super._buildingCollide(flxObj1, flxObj2);
+			if ( flxObj2 is BuildingDoor )
+			{
+				var gravityObj:BuildingDoor = flxObj2 as BuildingDoor;
+				if ( flxObj1 is BasePlayerObject)
+				{
+					var playerCollide:BasePlayerObject = flxObj1 as BasePlayerObject;
+					playerCollide.playerMapLayer = 1;
+				}
 			}
 		}
 	}

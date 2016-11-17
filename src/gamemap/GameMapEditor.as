@@ -282,11 +282,13 @@ package gamemap
 			var gravityGroup:FlxGroup = _objBuildingGroupData[GameMapBuildingTyp.GameMapBuildingTyp_GravityMachine];
 			var teleportGroup:FlxGroup = _objBuildingGroupData[GameMapBuildingTyp.GameMapBuildingTyp_Teleport];
 			var elevatorGroup:FlxGroup = _objBuildingGroupData[GameMapBuildingTyp.GameMapBuildingTyp_Elevator];
+			var doorGroup:FlxGroup = _objBuildingGroupData[GameMapBuildingTyp.GameMapBuildingTyp_Door];
 
 			FlxG.collide( _playerGroup, wallGroup, commonCollideFunction );	
 			FlxG.collide( _playerGroup, gravityGroup, commonCollideFunction );	
 			FlxG.collide( _playerGroup, teleportGroup, commonCollideFunction );	
 			FlxG.collide( _playerGroup, elevatorGroup, commonCollideFunction );	
+			FlxG.collide( _playerGroup, doorGroup, commonCollideFunction );	
 		}
 		public function getBuildingGroup():Array
 		{

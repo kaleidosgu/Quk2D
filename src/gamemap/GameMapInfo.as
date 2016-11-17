@@ -5,6 +5,7 @@ package gamemap
 	import flash.net.registerClassAlias;
 	import flash.utils.ByteArray;
 	import flash.utils.CompressionAlgorithm;
+	import gamemap.Building.GameMapBuildingInf.BuildingInfoDoor;
 	import gamemap.Building.GameMapBuildingInf.BuildingInfoGravityMachine;
 	import gamemap.Building.GameMapBuildingInf.GameMapElementBuildingInfo;
 	import gamemap.GameMapElementInfo.GameMapElementInfoFactory;
@@ -126,6 +127,7 @@ package gamemap
 		private function registeBuildingClass():void
 		{
 			new BuildingInfoGravityMachine();
+			new BuildingInfoDoor();
 			new GameMapElementBuildingInfo();
 		}
 	}

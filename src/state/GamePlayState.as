@@ -3,6 +3,9 @@ package state
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import fsm.PlayerFSM;
+	import gameEvent.BattleEvent.BattleGroundMapLayerChangedEvent;
+	import gameEvent.PlayerInputActionEvent;
+	import gameEvent.PlayerInputActionType;
 	import gamemap.GameMapEditor;
 	import gameplay.ExplosionObjectGenerator;
 	import gameplay.GameShootingGamePlay;
@@ -63,6 +66,8 @@ package state
 			
 			_dspSystem = new GameDispatchSystem( FlxG.stage );
 			
+			_dspSystem.RegisterEvent( PlayerInputActionEvent.PLAYER_INPUT_ACTION_EVENT, inputActionEvent );
+			
 			_explosionObjGenerator = new ExplosionObjectGenerator( _dspSystem, _explosionGroup );
 			
 			_soundSys = new QukSoundSystem( _dspSystem );
@@ -77,6 +82,15 @@ package state
 			setData( num, 0, 1, 0);
 			
 			var dd:Number = 0;
+		}
+		private function inputActionEvent( evtIn:PlayerInputActionEvent ):void
+		{
+			if ( evtIn.playerActionType == PlayerInputActionType.Player_ChangeDoor )
+			{
+				var evt:BattleGroundMapLayerChangedEvent = new BattleGroundMapLayerChangedEvent(BattleGroundMapLayerChangedEvent.BattleGroundMapLayerChanged );
+				evt.mapLayer = playerIns.playerMapLayer;
+				_dspSystem.DispatchEvent(evt);
+			}
 		}
 		private function setData( startX:Number, startY:Number, endX:Number, endY:Number ):void
 		{
@@ -118,6 +132,7 @@ package state
 			setupPlayer( playerIns, 30, 0 );
 			setupPlayer( targetSprite,100,0 );
 			mapEditor = new GameMapEditor( this, _playerGroup,_dspSystem );
+
 			
 			FlxG.camera.setBounds(0,0,1024,768,true);
 			FlxG.camera.follow(playerIns,FlxCamera.STYLE_PLATFORMER);
