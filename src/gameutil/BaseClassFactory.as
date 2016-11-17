@@ -22,11 +22,11 @@ package gameutil
 			if ( objClass == null )
 			{
 				_objectClass[mainTyp] = new Object();
-				var subObjClass:Object = _objectClass[mainTyp][subTyp];
-				if ( subObjClass == null )
-				{
-					_objectClass[mainTyp][subTyp] = inClass;
-				}
+			}
+			var subObjClass:Object = _objectClass[mainTyp][subTyp];
+			if ( subObjClass == null )
+			{
+				_objectClass[mainTyp][subTyp] = inClass;
 			}
 		}
 		protected function CreateClassByTyp( mainTyp:uint, subTyp:uint ):Object

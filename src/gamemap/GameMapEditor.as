@@ -224,10 +224,8 @@ package gamemap
 						obj.mapRow = rowNumber;
 						obj.mapLayer = mapLayer;
 						_createObj.createObjectByBaseData( obj );
-						//_createObj.gameObjData.mapLayer = mapLayer;
 						_createObj.dsp = _dspInSystem;
-						
-						//_createObj.GameObjectSettingDataObject(obj);
+
 						var _buildingGroup:FlxGroup = getGameElementGroup( mainTyp, subType );
 						_buildingGroup.add( _createObj );	
 						

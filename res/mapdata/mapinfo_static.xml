@@ -7,7 +7,7 @@
   </ElementStatic>
   <ElementStatic mainType = "1" subType = "4" mapCol = "0" mapRow = "0" scaleX = "1" scaleY = "1" spriteWidth = "16" spriteHeight = "16" spriteRows = "0" spriteColumn = "0" spriteLineCounts = "0" collide = "1" >
   </ElementStatic>
-  <ElementStatic mainType = "1" subType = "8" mapCol = "0" mapRow = "0" scaleX = "1" scaleY = "1" spriteWidth = "16" spriteHeight = "16" spriteRows = "0" spriteColumn = "0" spriteLineCounts = "0" collide = "1" >
+  <ElementStatic mainType = "1" subType = "8" mapCol = "0" mapRow = "0" scaleX = "1" scaleY = "1" spriteWidth = "16" spriteHeight = "16" spriteRows = "0" spriteColumn = "0" spriteLineCounts = "0" collide = "0" >
   </ElementStatic>
   <ElementStatic mainType = "2" subType = "1" mapCol = "0" mapRow = "0" scaleX = "1" scaleY = "1" spriteWidth = "16" spriteHeight = "16" spriteRows = "0" spriteColumn = "0" spriteLineCounts = "0" collide = "1" >
   </ElementStatic>
