@@ -43,7 +43,7 @@ package gamemap
 			for each( var elementInfo:GameMapElementInfo in _arrayMapElement )
 			{
 				if ( elementInfo.mapRow == gameObj.gameObjData.mapRow && 
-				elementInfo.mapCol == gameObj.gameObjData.mapCol )
+				elementInfo.mapCol == gameObj.gameObjData.mapCol && elementInfo.mapLayer == gameObj.gameObjData.mapLayer )
 				{
 					var delArray:Array = _arrayMapElement.splice( elementIndex, 1 );
 					break;

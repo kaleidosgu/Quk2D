@@ -124,6 +124,7 @@ package Base
 			var bRes:Boolean = ( dstLayer == _gameObjData.mapLayer);
 			this.active = bRes;
 			this.visible = bRes;
+			this.exists = bRes;
 		}
 		public function collideTrig( flxObj1:FlxObject, flxObj2:FlxObject ):void
 		{

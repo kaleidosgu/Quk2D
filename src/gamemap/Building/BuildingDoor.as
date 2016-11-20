@@ -17,6 +17,7 @@ package gamemap.Building
 		public function BuildingDoor() 
 		{
 			super();
+			//solid = false;
 			
 		}
 		

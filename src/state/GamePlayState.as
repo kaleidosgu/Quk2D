@@ -18,6 +18,7 @@ package state
 	import org.flixel.FlxObject;
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxState;
+	import org.flixel.FlxText;
 	import player.BasePlayerObject;
 	import util.EventDispatch.GameDispatchSystem;
 	import util.InputController.GamePlayInputController;
@@ -40,7 +41,7 @@ package state
 		private var mapEditor:GameMapEditor = null;
 		
 		private var playerIns:BasePlayerObject = null;
-		private var targetSprite:BasePlayerObject = null;
+		//private var targetSprite:BasePlayerObject = null;
 		private var cursorMouse:FlxSprite = null;
 		private var _playerCollide:Boolean = false;
 		private var inputMgr:InputControllerManager = null;
@@ -58,6 +59,7 @@ package state
 		private var _bulletCollideMonitor:BulletCollideMonitor = null;
 		private var _explosionObjGenerator:ExplosionObjectGenerator = null;
 		private var _soundSys:QukSoundSystem = null;
+		private var _txtFlx:FlxText	= null;
 		public function GamePlayState() 
 		{
 			_playerGroup 	= new FlxGroup();
@@ -118,7 +120,7 @@ package state
 		{
 			super.create();
 			playerIns = new BasePlayerObject();
-			targetSprite = new BasePlayerObject();
+			//targetSprite = new BasePlayerObject();
 			
 			this.add( _explosionGroup );
 			this.add( _bulletGroup );
@@ -129,8 +131,8 @@ package state
 			cursorMouse.loadGraphic( ImgCursor, true, true, 15 );
 			add( cursorMouse );
 			
-			setupPlayer( playerIns, 30, 0 );
-			setupPlayer( targetSprite,100,0 );
+			setupPlayer( playerIns, 40, 100 );
+			//setupPlayer( targetSprite,100,0 );
 			mapEditor = new GameMapEditor( this, _playerGroup,_dspSystem );
 
 			
@@ -138,7 +140,7 @@ package state
 			FlxG.camera.follow(playerIns,FlxCamera.STYLE_PLATFORMER);
 			
 			mapEditor.addActor( playerIns );
-			mapEditor.addActor( targetSprite );
+			//mapEditor.addActor( targetSprite );
 			
 			mapEditor.generateMapDataFromByteArray( "test" );
 			_showWidth 	= TILE_WIDTH * _showScale ;
@@ -154,6 +156,10 @@ package state
 			_shootingGamePlay = new GameShootingGamePlay( this, playerIns, FlxG.stage, _bulletGroup ,_dspSystem );
 			
 			_bulletCollideMonitor.setBuildingGroup( mapEditor.getBuildingGroup() );
+			
+			_txtFlx = new FlxText(500, 5, 200 );
+			_txtFlx.text = "fsfsf";
+			add( _txtFlx );
 			
 		}
 		private function setupPlayer( playerSprite:BasePlayerObject, posX:Number, posY:Number ):void
@@ -203,6 +209,8 @@ package state
 			super.draw();
 			
 			playerIns.drawDebug();
+			
+			_txtFlx.text = playerIns.elasticity.toString();
 		}
 	}
 
