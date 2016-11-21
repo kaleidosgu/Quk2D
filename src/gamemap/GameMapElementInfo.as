@@ -20,7 +20,17 @@ package gamemap
 			super.registeClassName();
 			registerClassAlias("gamemap.GameMapElementInfo", GameMapElementInfo);
 		}
-		
+		public function setStaticData(dataFrom:GameMapElementInfo):void
+		{			
+			scaleX = dataFrom.scaleX;
+			scaleY = dataFrom.scaleY;
+			spriteWidth = dataFrom.spriteWidth;
+			spriteHeight = dataFrom.spriteHeight;
+			spriteCol = dataFrom.spriteCol;
+			spriteRows = dataFrom.spriteRows;
+			spriteCnts = dataFrom.spriteCnts;
+			canCollide = dataFrom.canCollide;
+		}
 	}
 
 }

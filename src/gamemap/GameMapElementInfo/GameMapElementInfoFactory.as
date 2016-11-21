@@ -17,6 +17,9 @@ package gamemap.GameMapElementInfo
 		{
 			AddClass(GameObjectMainTyp.GameObjectMainTyp_Building, GameMapBuildingTyp.GameMapBuildingTyp_GravityMachine, BuildingInfoGravityMachine);
 			AddClass(GameObjectMainTyp.GameObjectMainTyp_Building, GameMapBuildingTyp.GameMapBuildingTyp_Door, BuildingInfoDoor);
+			AddClass(GameObjectMainTyp.GameObjectMainTyp_Building, GameMapBuildingTyp.GameMapBuildingTyp_Wall, GameMapElementBuildingInfo);
+			AddClass(GameObjectMainTyp.GameObjectMainTyp_Building, GameMapBuildingTyp.GameMapBuildingTyp_Teleport, GameMapElementBuildingInfo);
+			AddClass(GameObjectMainTyp.GameObjectMainTyp_Building, GameMapBuildingTyp.GameMapBuildingTyp_Elevator, GameMapElementBuildingInfo);
 			SetBaseClass(GameMapElementBuildingInfo);
 		}
 		public function CreateObject( mainTyp:uint, subTyp:uint ):GameMapElementBuildingInfo
@@ -25,10 +28,7 @@ package gamemap.GameMapElementInfo
 			var retObj:GameMapElementBuildingInfo = null;
 			if ( obj != null )
 			{
-				if ( obj is GameMapElementBuildingInfo )
-				{
-					retObj = obj as GameMapElementBuildingInfo;
-				}
+				retObj = obj as GameMapElementBuildingInfo;
 			}
 			return retObj;
 		}

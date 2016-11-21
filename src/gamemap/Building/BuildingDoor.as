@@ -21,10 +21,6 @@ package gamemap.Building
 			
 		}
 		
-		override public function GameObjectSettingDataObject( dataObj:GameBaseDataObject):void
-		{
-			super.GameObjectSettingDataObject(dataObj);
-		}
 		override public function resClass():Class
 		{
 			return doorClass;
@@ -51,8 +47,17 @@ package gamemap.Building
 				if ( flxObj1 is BasePlayerObject)
 				{
 					var playerCollide:BasePlayerObject = flxObj1 as BasePlayerObject;
-					playerCollide.playerMapLayer = 1;
+					playerCollide.playerMapLayer = _gameObjData.mapLayer;
 				}
+			}
+		}
+		override public function GameObjectSettingDataObject( dataObj:GameBaseDataObject):void
+		{
+			super.GameObjectSettingDataObject(dataObj);
+			if ( dataObj is BuildingInfoDoor )
+			{
+				var doorObj:BuildingInfoDoor = dataObj as BuildingInfoDoor;
+				doorObj.mapLayer = this._gameObjData.mapLayer;
 			}
 		}
 	}

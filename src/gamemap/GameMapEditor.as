@@ -68,14 +68,19 @@ package gamemap
 				var gameInfo:GameMapElementInfo = loader.load( mapDetailXml );	
 				if ( gameInfo )
 				{
-					_objStaticData[gameInfo.elementSubType] = gameInfo;
+					var objMain:Object = _objStaticData[gameInfo.elementMainType];
+					if ( objMain == null )
+					{
+						_objStaticData[gameInfo.elementMainType] = new Object();
+					}
+					_objStaticData[gameInfo.elementMainType][gameInfo.elementSubType] = gameInfo;
 				}
 			}
 		}
 		private function _GetItemStaticData( mainType:uint, subType:uint ):GameMapElementInfo
 		{
 			var returnInfo:GameMapElementInfo = null;
-			returnInfo = _objStaticData[subType];
+			returnInfo = _objStaticData[mainType][subType];
 			return returnInfo;
 		}
 		public function generateMapDataFromXml():void
@@ -153,11 +158,11 @@ package gamemap
 			var writeFile:KalResourceDataWrite = new KalResourceDataWrite();
 			writeFile.writeBytesToFile( filePathString, bytarr );
 		}
-		public function removeMapElement( xPos:int, yPos:int ):void
+		public function removeMapElement( xPos:int, yPos:int, mapLayer:uint ):void
 		{
 			var colNumber:int = xPos / _showWidth;
 			var rowNumber:int = yPos / _showHeight;
-			var elementInfo:GameMapElementInfo = _gameMapInfo.removeObj( rowNumber, colNumber );
+			var elementInfo:GameMapElementInfo = _gameMapInfo.removeObj( rowNumber, colNumber,mapLayer );
 			if ( elementInfo != null )
 			{
 				var _buildingGroupRemove:FlxGroup = getGameElementGroup( elementInfo.elementMainType,elementInfo.elementSubType );
@@ -166,8 +171,10 @@ package gamemap
 					var objIndex:uint = 0;
 					for each( var removeObj:BaseGameObject in _arrayMapElement )
 					{
-						if ( removeObj.gameObjData.mapCol == colNumber &&
-						removeObj.gameObjData.mapRow == rowNumber )
+						if ( removeObj.gameObjData.mapCol == colNumber 
+						&& removeObj.gameObjData.mapRow == rowNumber 
+						&& removeObj.gameObjData.mapLayer == mapLayer
+						)
 						{
 							_buildingGroupRemove.remove( removeObj );
 							_arrayMapElement.splice( objIndex, 1 );
@@ -178,13 +185,13 @@ package gamemap
 				}
 			}
 		}
-		public function findMapElement( xPos:int, yPos:int ):BaseGameObject
+		public function findMapElement( xPos:int, yPos:int,mapLayer:uint ):BaseGameObject
 		{
 			var foundElement:BaseGameObject = null;
 			
 			var colNumber:int = xPos / _showWidth;
 			var rowNumber:int = yPos / _showHeight;
-			var elementInfo:GameMapElementInfo = _gameMapInfo.removeObj( rowNumber, colNumber );
+			var elementInfo:GameMapElementInfo = _gameMapInfo.removeObj( rowNumber, colNumber,mapLayer );
 			if ( elementInfo != null )
 			{
 				var _buildingGroupRemove:FlxGroup = getGameElementGroup( elementInfo.elementMainType,elementInfo.elementSubType );
@@ -217,13 +224,16 @@ package gamemap
 				
 				if ( _createObj )
 				{
-					var obj:GameMapElementInfo = _objStaticData[subType];
+					var obj:GameMapElementInfo = _objStaticData[mainTyp][subType];
 					if ( obj )
 					{
-						obj.mapCol = colNumber;
-						obj.mapRow = rowNumber;
-						obj.mapLayer = mapLayer;
-						_createObj.createObjectByBaseData( obj );
+						var _factData:GameMapElementInfo = _gameMapInfo.createObject(mainTyp, subType);
+						_factData.mapCol = colNumber;
+						_factData.mapRow = rowNumber;
+						_factData.mapLayer = mapLayer;
+						_factData.setStaticData(obj);
+						//todo 这里静态数据写得不够好
+						_createObj.createObjectByBaseData( _factData );
 						_createObj.dsp = _dspInSystem;
 
 						var _buildingGroup:FlxGroup = getGameElementGroup( mainTyp, subType );

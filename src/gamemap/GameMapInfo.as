@@ -56,13 +56,19 @@ package gamemap
 			
 		}
 		
-		public function removeObj( mapRow:uint, mapCol:uint ):GameMapElementInfo
+		public function createObject( mainTyp:uint, subTyp:uint ):GameMapElementInfo
+		{
+			var newElementInfo:GameMapElementInfo = _buildingFactory.CreateObject( mainTyp, subTyp);
+			return newElementInfo;
+		}
+		
+		public function removeObj( mapRow:uint, mapCol:uint, mapLayer:uint ):GameMapElementInfo
 		{
 			var elementIndex:uint = 0;
 			var removeElementInfo:GameMapElementInfo = null;
 			for each( var elementInfo:GameMapElementInfo in _arrayMapElement )
 			{
-				if ( elementInfo.mapRow == mapRow && elementInfo.mapCol == mapCol )
+				if ( elementInfo.mapRow == mapRow && elementInfo.mapCol == mapCol && elementInfo.mapLayer == mapLayer )
 				{
 					var delArray:Array = _arrayMapElement.splice( elementIndex, 1 );
 					if ( delArray.length != 0 )

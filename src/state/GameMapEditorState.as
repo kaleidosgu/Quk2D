@@ -136,17 +136,21 @@ package state
 			_curMainType = 0;
 			_curSubTyp = 0;
 			_choose = false;
+			editor.changePadLayout(_curMainType, _curSubTyp);
 		}
 		private function onHealthBtnClick():void
 		{
 			_curMainType = GameObjectMainTyp.GameObjectMainTyp_Item;
 			_curSubTyp = GameMapItemTyp.GameMapItemTyp_Health;
 			_choose = false;
+			editor.changePadLayout(_curMainType, _curSubTyp);
 		}
 		private function onDoorBtnClick():void
 		{
 			_curMainType = GameObjectMainTyp.GameObjectMainTyp_Building;
 			_curSubTyp = GameMapBuildingTyp.GameMapBuildingTyp_Door;
+			_choose = false;
+			editor.changePadLayout(_curMainType, _curSubTyp);
 		}
 		private function onChooseBtnClick():void
 		{
@@ -166,21 +170,25 @@ package state
 			_curMainType = GameObjectMainTyp.GameObjectMainTyp_Building;
 			_curSubTyp = GameMapBuildingTyp.GameMapBuildingTyp_Wall;
 			_choose = false;
+			editor.changePadLayout(_curMainType, _curSubTyp);
 		}
 		private function onGravityClick():void {
 			_curMainType = GameObjectMainTyp.GameObjectMainTyp_Building;
 			_curSubTyp = GameMapBuildingTyp.GameMapBuildingTyp_GravityMachine;
 			_choose = false;
+			editor.changePadLayout(_curMainType, _curSubTyp);
 		}
 		private function onTeleportClick():void {
 			_curMainType = GameObjectMainTyp.GameObjectMainTyp_Building;
 			_curSubTyp = GameMapBuildingTyp.GameMapBuildingTyp_Teleport;
 			_choose = false;
+			editor.changePadLayout(_curMainType, _curSubTyp);
 		}
 		private function onElevatorClick():void {
 			_curMainType = GameObjectMainTyp.GameObjectMainTyp_Building;
 			_curSubTyp = GameMapBuildingTyp.GameMapBuildingTyp_Elevator;
 			_choose = false;
+			editor.changePadLayout(_curMainType, _curSubTyp);
 		}
 		override public function destroy():void
 		{
@@ -216,7 +224,7 @@ package state
 					{
 						if ( _curMainType == 0 || _curSubTyp == 0 )
 						{
-							mapEditor.removeMapElement( hightLightPoint.x, hightLightPoint.y );
+							mapEditor.removeMapElement( hightLightPoint.x, hightLightPoint.y,_mapLayer );
 						}
 						else
 						{
