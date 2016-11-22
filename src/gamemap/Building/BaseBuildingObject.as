@@ -1,6 +1,7 @@
 package gamemap.Building 
 {
 	import Base.BaseGameObject;
+	import UI.Data.EditorPadData;
 	import gameEvent.sound.PlaySoundEvent;
 	import gamemap.GameMapBuildingTyp;
 	import gamemap.GameObjectMainTyp;

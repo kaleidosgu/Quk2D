@@ -74,8 +74,11 @@ package util.InputController
 			}
 			else if ( keyEvt.keyCode == FlxG.keys.getKeyCode("H"))
 			{
-				evt = new PlayerInputActionEvent( PlayerInputActionEvent.PLAYER_INPUT_ACTION_EVENT );
-				evt.playerActionType = PlayerInputActionType.Player_ChangeDoor;
+				if ( down == false )
+				{
+					evt = new PlayerInputActionEvent( PlayerInputActionEvent.PLAYER_INPUT_ACTION_EVENT );
+					evt.playerActionType = PlayerInputActionType.Player_ChangeDoor;	
+				}
 			}
 			else
 			{

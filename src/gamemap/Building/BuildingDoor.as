@@ -1,6 +1,7 @@
 package gamemap.Building 
 {
 	import Base.GameBaseDataObject;
+	import UI.Data.EditorPadData;
 	import gamemap.Building.GameMapBuildingInf.BuildingInfoDoor;
 	import gamemap.GameMapBuildingTyp;
 	import org.flixel.FlxObject;
@@ -47,7 +48,8 @@ package gamemap.Building
 				if ( flxObj1 is BasePlayerObject)
 				{
 					var playerCollide:BasePlayerObject = flxObj1 as BasePlayerObject;
-					playerCollide.playerMapLayer = _gameObjData.mapLayer;
+					var spawnLayer:uint = GetDoorInfo().mapLayerSpawn;
+					playerCollide.playerMapLayer = spawnLayer;
 				}
 			}
 		}
@@ -57,8 +59,17 @@ package gamemap.Building
 			if ( dataObj is BuildingInfoDoor )
 			{
 				var doorObj:BuildingInfoDoor = dataObj as BuildingInfoDoor;
-				doorObj.mapLayer = this._gameObjData.mapLayer;
+				doorObj.mapLayer = GetDoorInfo().mapLayerSpawn;
 			}
+		}
+		override public function SetEditorPadData(editorPadData:EditorPadData):void
+		{
+			super.SetEditorPadData(editorPadData);
+			GetDoorInfo().mapLayerSpawn = editorPadData.doorDstLayer;
+		}
+		protected function GetDoorInfo():BuildingInfoDoor
+		{
+			return (_gameObjData as BuildingInfoDoor);
 		}
 	}
 

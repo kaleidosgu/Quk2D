@@ -1,5 +1,6 @@
 package Base 
 {
+	import UI.Data.EditorPadData;
 	import flash.events.Event;
 	import gameEvent.BattleEvent.BattleGroundMapLayerChangedEvent;
 	import gameEvent.sound.PlaySoundEvent;
@@ -176,6 +177,12 @@ package Base
 		public function collideByOtherObj( otherObj:BaseGameObject ):void
 		{
 			removeFromGroup();
+		}
+
+		
+		public function SetEditorPadData(editorPadData:EditorPadData):void
+		{
+			_gameObjData.mapLayer = editorPadData.currentLayer;
 		}
 		
 		public function GameObjectSettingDataObject( dataObj:GameBaseDataObject):void

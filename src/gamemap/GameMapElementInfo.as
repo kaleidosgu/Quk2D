@@ -30,6 +30,8 @@ package gamemap
 			spriteRows = dataFrom.spriteRows;
 			spriteCnts = dataFrom.spriteCnts;
 			canCollide = dataFrom.canCollide;
+			_elementMainType = dataFrom.elementMainType;
+			_elementSubType = dataFrom.elementSubType;
 		}
 	}
 

@@ -6,6 +6,7 @@ package gamemap
 	 */
 	import Base.BaseGameObject;
 	import Base.GameBaseDataObject;
+	import UI.Data.EditorPadData;
 	import fileprocess.FileByteArrayResourcePath;
 	import flash.utils.ByteArray;
 	import gamemap.Building.BuildingGravityMachine;
@@ -212,7 +213,7 @@ package gamemap
 			}
 			return foundElement;
 		}
-		public function updateMap( xPos:int, yPos:int, mainTyp:uint, subType:uint, mapLayer:uint):void
+		public function updateMap( xPos:int, yPos:int, mainTyp:uint, subType:uint, mapLayer:uint,editorPadData:EditorPadData):void
 		{
 			var colNumber:int = xPos / _showWidth;
 			var rowNumber:int = yPos / _showHeight;
@@ -235,6 +236,7 @@ package gamemap
 						//todo 这里静态数据写得不够好
 						_createObj.createObjectByBaseData( _factData );
 						_createObj.dsp = _dspInSystem;
+						_createObj.SetEditorPadData(editorPadData);
 
 						var _buildingGroup:FlxGroup = getGameElementGroup( mainTyp, subType );
 						_buildingGroup.add( _createObj );	

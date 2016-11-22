@@ -1,5 +1,6 @@
 package UI 
 {
+	import UI.Data.EditorPadData;
 	import gamemap.GameMapBuildingTyp;
 	import gamemap.GameObjectMainTyp;
 	import org.flixel.FlxButton;
@@ -22,9 +23,13 @@ package UI
 		private var _staticVelocityY:FlxText = null;
 		private var _staticMapLayer:FlxText = null;
 		private var _staticDoorDstLayer:FlxText = null;
+		
+		private var _padData:EditorPadData = null;
 		public function EditorPadWindow(posX:Number, posY:Number,flxGroup:FlxGroup) 
 		{
-			super(posX, posY,flxGroup);
+			super(posX, posY, flxGroup);
+			
+			_padData = new EditorPadData();
 		}
 		override public function CreateWindow():void
 		{
@@ -90,6 +95,13 @@ package UI
 				_staticDoorDstLayer.visible = false;
 				_inputDoorDstLayer.visible = false;
 			}
+		}
+		
+		public function GetPadData():EditorPadData
+		{
+			_padData.currentLayer = int(GetMapLayerText());
+			_padData.doorDstLayer = int(_inputDoorDstLayer.getText());
+			return _padData;
 		}
 	}
 

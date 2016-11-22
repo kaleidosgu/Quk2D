@@ -21,7 +21,7 @@ package gamemap
 		public function GameMapInfo() 
 		{
 			super();
-			registeClassName();
+			//registeClassName();
 		}
 		override public function getByteArray():ByteArray
 		{
@@ -50,9 +50,10 @@ package gamemap
 				}
 				elementIndex++;
 			}
-			var newElementInfo:GameMapElementInfo = _buildingFactory.CreateObject( gameObj.getMainTyp(), gameObj.getSubTyp());
-			gameObj.GameObjectSettingDataObject(newElementInfo);
-			_arrayMapElement.push( newElementInfo );
+			//var newElementInfo:GameMapElementInfo = _buildingFactory.CreateObject( gameObj.getMainTyp(), gameObj.getSubTyp());
+			//gameObj.GameObjectSettingDataObject(newElementInfo);
+			//_arrayMapElement.push( newElementInfo );
+			_arrayMapElement.push( gameObj.gameObjData );
 			
 		}
 		
@@ -69,6 +70,7 @@ package gamemap
 			for each( var elementInfo:GameMapElementInfo in _arrayMapElement )
 			{
 				if ( elementInfo.mapRow == mapRow && elementInfo.mapCol == mapCol && elementInfo.mapLayer == mapLayer )
+				//if( elementInfo.elementMainType == 1 && elementInfo.elementSubType == 8 )
 				{
 					var delArray:Array = _arrayMapElement.splice( elementIndex, 1 );
 					if ( delArray.length != 0 )
@@ -109,7 +111,10 @@ package gamemap
 					if ( readObj is GameMapElementInfo )
 					{
 						eleInfo = readObj as GameMapElementInfo;
-						_arrayMapElement.push( eleInfo );	
+						//if ( eleInfo.elementMainType != 0 && eleInfo.elementSubType != 0 )
+						{
+							_arrayMapElement.push( eleInfo );
+						}
 					}
 					else
 					{

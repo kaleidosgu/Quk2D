@@ -52,7 +52,7 @@ package state
 		private var _buttonNameTag:String = "btnNameTag";
 		private var _buttonFunctionTag:String = "btnFunctionTag";
 		
-		private var _choose:Boolean = false;
+		private var _choose:Boolean = true;
 		
 		private var editor:EditorPadWindow = null;
 		private var _dspSystem:GameDispatchSystem = null;
@@ -228,7 +228,7 @@ package state
 						}
 						else
 						{
-							mapEditor.updateMap( hightLightPoint.x, hightLightPoint.y,_curMainType, _curSubTyp,_mapLayer );	
+							mapEditor.updateMap( hightLightPoint.x, hightLightPoint.y,_curMainType, _curSubTyp,_mapLayer,editor.GetPadData() );	
 						}	
 					}
 					else
