@@ -62,6 +62,7 @@ package gameplay.WeaponSystem
 				weaponAttr.fireCD 			= UtilXmlConvertVariables.convertToNumber( weaponDetail, "fireCD" );
 				weaponAttr.destroySelfCounts = UtilXmlConvertVariables.convertToUint( weaponDetail, "destroySelfTime" );
 				weaponAttr.strSound			= UtilXmlConvertVariables.convertToString( weaponDetail, "sound" );
+				weaponAttr.exploreTime 		= UtilXmlConvertVariables.convertToNumber( weaponDetail, "exploreTime" );
 				var newWeapon:WeaponAttribute = objWeaponAttri[weaponAttr.weaponType];
 				if ( newWeapon == null )
 				{

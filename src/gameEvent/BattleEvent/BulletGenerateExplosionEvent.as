@@ -15,6 +15,7 @@ package gameEvent.BattleEvent
 		private var _preX:Number = 0;
 		private var _preY:Number = 0;
 		private var _weaponType:uint = 0;
+		private var _expTime:Number = 0;
 		public function BulletGenerateExplosionEvent( type:String, bubbles:Boolean=false, cancelable:Boolean = false ) 
 		{
 			super( type, bubbles, cancelable );
@@ -68,6 +69,16 @@ package gameEvent.BattleEvent
 		public function set preY(value:Number):void 
 		{
 			_preY = value;
+		}
+		
+		public function get expTime():Number 
+		{
+			return _expTime;
+		}
+		
+		public function set expTime(value:Number):void 
+		{
+			_expTime = value;
 		}
 		
 	}

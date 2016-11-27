@@ -37,6 +37,7 @@ package gameplay
 			expObj.x = evt.posX - expObj.width / 2 ;
 			expObj.y = evt.posY - expObj.height / 2 ;
 			expObj.setPrePoint( evt.preX, evt.preY );
+			expObj.tickConstCount = evt.expTime;
 			expObj.loadGraphic( ImgExp, true, true, 16 );
 			expObj.setSelfGroup( _expGroup );
 		}

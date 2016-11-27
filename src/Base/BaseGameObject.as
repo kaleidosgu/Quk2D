@@ -24,7 +24,7 @@ package Base
 		protected var _gameObjData:GameBaseDataObject = null;
 		private var _selfGroup:FlxGroup	= null;
 		
-		private var _tickConstCount:Number = 2;
+		private var _tickConstCount:Number = 0;
 		private var _tickCount:Number = _tickConstCount;
 		protected var _enableUpdateTick:Boolean = false;
 		public var prePos:FlxPoint = null;

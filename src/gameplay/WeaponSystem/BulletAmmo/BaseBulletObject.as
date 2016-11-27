@@ -74,6 +74,7 @@ package gameplay.WeaponSystem.BulletAmmo
 					genExpEvt.preX = this.getPrePoint().x;
 					genExpEvt.preY = this.getPrePoint().y;
 					genExpEvt.weaponType = _weaponAttr.weaponType;
+					genExpEvt.expTime = _weaponAttr.exploreTime;
 					_dspSys.DispatchEvent( genExpEvt );
 				}
 			}
@@ -103,6 +104,7 @@ package gameplay.WeaponSystem.BulletAmmo
 					genExpEvt.posY = flxIntersect.y;
 					genExpEvt.preX = this.getPrePoint().x;
 					genExpEvt.preY = this.getPrePoint().y;
+					genExpEvt.expTime = _weaponAttr.exploreTime;
 					genExpEvt.weaponType = _weaponAttr.weaponType;
 					_dspSys.DispatchEvent( genExpEvt );
 				}
