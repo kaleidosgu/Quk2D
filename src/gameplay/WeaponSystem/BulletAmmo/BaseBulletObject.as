@@ -5,7 +5,9 @@ package gameplay.WeaponSystem.BulletAmmo
 	import gamemap.Building.BaseBuildingObject;
 	import gamemap.GameObjectMainTyp;
 	import gameplay.WeaponSystem.WeaponAttribute;
+	import org.flixel.FlxPoint;
 	import player.BasePlayerObject;
+	import third.flixel.CalculateLineIntersectPoint;
 	import util.EventDispatch.GameDispatchSystem;
 	import util.Math.MathUtilTrigonometric;
 	
@@ -26,6 +28,8 @@ package gameplay.WeaponSystem.BulletAmmo
 			_dspSys = inDspSys;
 			_enableUpdateTick = true;
 			_bulletFactory = inBulletFactory;
+			
+			_updatePrePoint = true;
 		}
 		
 		override public function getMainTyp():uint
@@ -74,6 +78,41 @@ package gameplay.WeaponSystem.BulletAmmo
 				}
 			}
 		}
+		
+		protected function generateExplosionOnBuilding(otherObj:BaseGameObject):void
+		{
+			var bulletStartPoint:FlxPoint = new FlxPoint();
+			var bulletEndPoint:FlxPoint = new FlxPoint();
+			var bulletHalfWidth:Number = this.width / 2;
+			var bulletHalfHeight:Number = this.height / 2;
+			bulletStartPoint.x = this.getPrePoint().x + bulletHalfWidth;
+			bulletStartPoint.y = this.getPrePoint().y + bulletHalfHeight;
+			
+			bulletEndPoint.x = this.x + bulletHalfWidth;
+			bulletEndPoint.y = this.y + bulletHalfHeight;
+			
+			var flxIntersect:FlxPoint = CalculateLineIntersectPoint.GetIntersectPointFromFlxObject( otherObj, bulletStartPoint, bulletEndPoint );
+			
+			if ( _weaponAttr != null )
+			{
+				if ( _weaponAttr.damageFields > 0 )
+				{
+					var genExpEvt:BulletGenerateExplosionEvent = new BulletGenerateExplosionEvent( BulletGenerateExplosionEvent.BULLET_GENERATE_EXPLOSION_EVENT );
+
+					genExpEvt.posX = flxIntersect.x;
+					genExpEvt.posY = flxIntersect.y;
+					genExpEvt.preX = this.getPrePoint().x;
+					genExpEvt.preY = this.getPrePoint().y;
+					genExpEvt.weaponType = _weaponAttr.weaponType;
+					_dspSys.DispatchEvent( genExpEvt );
+				}
+			}
+			
+		}
+		protected function getIntersectPoint():void
+		{
+			
+		}
 		public function destroySelf():void
 		{
 			removeFromGroup();
@@ -111,13 +150,16 @@ package gameplay.WeaponSystem.BulletAmmo
 					if ( buildingObj.gameObjData.canCollide == true )
 					{
 						bGenerateExplosion = true;
+						generateExplosionOnBuilding(buildingObj);
 					}
 				}
 				//todo 传递的不是player打log信息
 			}
 			if ( bGenerateExplosion == true )
 			{
-				generateExplosion();	
+				//todo
+				//这里要加回去，否则碰到玩家的爆炸就没有了。
+				//generateExplosion();	
 			}
 		}
 		override protected function TickUpdateFunction():void

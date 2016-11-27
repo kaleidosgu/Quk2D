@@ -24,12 +24,12 @@ package Base
 		protected var _gameObjData:GameBaseDataObject = null;
 		private var _selfGroup:FlxGroup	= null;
 		
-		private var _tickConstCount:Number = 0.03;
+		private var _tickConstCount:Number = 2;
 		private var _tickCount:Number = _tickConstCount;
 		protected var _enableUpdateTick:Boolean = false;
 		public var prePos:FlxPoint = null;
 		private var _dsp:GameDispatchSystem = null;
-		
+		protected var _updatePrePoint:Boolean = false;
 		public function BaseGameObject( ) 
 		{
 			super();
@@ -159,6 +159,10 @@ package Base
 					_tickCount = _tickConstCount;
 					TickUpdateFunction();
 				}
+			}
+			if ( _updatePrePoint == true )
+			{
+				setPrePoint(this.x, this.y);
 			}
 		}
 		protected function TickUpdateFunction():void
