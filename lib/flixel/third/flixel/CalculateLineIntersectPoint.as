@@ -8,8 +8,6 @@ package third.flixel
 	 */
 	public class CalculateLineIntersectPoint 
 	{
-		
-		var _point:FlxPoint
 		public function CalculateLineIntersectPoint() 
 		{
 			
@@ -64,7 +62,7 @@ package third.flixel
 			}
 			return resPoint;
 		}
-		static public function GetPointByLine( startPoint1:FlxPoint, end1Point:FlxPoint, startPoint2:FlxPoint, dstEndPoin2):FlxPoint
+		static public function GetPointByLine( startPoint1:FlxPoint, end1Point:FlxPoint, startPoint2:FlxPoint, dstEndPoin2:FlxPoint):FlxPoint
 		{
 			var retPoint:FlxPoint = new FlxPoint();
 			
