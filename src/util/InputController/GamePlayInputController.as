@@ -6,6 +6,7 @@ package util.InputController
 	import gameEvent.PlayerInputActionType;
 	import gameplay.WeaponSystem.WeaponTypeDefine;
 	import org.flixel.FlxG;
+	import player.BasePlayerObject;
 	/**
 	 * ...
 	 * @author kaleidos
@@ -14,6 +15,13 @@ package util.InputController
 	{
 		private var _mgr:InputControllerManager = null;
 		private var _weaponStringAndTypMap:Object = null;
+		
+		private var _moveLeft:int = 0;
+		private var _moveRight:int = 0;
+		private var _Scissor:int = 0;
+		private var _Stone:int = 0;
+		private var _Paper:int = 0;
+		private var _player:BasePlayerObject = null;
 		public function GamePlayInputController() 
 		{
 			_weaponStringAndTypMap = new Object();
@@ -26,10 +34,22 @@ package util.InputController
 			_weaponStringAndTypMap[FlxG.keys.getKeyCode("SEVEN")] = WeaponTypeDefine.WEAPON_TYPE_RAIL_GUN;
 			_weaponStringAndTypMap[FlxG.keys.getKeyCode("EIGHT")] = WeaponTypeDefine.WEAPON_TYPE_GAUNTLET;
 		}
+		public function SetKeyAction( left:int, right:int, scissor:int, stone:int, paper:int ):void
+		{
+			_moveLeft = left;
+			_moveRight = right;
+			_Scissor = scissor;
+			_Stone = stone;
+			_Paper = paper;
+		}
 		public function registeController( mgr:InputControllerManager ):void
 		{
 			mgr.registeController( this );
 			_mgr = mgr;
+		}
+		public function setPlayer( player:BasePlayerObject ):void
+		{
+			_player = player;
 		}
 		public function ProcessMouseMoveEvent( mouseEvt:MouseEvent ):Boolean
 		{
@@ -43,9 +63,10 @@ package util.InputController
 		{
 			var bRes:Boolean = false;
 			var evt:PlayerInputActionEvent = null;
-			if ( keyEvt.keyCode == FlxG.keys.getKeyCode( "A" ) )
+			if ( keyEvt.keyCode == _moveLeft )
 			{
 				evt = new PlayerInputActionEvent( PlayerInputActionEvent.PLAYER_INPUT_ACTION_EVENT );
+				evt.playerObject = _player;
 				if ( down == true )
 				{
 					evt.playerActionType = PlayerInputActionType.Player_Move_Left;
@@ -55,9 +76,10 @@ package util.InputController
 					evt.playerActionType = PlayerInputActionType.Player_Move_Stop;
 				}
 			}
-			else if ( keyEvt.keyCode == FlxG.keys.getKeyCode( "D" ) )
+			else if ( keyEvt.keyCode == _moveRight )
 			{
 				evt = new PlayerInputActionEvent( PlayerInputActionEvent.PLAYER_INPUT_ACTION_EVENT );
+				evt.playerObject = _player;
 				if ( down == true )
 				{
 					evt.playerActionType = PlayerInputActionType.Player_Move_Right;

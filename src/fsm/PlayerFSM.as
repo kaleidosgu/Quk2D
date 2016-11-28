@@ -15,6 +15,7 @@ package fsm
 	{
 		private var _stage:Stage = null;
 		private var _player:FlxSprite = null;
+		private var _defaultSetting:Boolean = true;
 		public function PlayerFSM( stage:Stage, player:FlxSprite ) 
 		{
 			_stage = stage;
@@ -27,9 +28,13 @@ package fsm
 				_stage.addEventListener( PlayerInputActionEvent.PLAYER_INPUT_ACTION_EVENT, onActionEvent );
 			}
 		}
+		public function setDefaultSetting( bDefault:Boolean ):void
+		{
+			_defaultSetting = bDefault;
+		}
 		private function onActionEvent( evt:PlayerInputActionEvent ):void
 		{
-			if ( _player )
+			if ( _player && evt.playerObject == _player)
 			{
 				if ( evt.playerActionType == PlayerInputActionType.Player_Move_Left )
 				{
