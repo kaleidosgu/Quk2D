@@ -3,6 +3,7 @@ package state
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import fsm.PlayerFSM;
+	import fsm.PlayerFsmTest;
 	import gameEvent.BattleEvent.BattleGroundMapLayerChangedEvent;
 	import gameEvent.PlayerInputActionEvent;
 	import gameEvent.PlayerInputActionType;
@@ -43,25 +44,31 @@ package state
 		private var playerIns:BasePlayerObject = null;
 		private var targetSprite:BasePlayerObject = null;
 		private var cursorMouse:FlxSprite = null;
-		private var _playerCollide:Boolean = false;
 		private var inputMgr:InputControllerManager = null;
 		private var uiControl:UIInputController = new UIInputController();
 		private var gamePlayControl:GamePlayInputController = new GamePlayInputController();
 		private var gamePlayControlSecond:GamePlayInputController = new GamePlayInputController();
 		
-		private var _playerFsm:PlayerFSM = null;
-		private var _playerFsmSecond:PlayerFSM = null;
-		private var _shootingGamePlay:GameShootingGamePlay = null;
+		private var _playerFsm:PlayerFsmTest = null;
+		private var _playerFsmSecond:PlayerFsmTest = null;
 		
 		private var _playerGroup:FlxGroup 			= null;
 		private var _bulletGroup:FlxGroup			= null;
 		private var _explosionGroup:FlxGroup		= null;
 		
 		private var _dspSystem:GameDispatchSystem = null;
-		private var _bulletCollideMonitor:BulletCollideMonitor = null;
-		private var _explosionObjGenerator:ExplosionObjectGenerator = null;
-		private var _soundSys:QukSoundSystem = null;
-		private var _txtFlx:FlxText	= null;
+		private var _txtPlayer1:FlxText	= null;
+		private var _txtPlayer2:FlxText	= null;
+		
+		private var _txtMatchResult:FlxText	= null;
+		
+		private var _player1Group:FlxGroup = new FlxGroup();
+		private var _player2Group:FlxGroup = new FlxGroup();
+		
+		private var _KeyMap:Object = new Object();
+		private var _resultMap:Object = new Object();
+		private var _winCountsPlayer1:uint = 0;
+		private var _winCountsPlayer2:uint = 0;
 		public function GamePlayTestGame() 
 		{
 			_playerGroup 	= new FlxGroup();
@@ -69,80 +76,32 @@ package state
 			_explosionGroup	= new FlxGroup();
 			
 			_dspSystem = new GameDispatchSystem( FlxG.stage );
-			
-			_dspSystem.RegisterEvent( PlayerInputActionEvent.PLAYER_INPUT_ACTION_EVENT, inputActionEvent );
-			
-			_explosionObjGenerator = new ExplosionObjectGenerator( _dspSystem, _explosionGroup );
-			
-			_soundSys = new QukSoundSystem( _dspSystem );
-			
-			var test:Number = Math.sin( (360 - 180) * Math.PI / 180 );
-			
-			test = Math.cos( 120 / 180 * Math.PI );
-			
-			test = Math.acos( 0 - 1 / 4 );
-			
-			var num:Number = new Number();
-			setData( num, 0, 1, 0);
-			
-			var dd:Number = 0;
-		}
-		private function inputActionEvent( evtIn:PlayerInputActionEvent ):void
-		{
-			if ( evtIn.playerActionType == PlayerInputActionType.Player_ChangeDoor )
-			{
-				var evt:BattleGroundMapLayerChangedEvent = new BattleGroundMapLayerChangedEvent(BattleGroundMapLayerChangedEvent.BattleGroundMapLayerChanged );
-				evt.mapLayer = playerIns.playerMapLayer;
-				_dspSystem.DispatchEvent(evt);
-			}
-		}
-		private function setData( startX:Number, startY:Number, endX:Number, endY:Number ):void
-		{
-			startX = 300;
-			var width:Number = endX - startX;
-			var height:Number = endY - startY;
-			var squ:Number = width * width + height * height;
-			
-			var rLength:Number = Math.sqrt(squ);
-			
-			var radisSin:Number = height / rLength;
-			var radisCos:Number = width / rLength;
-			
-			var radisTag:Number = radisCos / radisSin;
-			var angTag:Number = Math.atan(radisTag) * 180 / Math.PI;
-			var angSin:Number = Math.asin(radisSin) * 180 / Math.PI;
-			var angCos:Number = Math.acos(radisCos) * 180 / Math.PI;
-			
-			var ddend:Number = 0;
-			
-			ddend = Math.sin( -75 * Math.PI / 180);
-			ddend;
 		}
 		override public function create():void
 		{
 			super.create();
 			playerIns = new BasePlayerObject();
 			targetSprite = new BasePlayerObject();
+			this.add(_player1Group);
+			this.add(_player2Group);
+			
+			_player1Group.add(playerIns);
+			_player2Group.add(targetSprite);
 			
 			this.add( _explosionGroup );
-			this.add( _bulletGroup );
-			_bulletCollideMonitor = new BulletCollideMonitor( _explosionGroup, _bulletGroup, _playerGroup, playerIns, this );
-			
+			this.add( _bulletGroup );			
 			
 			cursorMouse = new FlxSprite( 0, 0 );
 			cursorMouse.loadGraphic( ImgCursor, true, true, 15 );
 			add( cursorMouse );
 			
 			setupPlayer( playerIns, 40, 100 );
-			setupPlayer( targetSprite,700,100 );
-			mapEditor = new GameMapEditor( this, _playerGroup,_dspSystem );
-
+			setupPlayer( targetSprite, 700, 100 );
 			
-			//FlxG.camera.setBounds(0,0,1024,768,true);
-			//FlxG.camera.follow(playerIns,FlxCamera.STYLE_PLATFORMER);
-			
-			mapEditor.addActor( playerIns );
-			mapEditor.addActor( targetSprite );
+			setPlayerPos();
+			mapEditor = new GameMapEditor( this, _playerGroup, _dspSystem );
+			//mapEditor.addGroup( _player1Group );
+			//mapEditor.addGroup( _player2Group );
 			
 			mapEditor.generateMapDataFromByteArray( "test" );
 			_showWidth 	= TILE_WIDTH * _showScale ;
@@ -152,23 +111,58 @@ package state
 			mapEditor.showHeight = _showHeight;
 			inputControlSet();
 			
-			_playerFsm = new PlayerFSM( FlxG.stage, playerIns );
+			_playerFsm = new PlayerFsmTest( FlxG.stage, playerIns );
 			_playerFsm.addListener();
-			_playerFsm.setDefaultSetting(true);
 			
-			_playerFsmSecond = new PlayerFSM( FlxG.stage, targetSprite );
+			_playerFsmSecond = new PlayerFsmTest( FlxG.stage, targetSprite );
 			_playerFsmSecond.addListener();
-			_playerFsmSecond.setDefaultSetting(false);
 			
-			 
-			_shootingGamePlay = new GameShootingGamePlay( this, playerIns, FlxG.stage, _bulletGroup ,_dspSystem );
+			_txtPlayer1 = new FlxText(100, 5, 200 );
+			_txtPlayer1.text = "1";
+			_txtPlayer1.size = 100;
+			add( _txtPlayer1 );
 			
-			_bulletCollideMonitor.setBuildingGroup( mapEditor.getBuildingGroup() );
+			_txtPlayer2 = new FlxText(650, 5, 200 );
+			_txtPlayer2.text = "1";
+			_txtPlayer2.size = 100;
+			add( _txtPlayer2 );
 			
-			_txtFlx = new FlxText(500, 5, 200 );
-			_txtFlx.text = "fsfsf";
-			add( _txtFlx );
+			_txtMatchResult = new FlxText(350, 5, 200 );
+			_txtMatchResult.text = "0:0";
+			_txtMatchResult.size = 25;
+			add( _txtMatchResult );
 			
+			
+			_KeyMap[FlxG.keys.getKeyCode( "H" )] = "1";
+			_KeyMap[FlxG.keys.getKeyCode( "J" )] = "2";
+			_KeyMap[FlxG.keys.getKeyCode( "K" )] = "3";
+			
+			_KeyMap[FlxG.keys.getKeyCode( "NUMPADFOUR" )] = "1";
+			_KeyMap[FlxG.keys.getKeyCode( "NUMPADFIVE" )] = "2";
+			_KeyMap[FlxG.keys.getKeyCode( "NUMPADSIX" )] = "3";
+			
+			_resultMap["12"] = 1; //石头剪子
+			_resultMap["13"] = 2; //石头布
+			_resultMap["11"] = 0;
+			_resultMap["31"] = 1; //布石头
+			_resultMap["33"] = 0;
+			_resultMap["32"] = 2; //布剪子
+			_resultMap["22"] = 0;
+			_resultMap["23"] = 1;
+			_resultMap["21"] = 1;
+			
+			FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyDown);
+		}
+		protected function onKeyDown(FlashEvent:KeyboardEvent):void
+		{
+			if ( FlxG.keys.justReleased("H") || FlxG.keys.justReleased("J") || FlxG.keys.justReleased("K") )
+			{
+				castSkill(playerIns,FlashEvent.keyCode);
+			}
+			if ( FlxG.keys.justReleased("NUMPADFOUR") || FlxG.keys.justReleased("NUMPADFIVE") || FlxG.keys.justReleased("NUMPADSIX") )
+			{
+				castSkill(targetSprite,FlashEvent.keyCode);
+			}
 		}
 		private function setupPlayer( playerSprite:BasePlayerObject, posX:Number, posY:Number ):void
 		{
@@ -181,33 +175,70 @@ package state
 			playerSprite.offset.x = 1;
 			playerSprite.offset.y = 1;
 			
-			playerSprite.acceleration.y = 300;
+			//playerSprite.acceleration.y = 300;
 			playerSprite.maxVelocity.x = 80;
-			playerSprite.maxVelocity.y = 160;
+			//playerSprite.maxVelocity.y = 160;
 			
 			//animations
 			playerSprite.addAnimation("idle", [0]);
 			playerSprite.addAnimation("run", [1, 2, 3, 0], 12);
 			playerSprite.addAnimation("jump", [4]);
-			
-			add(playerSprite);
 		}
 		override public function update():void
 		{
 			super.update();
 			cursorMouse.x = FlxG.mouse.x;
 			cursorMouse.y = FlxG.mouse.y;
-			_shootingGamePlay.update();
 			mapEditor.update();
-			_bulletCollideMonitor.update();
 			
 			if ( FlxG.keys.justReleased( "B" ) )
 			{
-				playerIns.x = 40;
-				playerIns.y = 100;
-				targetSprite.x = 700;
-				targetSprite.y = 100;
+				setPlayerPos();
 			}
+			FlxG.collide( _player1Group, _player2Group, commonCollideFunction );	
+		}
+		private function castSkill( playerObj:BasePlayerObject, keyCode:int ):void
+		{
+			var obj:Object = _KeyMap[keyCode];
+			if ( obj != null )
+			{
+				if ( playerObj == playerIns )
+				{
+					_txtPlayer1.text = _KeyMap[keyCode];
+				}
+				else if ( playerObj == targetSprite )
+				{
+					_txtPlayer2.text = _KeyMap[keyCode];
+				}	
+			}
+		}
+		protected function commonCollideFunction( flxObj1:FlxObject, flxObj2:FlxObject ):void
+		{
+			var str:String = _txtPlayer1.text + _txtPlayer2.text;
+			var result:int = _resultMap[str];
+			if ( result == 1 )
+			{
+				//1win
+				_winCountsPlayer1++;
+			}
+			else if ( result == 2 )
+			{
+				//2v
+				_winCountsPlayer2++;
+			}
+			else if ( result == 0 )
+			{
+				//draw
+			}
+			_txtMatchResult.text = "" + _winCountsPlayer1 + ":" + _winCountsPlayer2;
+			setPlayerPos();
+		}
+		private function setPlayerPos():void
+		{
+			playerIns.x = 150;
+			playerIns.y = 270;
+			targetSprite.x = 600;
+			targetSprite.y = 270;
 		}
 		private function inputControlSet():void
 		{
@@ -219,7 +250,7 @@ package state
 			gamePlayControlSecond.setPlayer(targetSprite);
 			
 			gamePlayControl.SetKeyAction(FlxG.keys.getKeyCode("A"), FlxG.keys.getKeyCode("D"), FlxG.keys.getKeyCode("EIGHT"), FlxG.keys.getKeyCode("EIGHT"), FlxG.keys.getKeyCode("EIGHT"));
-			gamePlayControlSecond.SetKeyAction(FlxG.keys.getKeyCode("NUMPADFOUR"), FlxG.keys.getKeyCode("NUMPADSIX"), FlxG.keys.getKeyCode("EIGHT"), FlxG.keys.getKeyCode("EIGHT"), FlxG.keys.getKeyCode("EIGHT"));
+			gamePlayControlSecond.SetKeyAction(FlxG.keys.getKeyCode("LEFT"), FlxG.keys.getKeyCode("RIGHT"), FlxG.keys.getKeyCode("EIGHT"), FlxG.keys.getKeyCode("EIGHT"), FlxG.keys.getKeyCode("EIGHT"));
 		}
 		override public function destroy():void
 		{
@@ -229,10 +260,6 @@ package state
 		public override function draw():void
 		{
 			super.draw();
-			
-			playerIns.drawDebug();
-			
-			_txtFlx.text = playerIns.elasticity.toString();
 		}
 	}
 

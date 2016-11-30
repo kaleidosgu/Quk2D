@@ -279,6 +279,10 @@ package gamemap
 		{
 			_playerGroup.add( flxobj );
 		}
+		public function addGroup( flxGroup:FlxGroup ):void
+		{
+			_playerGroup.add( flxGroup );
+		}
 		protected function commonCollideFunction( flxObj1:FlxObject, flxObj2:FlxObject ):void
 		{
 			if ( flxObj2 is BaseGameObject )

@@ -11,11 +11,11 @@ package fsm
 	 * ...
 	 * @author kaleidos
 	 */
-	public class PlayerFSM 
+	public class PlayerFsmTest 
 	{
 		private var _stage:Stage = null;
 		private var _player:BasePlayerObject = null;
-		public function PlayerFSM( stage:Stage, player:BasePlayerObject ) 
+		public function PlayerFsmTest( stage:Stage, player:BasePlayerObject ) 
 		{
 			_stage = stage;
 			_player = player;
@@ -34,10 +34,12 @@ package fsm
 				if ( evt.playerActionType == PlayerInputActionType.Player_Move_Left )
 				{
 					_player.acceleration.x -= _player.getSpeed();
+					_player.facing = FlxObject.LEFT;
 				}
 				else if ( evt.playerActionType == PlayerInputActionType.Player_Move_Right )
 				{
 					_player.acceleration.x += _player.getSpeed();
+					_player.facing = FlxObject.RIGHT;
 				}
 				else if ( evt.playerActionType == PlayerInputActionType.Player_Move_Stop )
 				{
@@ -47,18 +49,18 @@ package fsm
 				{
 					if ( _player.velocity.y == 0 )
 					{
-						_player.velocity.y = -200;	
+						//_player.velocity.y = -200;	
 					}
 				}
 				else if ( evt.playerActionType == PlayerInputActionType.Player_Direction )
 				{
 					if ( _player.x >= FlxG.mouse.x )
 					{
-						_player.facing = FlxObject.LEFT;
+						//_player.facing = FlxObject.LEFT;
 					}
 					else
 					{
-						_player.facing = FlxObject.RIGHT;
+						//_player.facing = FlxObject.RIGHT;
 					}
 				}
 			}

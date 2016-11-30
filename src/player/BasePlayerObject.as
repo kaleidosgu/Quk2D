@@ -29,6 +29,10 @@ package player
 			_playerMapLayer = value;
 		}
 		
+		public function getSpeed():Number
+		{
+			return 150;
+		}
 	}
 
 }

@@ -131,7 +131,7 @@ package state
 			cursorMouse.loadGraphic( ImgCursor, true, true, 15 );
 			add( cursorMouse );
 			
-			setupPlayer( playerIns, 40, 100 );
+			setupPlayer( playerIns, 200, 100 );
 			//setupPlayer( targetSprite,100,0 );
 			mapEditor = new GameMapEditor( this, _playerGroup,_dspSystem );
 
@@ -198,6 +198,8 @@ package state
 			inputMgr = new InputControllerManager( FlxG.stage );
 			uiControl.registeController( inputMgr );
 			gamePlayControl.registeController( inputMgr );
+			gamePlayControl.setPlayer(playerIns);
+			gamePlayControl.SetKeyAction(FlxG.keys.getKeyCode("A"), FlxG.keys.getKeyCode("D"), FlxG.keys.getKeyCode("EIGHT"), FlxG.keys.getKeyCode("EIGHT"), FlxG.keys.getKeyCode("EIGHT"));
 		}
 		override public function destroy():void
 		{

@@ -55,6 +55,7 @@ package util.InputController
 		{
 			var evt:PlayerInputActionEvent = null;
 			evt = new PlayerInputActionEvent( PlayerInputActionEvent.PLAYER_INPUT_ACTION_EVENT );
+			evt.playerObject = _player;
 			evt.playerActionType = PlayerInputActionType.Player_Direction;
 			_mgr.dispatchEvent( evt );
 			return false;
@@ -63,10 +64,10 @@ package util.InputController
 		{
 			var bRes:Boolean = false;
 			var evt:PlayerInputActionEvent = null;
+			evt = new PlayerInputActionEvent( PlayerInputActionEvent.PLAYER_INPUT_ACTION_EVENT );
+			evt.playerObject = _player;
 			if ( keyEvt.keyCode == _moveLeft )
 			{
-				evt = new PlayerInputActionEvent( PlayerInputActionEvent.PLAYER_INPUT_ACTION_EVENT );
-				evt.playerObject = _player;
 				if ( down == true )
 				{
 					evt.playerActionType = PlayerInputActionType.Player_Move_Left;
@@ -78,7 +79,6 @@ package util.InputController
 			}
 			else if ( keyEvt.keyCode == _moveRight )
 			{
-				evt = new PlayerInputActionEvent( PlayerInputActionEvent.PLAYER_INPUT_ACTION_EVENT );
 				evt.playerObject = _player;
 				if ( down == true )
 				{
@@ -91,14 +91,12 @@ package util.InputController
 			}
 			else if ( keyEvt.keyCode == FlxG.keys.getKeyCode( "W" ) )
 			{
-				evt = new PlayerInputActionEvent( PlayerInputActionEvent.PLAYER_INPUT_ACTION_EVENT );
 				evt.playerActionType = PlayerInputActionType.Player_Jump;
 			}
 			else if ( keyEvt.keyCode == FlxG.keys.getKeyCode("H"))
 			{
 				if ( down == false )
 				{
-					evt = new PlayerInputActionEvent( PlayerInputActionEvent.PLAYER_INPUT_ACTION_EVENT );
 					evt.playerActionType = PlayerInputActionType.Player_ChangeDoor;	
 				}
 			}
@@ -107,12 +105,11 @@ package util.InputController
 				if ( _weaponStringAndTypMap[keyEvt.keyCode] != null )
 				{
 					var weaponTyp:uint = _weaponStringAndTypMap[keyEvt.keyCode];
-					evt = new PlayerInputActionEvent( PlayerInputActionEvent.PLAYER_INPUT_ACTION_EVENT );
 					evt.playerActionType = PlayerInputActionType.Player_ChangeWeapon;
 					evt.changeWeaponTyp = weaponTyp;
 				}
 			}
-			if ( evt )
+			if ( evt && evt.playerActionType != PlayerInputActionType.Player_Move_None )
 			{
 				_mgr.dispatchEvent( evt );	
 				bRes = true;
